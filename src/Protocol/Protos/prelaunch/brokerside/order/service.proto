@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "Wst.Trios.Core.Protocol.Prelaunch.BrokerSide.Order";
+
+package wst.trios.core.protocol.prelaunch.brokerside.order;
+
+import "prelaunch/brokerside/order/create-order.proto";
+import "prelaunch/brokerside/order/get-order.proto";
+import "prelaunch/brokerside/order/get-orders.proto";
+import "prelaunch/brokerside/order/update-order.proto";
+import "prelaunch/brokerside/order/delete-order.proto";
+
+service OrderService {
+  rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
+
+  rpc GetOrder (GetOrderRequest) returns (GetOrderResponse);
+
+  rpc GetOrders (GetOrdersRequest) returns (GetOrdersResponse);
+
+  rpc UpdateOrder (UpdateOrderRequest) returns (UpdateOrderResponse);
+
+  rpc DeleteOrder (DeleteOrderRequest) returns (DeleteOrderResponse);
+}

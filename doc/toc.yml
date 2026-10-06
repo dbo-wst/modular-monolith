@@ -1,0 +1,101 @@
+- name: Home
+  href: index.md
+
+- name: 1. Introduction and Goals
+  href: 01-introduction-and-goals/index.md
+  items:
+    - name: 1.1 Requirements Overview
+      href: 01-introduction-and-goals/01-requirements-overview.md
+    - name: 1.2 Quality Goals
+      href: 01-introduction-and-goals/02-quality-goals.md
+    - name: 1.3 Stakeholders
+      href: 01-introduction-and-goals/03-stakeholders.md
+
+- name: 2. Architecture Constraints
+  href: 02-architecture-constraints/index.md
+
+- name: 3. Context and Scope
+  href: 03-context-and-scope/index.md
+  items:
+    - name: 3.1 Business Context
+      href: 03-context-and-scope/01-business-context.md
+    - name: 3.2 Technical Context
+      href: 03-context-and-scope/02-technical-context.md
+
+- name: 4. Solution Strategy
+  href: 04-solution-strategy/index.md
+
+- name: 5. Building Block View
+  href: 05-building-block-view/index.md
+  items:
+    - name: 5.1 Level 1
+      href: 05-building-block-view/01-level-1.md
+    - name: 5.2 Level 2
+      href: 05-building-block-view/02-level-2.md
+    - name: 5.3 Level 3
+      href: 05-building-block-view/03-level-3.md
+
+- name: 6. Runtime View
+  href: 06-runtime-view/index.md
+
+- name: 7. Deployment View
+  href: 07-deployment-view/index.md
+
+- name: 8. Cross-Cutting Concepts
+  href: 08-cross-cutting-concepts/index.md
+  items:
+    - name: 8.1 Dependencies
+      href: 08-cross-cutting-concepts/01-dependencies.md
+    - name: 8.2 Domain Model
+      href: 08-cross-cutting-concepts/02-domain-model.md
+    - name: 8.3 API
+      href: 08-cross-cutting-concepts/03-api.md
+    - name: 8.4 User Interface
+      href: 08-cross-cutting-concepts/04-user-interface.md
+    - name: 8.5 Security
+      href: 08-cross-cutting-concepts/05-security.md
+    - name: 8.6 Persistence
+      href: 08-cross-cutting-concepts/06-persistence.md
+    - name: 8.7 Validation
+      href: 08-cross-cutting-concepts/07-validation.md
+    - name: 8.8 Error Handling
+      href: 08-cross-cutting-concepts/08-error-handling.md
+    - name: 8.9 Logging
+      href: 08-cross-cutting-concepts/09-logging.md
+    - name: 8.10 Testability
+      href: 08-cross-cutting-concepts/10-testability.md
+
+- name: 9. Architecture Decisions
+  href: 09-architecture-decisions/index.md
+  items:
+    - name: ADR 0001 — Requirements Defined
+      href: 09-architecture-decisions/0001-requirement-defined.md
+    - name: ADR 0002 — Data Pipeline Component
+      href: 09-architecture-decisions/0002-data-pipeline-component.md
+    - name: ADR 0003 — Trios Core Protocol
+      href: 09-architecture-decisions/0003-core-protocol.md
+    - name: ADR 0004 — Architecture and Code Structure
+      href: 09-architecture-decisions/0004-architecture-and-code-structure.md
+
+- name: 10. Quality Requirements
+  href: 10-quality-requirements/index.md
+  items:
+    - name: 10.1 Quality Tree
+      href: 10-quality-requirements/01-quality-tree.md
+    - name: 10.2 Quality Scenarios
+      href: 10-quality-requirements/02-quality-scenarios.md
+
+- name: 11. Risks and Technical Debt
+  href: 11-risks-and-technical-debt/index.md
+
+- name: 12. Glossary
+  href: 12-glossary/index.md
+
+- name: Guides
+  items:
+    - name: Intro
+      href: intro.md
+    - name: Setup
+      href: setup.md
+    - name: Operations
+      href: operations/index.md

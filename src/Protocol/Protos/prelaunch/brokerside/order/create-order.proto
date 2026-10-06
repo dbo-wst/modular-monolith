@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option csharp_namespace = "Wst.Trios.Core.Protocol.Prelaunch.BrokerSide.Order";
+
+package wst.trios.core.protocol.prelaunch.brokerside.order;
+
+import "prelaunch/brokerside/order/entities.proto";
+import "google/protobuf/timestamp.proto";
+
+message CreateOrderRequest {
+  bytes order_id = 1;
+  optional bytes broker_id = 2;
+  optional bytes instrument_id = 3;
+  optional bytes venue_id = 4;
+  optional string number = 5;
+  google.protobuf.Timestamp effective_date = 9;
+  optional string quantity = 6;
+  optional string price = 7;
+  optional Side side = 8;
+}
+
+message CreateOrderSuccess {
+  Order order = 1;
+}
+
+message CreateOrderError {
+  string code = 1;
+  string message = 2;
+}
+
+message CreateOrderResponse {
+  oneof result {
+    CreateOrderSuccess success = 1;
+    CreateOrderError error = 2;
+  }
+}

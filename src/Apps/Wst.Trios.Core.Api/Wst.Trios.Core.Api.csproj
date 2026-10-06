@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\Protocol\Wst.Trios.Core.Protocol.csproj"/>
+        <ProjectReference Include="..\..\BrokerSide\Application\Wst.Trios.Core.BrokerSide.Application.csproj"/>
+        <ProjectReference Include="..\..\BrokerSide\Persistence\Wst.Trios.Core.BrokerSide.Persistence.csproj"/>
+<!--        <ProjectReference Include="..\..\ClientSide\Application\Wst.Trios.Core.ClientSide.Application.csproj"/>-->
+<!--        <ProjectReference Include="..\..\ClientSide\Persistence\Wst.Trios.Core.ClientSide.Persistence.csproj"/>-->
+<!--        <ProjectReference Include="..\..\Allocation\Application\Wst.Trios.Core.Allocation.Application.csproj"/>-->
+<!--        <ProjectReference Include="..\..\Allocation\Persistence\Wst.Trios.Core.Allocation.Persistence.csproj"/>-->
+<!--        <ProjectReference Include="..\..\MasterData\Application\Wst.Trios.Core.MasterData.Application.csproj"/>-->
+<!--        <ProjectReference Include="..\..\MasterData\Persistence\Wst.Trios.Core.MasterData.Persistence.csproj"/>-->
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Grpc.AspNetCore"/>
+        <PackageReference Include="Serilog"/>
+        <PackageReference Include="Serilog.AspNetCore"/>
+        <PackageReference Include="Serilog.Settings.Configuration"/>
+        <PackageReference Include="Serilog.Sinks.Console"/>
+        <PackageReference Include="Serilog.Sinks.File"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Prelaunch\" />
+    </ItemGroup>
+
+</Project>

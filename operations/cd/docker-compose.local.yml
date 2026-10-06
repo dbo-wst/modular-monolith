@@ -1,0 +1,13 @@
+# Orchestrator: builds and brings up all apps as one merged stack.
+# Unlike `-f a.yml -f b.yml`, each included file resolves its own relative
+# paths (env_file, build context) against its own directory, so each app loads
+# its own conf.d/.env correctly.
+#
+# Start the local SQL Server first (operations/sql), then:
+#   docker compose -f operations/cd/docker-compose.local.yml up -d --build
+name: wst-trios
+
+include:
+  - ./core-api/docker-compose.local.yml
+  - ./api/docker-compose.local.yml
+  - ./docs/docker-compose.local.yml

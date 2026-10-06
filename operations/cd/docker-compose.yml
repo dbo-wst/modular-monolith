@@ -1,0 +1,12 @@
+# Orchestrator: brings up all apps as one merged stack.
+# Unlike `-f a.yml -f b.yml`, each included file resolves its own relative
+# paths (env_file, build context) against its own directory, so each app loads
+# its own conf.d/.env correctly.
+#
+#   docker compose -f operations/cd/docker-compose.yml up -d
+name: wst-trios
+
+include:
+  - ./core-api/docker-compose.yml
+  - ./api/docker-compose.yml
+  - ./docs/docker-compose.yml

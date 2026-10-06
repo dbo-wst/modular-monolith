@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "Wst.Trios.Core.Protocol.Prelaunch.BrokerSide.Trade";
+
+package wst.trios.core.protocol.prelaunch.brokerside.trade;
+
+import "prelaunch/brokerside/trade/create-trade.proto";
+import "prelaunch/brokerside/trade/get-trade.proto";
+import "prelaunch/brokerside/trade/get-trades.proto";
+import "prelaunch/brokerside/trade/update-trade.proto";
+import "prelaunch/brokerside/trade/delete-trade.proto";
+
+service TradeService {
+  rpc CreateTrade (CreateTradeRequest) returns (CreateTradeResponse);
+
+  rpc GetTrade (GetTradeRequest) returns (GetTradeResponse);
+
+  rpc GetTrades (GetTradesRequest) returns (GetTradesResponse);
+
+  rpc UpdateTrade (UpdateTradeRequest) returns (UpdateTradeResponse);
+
+  rpc DeleteTrade (DeleteTradeRequest) returns (DeleteTradeResponse);
+}

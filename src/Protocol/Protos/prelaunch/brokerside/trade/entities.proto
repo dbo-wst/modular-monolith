@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "Wst.Trios.Core.Protocol.Prelaunch.BrokerSide.Trade";
+
+package wst.trios.core.protocol.prelaunch.brokerside.trade;
+
+message Trade {
+  bytes trade_id = 1;
+  optional bytes order_id = 2;
+  google.protobuf.Timestamp effective_date = 3;
+  optional string quantity = 4;
+  optional string price = 5;
+  optional string amount = 6;
+}
+
+

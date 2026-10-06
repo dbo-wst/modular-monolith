@@ -1,0 +1,22 @@
+services:
+  docs:
+    build:
+      context: ../../..
+      dockerfile: operations/ci/docs/Dockerfile
+    image: "${IMAGE_TAG:-wst-trios-docs:latest}"
+    container_name: ${CONTAINER_NAME:-wst-trios-docs}
+    restart: unless-stopped
+    pull_policy: build
+    ports:
+      - "${DOCS_HOST_PORT:-5082}:80"
+    networks:
+      - trios-network
+      - rp
+
+networks:
+  trios-network:
+    name: trios-network
+    external: true
+  rp:
+    external: true
+    name: rp_default_net

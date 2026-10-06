@@ -1,0 +1,40 @@
+services:
+  api:
+    build:
+      context: ../../..
+      dockerfile: operations/ci/api/Dockerfile
+    image: "${IMAGE_TAG:-wst-trios-api:latest}"
+    container_name: ${CONTAINER_NAME:-wst-trios-api}
+    restart: unless-stopped
+    pull_policy: build
+    env_file:
+      - path: ${ENV_FILE:-./conf.d/.env}
+        required: false
+    ports:
+      - "${API_HOST_PORT:-5081}:80"
+    volumes:
+      - wst-trios-api-dp-keys:/root/.aspnet/DataProtection-Keys
+      - wst-trios-api-logs:/app/publish/logs
+    networks:
+      - trios-network
+      - mssql-network
+      - rp
+
+networks:
+  trios-network:
+    name: trios-network
+    external: true
+  mssql-network:
+    name: mssql-network
+    external: true
+  rp:
+    external: true
+    name: rp_default_net
+
+volumes:
+  wst-trios-api-dp-keys:
+    external: true
+    name: wst-trios-api-dp-keys
+  wst-trios-api-logs:
+    external: true
+    name: wst-trios-api-logs

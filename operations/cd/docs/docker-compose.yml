@@ -1,0 +1,17 @@
+services:
+  docs:
+    image: "${IMAGE_TAG:-build.steubing.com/wst-trios-docs:latest}"
+    container_name: ${CONTAINER_NAME:-wst-trios-docs}
+    restart: unless-stopped
+    pull_policy: never
+    networks:
+      - trios-network
+      - rp
+
+networks:
+  trios-network:
+    name: trios-network
+    external: true
+  rp:
+    external: true
+    name: rp_default_net

@@ -1,0 +1,24 @@
+name: ms_sql_server
+
+services:
+  local:
+    image: mcr.microsoft.com/mssql/server:2025-latest
+    container_name: ms_sql_server_local
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "MyP@ssword"
+    ports:
+      - "1433:1433"
+    volumes:
+      - data:/var/opt/mssql
+    networks:
+      - mssql-network
+    restart: unless-stopped
+
+volumes:
+  data:
+
+networks:
+  mssql-network:
+    name: mssql-network
+    driver: bridge

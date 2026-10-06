@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option csharp_namespace = "Wst.Trios.Core.Protocol.Prelaunch.BrokerSide.Trade";
+
+package wst.trios.core.protocol.prelaunch.brokerside.trade;
+
+import "prelaunch/brokerside/trade/entities.proto";
+
+message GetTradeRequest {
+  bytes trade_id = 1;
+}
+
+message GetTradeSuccess {
+  Trade trade = 1;
+}
+
+message GetTradeError {
+  string code = 1;
+  string message = 2;
+}
+
+message GetTradeResponse {
+  oneof result {
+    GetTradeSuccess success = 1;
+    GetTradeError error = 2;
+  }
+}

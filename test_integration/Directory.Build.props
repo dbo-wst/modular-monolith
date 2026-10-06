@@ -1,0 +1,25 @@
+<Project>
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <!-- Repositories/services now accept CancellationTokens; don't force TestContext.Current.CancellationToken everywhere. -->
+        <NoWarn>$(NoWarn);xUnit1051</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup Condition="$(MSBuildProjectName.EndsWith('IntegrationTest'))">
+        <None Remove="appsettings.json"/>
+        <Content Include="appsettings.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup Condition="Exists('appsettings.test.json')">
+        <None Remove="appsettings.test.json" />
+        <Content Include="appsettings.test.json">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+    
+    
+</Project>

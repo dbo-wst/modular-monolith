@@ -1,0 +1,71 @@
+{
+  "$schema": "https://raw.githubusercontent.com/dotnet/docfx/main/schemas/docfx.schema.json",
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ],
+        "exclude": [
+          "_site/**",
+          "obj/**",
+          "diagrams/drawio_src/**"
+        ]
+      }
+    ],
+    "resource": [
+      {
+        "files": [
+          "favicon.ico",
+          "*.svg",
+          "diagrams/**/*.{svg,png,jpg,jpeg,gif,webp}",
+          "**/images/**",
+          "**/assets/**"
+        ],
+        "exclude": [
+          "diagrams/drawio_src/**"
+        ]
+      }
+    ],
+    "output": "_site",
+    "template": [
+      "default",
+      "modern"
+    ],
+    "postProcessors": [
+      "ExtractSearchIndex"
+    ],
+    "keepFileLink": false,
+    "disableGitFeatures": false,
+    "globalMetadata": {
+      "_appName": "TRIOS",
+      "_appTitle": "TRIOS — Documentation",
+      "_appLogoPath": "logo.svg",
+      "_appFaviconPath": "favicon.ico",
+      "_appFooter": "© Wolfgang Steubing AG — TRIOS (Trading · Risk · Information · Operations · Settlement)",
+      "_enableSearch": true,
+      "_enableNewTab": true,
+      "_disableContribution": false,
+      "_disableNextArticle": false,
+      "_disableBreadcrumb": false,
+      "_lang": "en"
+    },
+    "fileMetadata": {
+      "_layout": {
+        "**/0009-architecture-decisions/**.md": "Conceptual",
+        "**.md": "Conceptual"
+      }
+    },
+    "markdownEngineProperties": {
+      "markdigExtensions": [
+        "abbreviations",
+        "definitionlists",
+        "tasklists",
+        "footnotes",
+        "diagrams"
+      ]
+    },
+    "xref": [],
+    "xrefService": []
+  }
+}

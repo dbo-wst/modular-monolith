@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option csharp_namespace = "Wst.Trios.Core.Protocol.Prelaunch.BrokerSide.Order";
+
+package wst.trios.core.protocol.prelaunch.brokerside.order;
+
+import "prelaunch/brokerside/order/entities.proto";
+
+message GetOrderRequest {
+  bytes order_id = 1;
+}
+
+message GetOrderSuccess {
+  Order order = 1;
+}
+
+message GetOrderError {
+  string code = 1;
+  string message = 2;
+}
+
+message GetOrderResponse {
+  oneof result {
+    GetOrderSuccess success = 1;
+    GetOrderError error = 2;
+  }
+}

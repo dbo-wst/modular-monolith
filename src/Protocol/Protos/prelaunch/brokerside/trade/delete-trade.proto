@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option csharp_namespace = "Wst.Trios.Core.Protocol.Prelaunch.BrokerSide.Trade";
+
+package wst.trios.core.protocol.prelaunch.brokerside.trade;
+
+message DeleteTradeRequest {
+  bytes trade_id = 1;
+}
+
+message DeleteTradeSuccess {
+  bytes trade_id = 1;
+}
+
+message DeleteTradeError {
+  string code = 1;
+  string message = 2;
+}
+
+message DeleteTradeResponse {
+  oneof result {
+    DeleteTradeSuccess deleted = 1;
+    DeleteTradeError error = 2;
+  }
+}

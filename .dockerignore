@@ -1,0 +1,67 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Build artifacts
+bin/
+obj/
+**/bin/
+**/obj/
+dist/
+build/
+artifacts/
+
+# IDE
+.vscode/
+.vs/
+.idea/
+*.swp
+*.swo
+*~
+*.user
+*.suo
+*.ncb
+*.VC.db
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.circleci/
+
+# Testing
+coverage/
+.nyc_output/
+
+# Dev containers
+.devcontainer/
+
+# Other
+README.md
+LICENSE
+CHANGELOG.md
+*.md
+!doc/**/*.md
+!doc/**/*.yml
+!doc/**/*.json
+!doc/**/*.ico
+!doc/**/*.svg
+!doc/**/*.png
+!doc/**/*.jpg
+!doc/**/*.jpeg
+!doc/**/*.gif
+!doc/**/*.webp
+
+
+# draw.io
+*.bkp
