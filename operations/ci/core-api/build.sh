@@ -17,7 +17,7 @@ VERSION="$1"
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 REPO_DIR="$(CDPATH= cd -- "${SCRIPT_DIR}/../../.." && pwd)"
 REGISTRY_HOST="build.steubing.com"
-IMAGE_NAME="wst-trios-core-api"
+IMAGE_NAME="template-core-api"
 IMAGE_TAG="${REGISTRY_HOST}/${IMAGE_NAME}:${VERSION}"
 
 docker build \

@@ -1,4 +1,4 @@
-# Multi-stage build for Trios Api
+# Multi-stage build for Template Api
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /repo
 
@@ -6,8 +6,8 @@ WORKDIR /repo
 COPY . /repo
 
 # Restore and publish
-RUN dotnet restore "/repo/src/Apps/Wst.Trios.Api/Wst.Trios.Api.csproj"
-RUN dotnet publish "/repo/src/Apps/Wst.Trios.Api/Wst.Trios.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet restore "/repo/src/Apps/Template.Api/Template.Api.csproj"
+RUN dotnet publish "/repo/src/Apps/Template.Api/Template.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
@@ -16,4 +16,4 @@ COPY --from=build /app/publish /app/publish
 
 EXPOSE 80
 
-ENTRYPOINT ["dotnet", "Wst.Trios.Api.dll"]
+ORDER_ITEMPOINT ["dotnet", "Template.Api.dll"]

@@ -1,6 +1,6 @@
 # 1.2 Quality Goals
 
-## How TRIOS does
+## How Template does
 
 - **NFR1. Flexibility / Extensibility**  
   Architecture must allow adding or modifying client workflows with minimal impact.

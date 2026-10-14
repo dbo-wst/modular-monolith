@@ -1,6 +1,6 @@
 # 1. Introduction and Goals
 
-This section introduces the task and outlines the objectives pursued by TRIOS
+This section introduces the task and outlines the objectives pursued by Template
 
 ## Index
 

@@ -1,4 +1,4 @@
-namespace Wst.Trios.Core.Shared.Kernel.Functional;
+namespace Template.Core.Shared.Kernel.Functional;
 
 public static class Advanced
 {

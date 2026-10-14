@@ -1,4 +1,4 @@
-﻿namespace Wst.Trios.Core.Shared.Kernel.Domain;
+﻿namespace Template.Core.Shared.Kernel.Domain;
 
 public abstract class AggregateRoot<TId>: IHasDomainEvents
 {

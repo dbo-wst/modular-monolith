@@ -1,4 +1,4 @@
-namespace Wst.Trios.Core.Shared.Kernel.Errors;
+namespace Template.Core.Shared.Kernel.Errors;
 
 public static class EnumerableExtensions
 {

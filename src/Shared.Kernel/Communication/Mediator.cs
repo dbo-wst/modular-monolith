@@ -1,7 +1,7 @@
 ﻿using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Wst.Trios.Core.Shared.Kernel.Communication;
+namespace Template.Core.Shared.Kernel.Communication;
 
 public class Mediator(IServiceProvider provider) : IMediator
 {

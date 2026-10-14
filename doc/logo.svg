@@ -3,8 +3,8 @@
      width="38pt" height="38pt"
      viewBox="0 0 64 64"
      role="img"
-     aria-label="TRIOS">
-  <title>TRIOS</title>
+     aria-label="Template">
+  <title>Template</title>
   <desc>Option 6 mark on a 64-unit grid. The tile starts at 5,5 and is 55x55, so its center is 32.5,32.5. The white and steel columns mirror each other around x=32.5. The center frame is 11x11 and the gold core is 7x7, both centered on 32.5,32.5.</desc>
   <defs>
     <linearGradient id="tile" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">

@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "Template.Core.Protocol.Prelaunch.Ordering.Order";
+
+package template.core.protocol.prelaunch.ordering.order;
+
+import "prelaunch/ordering/order/create-order.proto";
+import "prelaunch/ordering/order/get-order.proto";
+import "prelaunch/ordering/order/get-orders.proto";
+import "prelaunch/ordering/order/update-order.proto";
+import "prelaunch/ordering/order/delete-order.proto";
+
+service OrderService {
+  rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse);
+
+  rpc GetOrder (GetOrderRequest) returns (GetOrderResponse);
+
+  rpc GetOrders (GetOrdersRequest) returns (GetOrdersResponse);
+
+  rpc UpdateOrder (UpdateOrderRequest) returns (UpdateOrderResponse);
+
+  rpc DeleteOrder (DeleteOrderRequest) returns (DeleteOrderResponse);
+}

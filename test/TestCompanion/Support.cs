@@ -1,7 +1,7 @@
 using LanguageExt.Common;
 
 
-namespace Wst.Trios.Core.TestCompanion;
+namespace Template.Core.TestCompanion;
 
 public static partial class Support
 {

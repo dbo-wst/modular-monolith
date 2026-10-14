@@ -1,6 +1,6 @@
-using Wst.Trios.Core.Shared.Kernel.Functional;
+using Template.Core.Shared.Kernel.Functional;
 
-namespace Wst.Trios.Core.Shared.Kernel.Test.Functional;
+namespace Template.Core.Shared.Kernel.Test.Functional;
 
 public class AdvancedTests
 {

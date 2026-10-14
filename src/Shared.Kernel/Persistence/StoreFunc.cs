@@ -1,8 +1,8 @@
 using LanguageExt;
 using Microsoft.EntityFrameworkCore;
-using Wst.Trios.Core.Shared.Kernel.Errors;
+using Template.Core.Shared.Kernel.Errors;
 
-namespace Wst.Trios.Core.Shared.Kernel.Persistence;
+namespace Template.Core.Shared.Kernel.Persistence;
 
 public static class StoreFunc
 {

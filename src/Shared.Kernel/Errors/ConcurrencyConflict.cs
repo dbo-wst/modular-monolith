@@ -1,6 +1,6 @@
 using LanguageExt.Common;
 
-namespace Wst.Trios.Core.Shared.Kernel.Errors;
+namespace Template.Core.Shared.Kernel.Errors;
 
 public sealed record ConcurrencyConflict : Expected
 {

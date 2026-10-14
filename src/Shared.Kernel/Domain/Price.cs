@@ -1,7 +1,7 @@
 using LanguageExt;
-using Wst.Trios.Core.Shared.Kernel.Errors;
+using Template.Core.Shared.Kernel.Errors;
 
-namespace Wst.Trios.Core.Shared.Kernel.Domain;
+namespace Template.Core.Shared.Kernel.Domain;
 
 public record Price(decimal Value)
 {

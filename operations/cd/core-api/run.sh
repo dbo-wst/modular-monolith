@@ -17,14 +17,14 @@ VERSION="$1"
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 
 REGISTRY_HOST="build.steubing.com"
-IMAGE_NAME="wst-trios-core-api"
+IMAGE_NAME="template-core-api"
 IMAGE_TAG="${REGISTRY_HOST}/${IMAGE_NAME}:${VERSION}"
 
-CONTAINER_NAME="wst-trios-core-api"
-TRIOS_NETWORK="trios-network"
+CONTAINER_NAME="template-core-api"
+TEMPLATE_NETWORK="template-network"
 RP_NETWORK="rp_default_net"
-DP_KEYS_VOLUME="wst-trios-core-api-dp-keys"
-LOGS_VOLUME="wst-trios-core-api-logs"
+DP_KEYS_VOLUME="template-core-api-dp-keys"
+LOGS_VOLUME="template-core-api-logs"
 
 COMPOSE_FILE="${SCRIPT_DIR}/docker-compose.yml"
 ENV_FILE_PATH="${SCRIPT_DIR}/conf.d/.env"
@@ -62,7 +62,7 @@ ensure_volume() {
   fi
 }
 
-ensure_network "${TRIOS_NETWORK}"
+ensure_network "${TEMPLATE_NETWORK}"
 ensure_network "${RP_NETWORK}"
 ensure_volume "${DP_KEYS_VOLUME}"
 ensure_volume "${LOGS_VOLUME}"

@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option csharp_namespace = "Template.Core.Protocol.Prelaunch.Ordering.OrderItem";
+
+package template.core.protocol.prelaunch.ordering.order_item;
+
+import "prelaunch/ordering/order_item/entities.proto";
+
+message GetOrderItemsRequest {
+  int32 page_number = 1;
+  int32 page_size = 2;
+}
+
+message GetOrderItemsSuccess {
+  repeated OrderItem items = 1;
+  int32 page_number = 2;
+  int32 page_size = 3;
+}
+
+message GetOrderItemsError {
+  string code = 1;
+  string message = 2;
+}
+
+message GetOrderItemsResponse {
+  oneof result {
+    GetOrderItemsSuccess success = 1;
+    GetOrderItemsError error = 2;
+  }
+}

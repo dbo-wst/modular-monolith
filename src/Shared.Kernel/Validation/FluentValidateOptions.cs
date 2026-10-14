@@ -2,7 +2,7 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Wst.Trios.Core.Shared.Kernel.Validation;
+namespace Template.Core.Shared.Kernel.Validation;
 
 public class FluentValidateOptions<TOptions>(IServiceProvider serviceProvider, string? optionsName)
     : IValidateOptions<TOptions>

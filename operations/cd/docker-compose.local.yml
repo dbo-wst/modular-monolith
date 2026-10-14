@@ -5,7 +5,7 @@
 #
 # Start the local SQL Server first (operations/sql), then:
 #   docker compose -f operations/cd/docker-compose.local.yml up -d --build
-name: wst-trios
+name: template
 
 include:
   - ./core-api/docker-compose.local.yml

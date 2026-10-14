@@ -11,7 +11,7 @@ This guide is shared for all projects under `test/`.
 Run one test project:
 
 ```powershell
-dotnet test .\test\<Domain>\<Module>\*.Test.csproj
+dotnet test .\test\<Domain>\<Ordering>\*.Test.csproj
 ```
 
 ## Notes

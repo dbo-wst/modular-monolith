@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option csharp_namespace = "Template.Core.Protocol.Prelaunch.Ordering.Order";
+
+package template.core.protocol.prelaunch.ordering.order;
+
+message DeleteOrderRequest {
+  bytes order_id = 1;
+}
+
+message DeleteOrderSuccess {
+  bytes order_id = 1;
+}
+
+message DeleteOrderError {
+  string code = 1;
+  string message = 2;
+}
+
+message DeleteOrderResponse {
+  oneof result {
+    DeleteOrderSuccess deleted = 1;
+    DeleteOrderError error = 2;
+  }
+}

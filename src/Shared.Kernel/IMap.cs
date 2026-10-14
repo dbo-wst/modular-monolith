@@ -1,6 +1,6 @@
 using System.Diagnostics.Contracts;
 
-namespace Wst.Trios.Core.Shared.Kernel;
+namespace Template.Core.Shared.Kernel;
 
 public interface IMap<TLeft, TRight>
 {

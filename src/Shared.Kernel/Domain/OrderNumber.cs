@@ -1,7 +1,7 @@
 ﻿using LanguageExt;
-using Wst.Trios.Core.Shared.Kernel.Functional;
+using Template.Core.Shared.Kernel.Functional;
 
-namespace Wst.Trios.Core.Shared.Kernel.Domain;
+namespace Template.Core.Shared.Kernel.Domain;
 
 public record OrderNumber(string Value)
 {

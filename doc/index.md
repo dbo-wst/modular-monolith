@@ -1,6 +1,6 @@
-# TRIOS
+# Template
 
-###### Trading - Risk - Information - Operations - Settlement
+###### Modular monolith solution template
 
 
 #### Index
@@ -34,6 +34,7 @@
 
 - [9. Architecture Decisions](09-architecture-decisions/index.md)
     - [9.1 Requirement Defined](09-architecture-decisions/0001-requirement-defined.md)
+    - [9.2 Architecture and Code Structure](09-architecture-decisions/0002-architecture-and-code-structure.md)
 - [10. Quality Requirements](10-quality-requirements/index.md)
     - [10.1 Quality Tree](10-quality-requirements/01-quality-tree.md)
     - [10.2 Quality Scenarios](10-quality-requirements/02-quality-scenarios.md)

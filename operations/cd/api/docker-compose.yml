@@ -1,7 +1,7 @@
 services:
   api:
-    image: "${IMAGE_TAG:-build.steubing.com/wst-trios-api:latest}"
-    container_name: ${CONTAINER_NAME:-wst-trios-api}
+    image: "${IMAGE_TAG:-build.steubing.com/template-api:latest}"
+    container_name: ${CONTAINER_NAME:-template-api}
     restart: unless-stopped
     pull_policy: never
     ports:
@@ -10,24 +10,24 @@ services:
       - path: ${ENV_FILE:-./conf.d/.env}
         required: false
     volumes:
-      - wst-trios-api-dp-keys:/root/.aspnet/DataProtection-Keys
-      - wst-trios-api-logs:/app/publish/logs
+      - template-api-dp-keys:/root/.aspnet/DataProtection-Keys
+      - template-api-logs:/app/publish/logs
     networks:
-      - trios-network
+      - template-network
       - rp
 
 networks:
-  trios-network:
-    name: trios-network
+  template-network:
+    name: template-network
     external: true
   rp:
     external: true
     name: rp_default_net
 
 volumes:
-  wst-trios-api-dp-keys:
+  template-api-dp-keys:
     external: true
-    name: wst-trios-api-dp-keys
-  wst-trios-api-logs:
+    name: template-api-dp-keys
+  template-api-logs:
     external: true
-    name: wst-trios-api-logs
+    name: template-api-logs

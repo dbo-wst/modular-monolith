@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option csharp_namespace = "Template.Core.Protocol.Prelaunch.Ordering.OrderItem";
+
+package template.core.protocol.prelaunch.ordering.order_item;
+
+import "prelaunch/ordering/order_item/entities.proto";
+
+message UpdateOrderItemRequest {
+  bytes order_item_id = 1;
+  optional bytes order_id = 2;
+  optional string quantity = 3;
+  optional string price = 4;
+}
+
+message UpdateOrderItemSuccess {
+  OrderItem order_item = 1;
+}
+
+message UpdateOrderItemError {
+  string code = 1;
+  string message = 2;
+}
+
+message UpdateOrderItemResponse {
+  oneof result {
+    UpdateOrderItemSuccess success = 1;
+    UpdateOrderItemError error = 2;
+  }
+}
+
+

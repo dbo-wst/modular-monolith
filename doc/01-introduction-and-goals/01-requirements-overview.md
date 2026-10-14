@@ -1,13 +1,10 @@
 # 1.1 Requirements Overview
 
-## Was is Trios?
+## What is Template?
 
- - Trios - (**T**rading, **R**isk, **I**nformation, **O**peration, **S**ettlements)
- - Trios is a booking system to collect trading activity
- - Receives the order and trade information from different upstream systems mainly through FIX messages
- - Supports the full trade lifecycle from order routing to settlement
- - The system allocates trades for client orders
- - Generates reports, settlements, and reconciliation processes
+ - Template is a starting point for modular monolith solutions (Clean Architecture, Vertical Slices)
+ - Describe the purpose of your system here
+ - List the main capabilities and upstream/downstream systems
 
 ## Main features
 

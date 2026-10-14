@@ -1,0 +1,57 @@
+<Solution>
+  <Folder Name="/Solution Orders/">
+    <File Path=".editorconfig" />
+    <File Path=".gitignore" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Apps/">
+    <Project Path="src/Apps/Template.Api.Infrastructure.CoreApi/Template.Api.Infrastructure.CoreApi.csproj" />
+    <Project Path="src/Apps/Template.Api/Template.Api.csproj" />
+    <Project Path="src/Apps/Template.Core.Api/Template.Core.Api.csproj" />
+  </Folder>
+    <Folder Name="/src/Ordering/">
+        <Project Path="src/Ordering/Application/Template.Core.Ordering.Application.csproj" />
+        <Project Path="src/Ordering/Domain/Template.Core.Ordering.Domain.csproj" />
+        <Project Path="src/Ordering/Integration/Template.Core.Ordering.Integration.csproj" />
+        <Project Path="src/Ordering/Persistence/Template.Core.Ordering.Persistence.csproj" />
+    </Folder>
+  <Folder Name="/src/Protocol/">
+    <Project Path="src/Protocol/Template.Core.Protocol.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared.Kernel/">
+    <Project Path="src/Shared.Kernel/Template.Core.Shared.Kernel.csproj" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/TestCompanion/Template.Core.TestCompanion.csproj" />
+  </Folder>
+  <Folder Name="/test/FolderOrders/">
+    <File Path="test/readme.md" />
+  </Folder>
+    <Folder Name="/test/Ordering/">
+        <Project Path="test/Ordering/Application/Template.Core.Ordering.Application.Test.csproj" />
+        <Project Path="test/Ordering/Domain/Template.Core.Ordering.Domain.Test.csproj" />
+        <Project Path="test/Ordering/TestCompanion/Template.Core.Ordering.TestCompanion.csproj" />
+    </Folder>
+  <Folder Name="/test/Shared.Kernel/">
+    <Project Path="test/Shared.Kernel/Template.Core.Shared.Kernel.Test.csproj" />
+  </Folder>
+  <Folder Name="/test_integration/">
+    <Project Path="test_integration/TestCompanion/Template.Core.TestCompanion.csproj" />
+  </Folder>
+  <Folder Name="/test_integration/Apps/">
+    <Project Path="test_integration/Apps/Template.Core.Api.IntegrationTest/Template.Core.Api.IntegrationTest.csproj" />
+    <Project Path="test_integration/Apps/Template.Api.IntegrationTest/Template.Api.IntegrationTest.csproj" />
+  </Folder>
+    <Folder Name="/test_integration/Ordering/">
+        <Project Path="test_integration/Ordering/Application/Template.Core.Ordering.Application.IntegrationTest.csproj" />
+        <Project Path="test_integration/Ordering/Persistence/Template.Core.Ordering.Persistence.IntegrationTest.csproj" />
+        <Project Path="test_integration/Ordering/TestCompanion/Template.Core.Ordering.TestCompanion.csproj" />
+    </Folder>
+  <Folder Name="/test_integration/FolderOrders/">
+    <File Path="test_integration/Directory.Build.props" />
+    <File Path="test_integration/readme.md" />
+  </Folder>
+</Solution>

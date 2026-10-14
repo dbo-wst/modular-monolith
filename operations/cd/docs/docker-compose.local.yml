@@ -3,19 +3,19 @@ services:
     build:
       context: ../../..
       dockerfile: operations/ci/docs/Dockerfile
-    image: "${IMAGE_TAG:-wst-trios-docs:latest}"
-    container_name: ${CONTAINER_NAME:-wst-trios-docs}
+    image: "${IMAGE_TAG:-template-docs:latest}"
+    container_name: ${CONTAINER_NAME:-template-docs}
     restart: unless-stopped
     pull_policy: build
     ports:
       - "${DOCS_HOST_PORT:-5082}:80"
     networks:
-      - trios-network
+      - template-network
       - rp
 
 networks:
-  trios-network:
-    name: trios-network
+  template-network:
+    name: template-network
     external: true
   rp:
     external: true

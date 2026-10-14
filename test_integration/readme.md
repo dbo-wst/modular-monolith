@@ -12,7 +12,7 @@ This guide is shared for all projects under `test_integration/`.
 Run one integration test project:
 
 ```powershell
-dotnet test .\test_integration\<Domain>\<Module>\*.IntegrationTest.csproj
+dotnet test .\test_integration\<Domain>\<Ordering>\*.IntegrationTest.csproj
 ```
 
 

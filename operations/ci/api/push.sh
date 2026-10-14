@@ -15,7 +15,7 @@ fi
 VERSION="$1"
 
 REGISTRY_HOST="build.steubing.com"
-IMAGE_NAME="wst-trios-api"
+IMAGE_NAME="template-api"
 IMAGE_TAG="${REGISTRY_HOST}/${IMAGE_NAME}:${VERSION}"
 
 if ! docker image inspect "${IMAGE_TAG}" >/dev/null 2>&1; then

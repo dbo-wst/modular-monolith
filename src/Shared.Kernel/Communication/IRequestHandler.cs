@@ -1,6 +1,6 @@
 ﻿using LanguageExt;
 
-namespace Wst.Trios.Core.Shared.Kernel.Communication;
+namespace Template.Core.Shared.Kernel.Communication;
 
 public interface IRequestHandler<in TRequest, TResponse>
     where TRequest : IRequest<TResponse>
