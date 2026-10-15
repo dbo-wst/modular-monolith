@@ -1,8 +1,8 @@
-using Template.Core.Ordering.Contracts.Dto;
-using Template.Core.Ordering.Contracts.Results;
-using Template.Core.BuildingBlocks.Application.Communication;
+using Acme.Core.Ordering.Contracts.Dto;
+using Acme.Core.Ordering.Contracts.Results;
+using Acme.Core.BuildingBlocks.Application.Communication;
 
-namespace Template.Core.Ordering.Contracts.Commands;
+namespace Acme.Core.Ordering.Contracts.Commands;
 
 public sealed record UpdateOrderCommand(
     Guid OrderId,

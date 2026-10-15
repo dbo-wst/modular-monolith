@@ -1,8 +1,8 @@
 using LanguageExt;
 using LanguageExt.Common;
-using Template.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Domain.Errors;
 
-namespace Template.Core.BuildingBlocks.Domain.Functional;
+namespace Acme.Core.BuildingBlocks.Domain.Functional;
 
 public static class General
 {

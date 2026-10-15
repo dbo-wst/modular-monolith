@@ -1,12 +1,12 @@
 using LanguageExt.UnsafeValueAccess;
-using Template.Core.Ordering.Persistence;
-using Template.Core.Ordering.TestCompanion;
-using CreateOrderItemHandler = Template.Core.Ordering.Application.OrderItems.CreateOrderItem.CreateOrderItemHandler;
-using DeleteOrderItemHandler = Template.Core.Ordering.Application.OrderItems.DeleteOrderItem.DeleteOrderItemHandler;
-using GetOrderItemHandler = Template.Core.Ordering.Application.OrderItems.GetOrderItem.GetOrderItemHandler;
-using OrderItemId = Template.Core.Ordering.Domain.OrderItems.OrderItemId;
+using Acme.Core.Ordering.Persistence;
+using Acme.Core.Ordering.TestCompanion;
+using CreateOrderItemHandler = Acme.Core.Ordering.Application.OrderItems.CreateOrderItem.CreateOrderItemHandler;
+using DeleteOrderItemHandler = Acme.Core.Ordering.Application.OrderItems.DeleteOrderItem.DeleteOrderItemHandler;
+using GetOrderItemHandler = Acme.Core.Ordering.Application.OrderItems.GetOrderItem.GetOrderItemHandler;
+using OrderItemId = Acme.Core.Ordering.Domain.OrderItems.OrderItemId;
 
-namespace Template.Core.Ordering.Application.IntegrationTest.OrderItems.DeleteOrderItem;
+namespace Acme.Core.Ordering.Application.IntegrationTest.OrderItems.DeleteOrderItem;
 
 [Collection(IntegrationTestsFixture.CollectionName)]
 public class DeleteOrderItemHandlerTests(IntegrationTestsFixture fixture)

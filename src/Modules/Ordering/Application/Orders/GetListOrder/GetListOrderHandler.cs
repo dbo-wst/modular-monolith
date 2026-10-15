@@ -1,10 +1,10 @@
 using LanguageExt;
 using System.Collections.Immutable;
-using Template.Core.Ordering.Contracts.Queries;
-using Template.Core.Ordering.Contracts.Results;
-using Template.Core.BuildingBlocks.Application.Communication;
+using Acme.Core.Ordering.Contracts.Queries;
+using Acme.Core.Ordering.Contracts.Results;
+using Acme.Core.BuildingBlocks.Application.Communication;
 
-namespace Template.Core.Ordering.Application.Orders.GetListOrder;
+namespace Acme.Core.Ordering.Application.Orders.GetListOrder;
 
 internal sealed class GetListOrderHandler(IOrderingReadStore readStore) : IQueryHandler<GetListOrderQuery, GetListOrderResult>
 {

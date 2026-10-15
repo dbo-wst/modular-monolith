@@ -1,6 +1,6 @@
 using LanguageExt;
 
-namespace Template.Core.BuildingBlocks.Domain;
+namespace Acme.Core.BuildingBlocks.Domain;
 
 /// <summary>
 /// Port for publishing domain events in-process to their handlers. Declared here so persistence adapters

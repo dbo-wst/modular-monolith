@@ -1,6 +1,6 @@
 # Ordering Persistence Integration Tests
 
-Tests the Ordering EF Core persistence adapter (`src/Modules/Ordering/Persistence`) against a real SQL Server: repositories, DBO mappers and the `UnitOfWork`. Assembly: `Template.Core.Ordering.Persistence.IntegrationTest`.
+Tests the Ordering EF Core persistence adapter (`src/Modules/Ordering/Persistence`) against a real SQL Server: repositories, DBO mappers and the `UnitOfWork`. Assembly: `Acme.Core.Ordering.Persistence.IntegrationTest`.
 
 ## Structure
 
@@ -22,7 +22,7 @@ Tests the Ordering EF Core persistence adapter (`src/Modules/Ordering/Persistenc
 | `OrderItems/ReadOnlyOperationsTests.cs` | test class | Rehydrated `OrderItem` preserves values (no database) |
 | `OrderItems/WriteOnlyOperationsTests.cs` | test class | `OrderItem` DBO round-trips through the mapper (no database) |
 | `appsettings.json` | config | Logging/Serilog settings (console and rolling file `logs/log-.log`) |
-| `Template.Core.Ordering.Persistence.IntegrationTest.csproj` | project | Test project definition |
+| `Acme.Core.Ordering.Persistence.IntegrationTest.csproj` | project | Test project definition |
 
 ## How it works
 
@@ -40,7 +40,7 @@ If `appsettings.test.json` in this folder is missing or does not contain `Persis
 Default (SQL Server container), from the repository root:
 
 ```powershell
-dotnet test .\test_integration\Modules\Ordering\Persistence\Template.Core.Ordering.Persistence.IntegrationTest.csproj
+dotnet test .\test_integration\Modules\Ordering\Persistence\Acme.Core.Ordering.Persistence.IntegrationTest.csproj
 ```
 
 Using a local SQL Server instead of Testcontainers:
@@ -71,7 +71,7 @@ Troubleshooting:
 
 ## Dependencies
 
-- References: `test_integration/Modules/Ordering/TestCompanion/Template.Core.Ordering.TestCompanion.csproj` (which brings in Ordering Domain and Persistence)
+- References: `test_integration/Modules/Ordering/TestCompanion/Acme.Core.Ordering.TestCompanion.csproj` (which brings in Ordering Domain and Persistence)
 - Packages: `xunit.v3`, `xunit.runner.visualstudio`, `Microsoft.NET.Test.Sdk`, `Microsoft.Extensions.Configuration.FileExtensions`, `Microsoft.Extensions.Configuration.Json`, `Serilog`, `Serilog.Extensions.Logging`, `Serilog.Settings.Configuration`
 
 ## Extending

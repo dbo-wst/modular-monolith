@@ -1,7 +1,7 @@
-using Template.Core.Ordering.Application.Orders.Mappers;
-using OrderItemMapper = Template.Core.Ordering.Application.OrderItems.Mappers.OrderItemMapper;
+using Acme.Core.Ordering.Application.Orders.Mappers;
+using OrderItemMapper = Acme.Core.Ordering.Application.OrderItems.Mappers.OrderItemMapper;
 
-namespace Template.Core.Ordering.Application;
+namespace Acme.Core.Ordering.Application;
 
 public static class DtoMappers
 {

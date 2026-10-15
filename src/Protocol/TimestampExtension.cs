@@ -1,6 +1,6 @@
 using Google.Protobuf.WellKnownTypes;
 
-namespace Template.Core.Protocol;
+namespace Acme.Core.Protocol;
 
 public static class TimestampExtension
 {

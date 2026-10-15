@@ -1,4 +1,4 @@
-namespace Template.Core.BuildingBlocks.Application.Communication;
+namespace Acme.Core.BuildingBlocks.Application.Communication;
 
 /// <summary>
 /// Marker for a request dispatched by <see cref="IMediator"/> that yields <typeparamref name="TResponse"/>.

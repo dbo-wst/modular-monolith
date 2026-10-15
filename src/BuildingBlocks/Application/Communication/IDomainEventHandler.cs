@@ -1,7 +1,7 @@
 using LanguageExt;
-using Template.Core.BuildingBlocks.Domain;
+using Acme.Core.BuildingBlocks.Domain;
 
-namespace Template.Core.BuildingBlocks.Application.Communication;
+namespace Acme.Core.BuildingBlocks.Application.Communication;
 
 /// <summary>
 /// Reacts in-process to a domain event after the unit of work saved the change that raised it.

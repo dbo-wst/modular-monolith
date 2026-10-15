@@ -1,12 +1,12 @@
 using LanguageExt.UnsafeValueAccess;
-using Template.Core.Ordering.Domain.OrderItems;
-using Template.Core.Ordering.Persistence;
-using Template.Core.Ordering.TestCompanion;
-using CreateOrderItemHandler = Template.Core.Ordering.Application.OrderItems.CreateOrderItem.CreateOrderItemHandler;
-using GetOrderItemHandler = Template.Core.Ordering.Application.OrderItems.GetOrderItem.GetOrderItemHandler;
-using UpdateOrderItemHandler = Template.Core.Ordering.Application.OrderItems.UpdateOrderItem.UpdateOrderItemHandler;
+using Acme.Core.Ordering.Domain.OrderItems;
+using Acme.Core.Ordering.Persistence;
+using Acme.Core.Ordering.TestCompanion;
+using CreateOrderItemHandler = Acme.Core.Ordering.Application.OrderItems.CreateOrderItem.CreateOrderItemHandler;
+using GetOrderItemHandler = Acme.Core.Ordering.Application.OrderItems.GetOrderItem.GetOrderItemHandler;
+using UpdateOrderItemHandler = Acme.Core.Ordering.Application.OrderItems.UpdateOrderItem.UpdateOrderItemHandler;
 
-namespace Template.Core.Ordering.Application.Test.OrderItems.UpdateOrderItem;
+namespace Acme.Core.Ordering.Application.Test.OrderItems.UpdateOrderItem;
 
 public class UpdateOrderItemHandlerTests(InMemoryFixture fixture) : IClassFixture<InMemoryFixture>
 {

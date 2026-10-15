@@ -1,15 +1,15 @@
-using Template.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Domain.Errors;
 using LanguageExt.UnsafeValueAccess;
-using Template.Core.Ordering.Persistence;
-using Template.Core.Ordering.TestCompanion;
-using CreateOrderHandler = Template.Core.Ordering.Application.Orders.CreateOrder.CreateOrderHandler;
-using Dto = Template.Core.Ordering.Contracts.Dto;
-using EStatus = Template.Core.Ordering.Contracts.Dto.EStatus;
-using GetOrderHandler = Template.Core.Ordering.Application.Orders.GetOrder.GetOrderHandler;
-using OrderId = Template.Core.Ordering.Domain.Orders.OrderId;
-using UpdateOrderHandler = Template.Core.Ordering.Application.Orders.UpdateOrder.UpdateOrderHandler;
+using Acme.Core.Ordering.Persistence;
+using Acme.Core.Ordering.TestCompanion;
+using CreateOrderHandler = Acme.Core.Ordering.Application.Orders.CreateOrder.CreateOrderHandler;
+using Dto = Acme.Core.Ordering.Contracts.Dto;
+using EStatus = Acme.Core.Ordering.Contracts.Dto.EStatus;
+using GetOrderHandler = Acme.Core.Ordering.Application.Orders.GetOrder.GetOrderHandler;
+using OrderId = Acme.Core.Ordering.Domain.Orders.OrderId;
+using UpdateOrderHandler = Acme.Core.Ordering.Application.Orders.UpdateOrder.UpdateOrderHandler;
 
-namespace Template.Core.Ordering.Application.IntegrationTest.Orders.UpdateOrder;
+namespace Acme.Core.Ordering.Application.IntegrationTest.Orders.UpdateOrder;
 
 [Collection(IntegrationTestsFixture.CollectionName)]
 public class UpdateOrderHandlerTests(IntegrationTestsFixture fixture)

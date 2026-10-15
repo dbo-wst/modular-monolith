@@ -1,4 +1,4 @@
-namespace Template.Core.BuildingBlocks.Domain.Test.Events;
+namespace Acme.Core.BuildingBlocks.Domain.Test.Events;
 
 public class DomainEventTests
 {

@@ -16,8 +16,8 @@ Both projects are pure in-memory tests with no infrastructure. They reference `t
 ## Running
 
 ```powershell
-dotnet test .\test\BuildingBlocks\Domain\Template.Core.BuildingBlocks.Domain.Test.csproj
-dotnet test .\test\BuildingBlocks\Application\Template.Core.BuildingBlocks.Application.Test.csproj
+dotnet test .\test\BuildingBlocks\Domain\Acme.Core.BuildingBlocks.Domain.Test.csproj
+dotnet test .\test\BuildingBlocks\Application\Acme.Core.BuildingBlocks.Application.Test.csproj
 ```
 
 ## Dependencies
@@ -26,4 +26,4 @@ dotnet test .\test\BuildingBlocks\Application\Template.Core.BuildingBlocks.Appli
 
 ## Extending
 
-Add a test project per BuildingBlocks layer at `test/BuildingBlocks/<Layer>/Template.Core.BuildingBlocks.<Layer>.Test.csproj`, mirror the `src` folder structure inside it and register it in `Template.Core.slnx`.
+Add a test project per BuildingBlocks layer at `test/BuildingBlocks/<Layer>/Acme.Core.BuildingBlocks.<Layer>.Test.csproj`, mirror the `src` folder structure inside it and register it in `Acme.Core.slnx`.

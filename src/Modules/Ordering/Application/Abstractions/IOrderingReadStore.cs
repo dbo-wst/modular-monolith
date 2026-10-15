@@ -1,7 +1,7 @@
 using LanguageExt;
-using Template.Core.Ordering.Contracts.Dto;
+using Acme.Core.Ordering.Contracts.Dto;
 
-namespace Template.Core.Ordering.Application;
+namespace Acme.Core.Ordering.Application;
 
 /// <summary>Query-side port: returns read models (DTOs) directly, bypassing the domain aggregates.</summary>
 public interface IOrderingReadStore

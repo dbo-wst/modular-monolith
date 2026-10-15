@@ -1,6 +1,6 @@
 # Ordering Test Companion (integration)
 
-Ordering-specific helpers for the SQL Server-backed integration test projects: the collection fixture, a scope-like persistence bundle, a recording dispatcher and domain object builders. Assembly: `Template.Core.Ordering.TestCompanion` (library, contains no tests).
+Ordering-specific helpers for the SQL Server-backed integration test projects: the collection fixture, a scope-like persistence bundle, a recording dispatcher and domain object builders. Assembly: `Acme.Core.Ordering.TestCompanion` (library, contains no tests).
 
 ## Contents
 
@@ -11,13 +11,13 @@ Ordering-specific helpers for the SQL Server-backed integration test projects: t
 | `RecordingDomainEventDispatcher.cs` | fake | `IDomainEventDispatcher` recording events in `Dispatched`; fails every dispatch when given an `Error` |
 | `Order/Support.Domain.cs` | helper | `Support.Domain.NewOrder()`: rehydrated `Order` with a new id, `ORD-1`, 2026-07-10, `New` |
 | `OrderItem/Support.Domain.cs` | helper | `Support.Domain.NewOrderItem()`: rehydrated `OrderItem` with new ids, quantity 100.5, price 25.75 |
-| `Template.Core.Ordering.TestCompanion.csproj` | project | Library project definition |
+| `Acme.Core.Ordering.TestCompanion.csproj` | project | Library project definition |
 
 ## How it works
 
 `IntegrationTestsFixture.InitializeAsync` reads `Persistence:ConnectionString` from an optional `appsettings.test.json` in the working directory:
 
-- empty: `Template.Core.TestCompanion.Support.Infrastructure.UseContainer()` starts a SQL Server container and its connection string is passed as in-memory configuration;
+- empty: `Acme.Core.TestCompanion.Support.Infrastructure.UseContainer()` starts a SQL Server container and its connection string is passed as in-memory configuration;
 - set: configuration is built from `appsettings.json` + `appsettings.test.json`.
 
 Pending migrations are applied by `OrderingDbContextFactory` on construction. `DisposeAsync` disposes the container and the service provider and flushes Serilog. This assembly has the same name as `test/Modules/Ordering/TestCompanion` but uses SQL Server instead of the in-memory provider.
@@ -28,7 +28,7 @@ Not run directly; consumed by `test_integration/Modules/Ordering/Persistence` an
 
 ## Dependencies
 
-- References: `src/Modules/Ordering/Domain`, `src/Modules/Ordering/Persistence`, `test_integration/TestCompanion/Template.Core.TestCompanion.csproj`
+- References: `src/Modules/Ordering/Domain`, `src/Modules/Ordering/Persistence`, `test_integration/TestCompanion/Acme.Core.TestCompanion.csproj`
 - Packages: `Bogus`, `FakeItEasy`, `LanguageExt.Core`, `Microsoft.EntityFrameworkCore.InMemory`, `Microsoft.Extensions.Configuration(.Json, .EnvironmentVariables)`, `Microsoft.Extensions.DependencyInjection(.Abstractions)`, `Microsoft.Extensions.Options`, `Testcontainers.MsSql`, `Selenium.WebDriver`, `Serilog`, `Serilog.Extensions.Logging`, `Serilog.Settings.Configuration`, `coverlet.collector`, `xunit.v3`
 
 ## Extending

@@ -22,7 +22,7 @@ Vertical slices for the `OrderItem` aggregate (application layer): one folder pe
 ## Dependencies
 
 - References: Domain `OrderItems`, `Orders` (`OrderId`), `ValueObjects`; Contracts; `BuildingBlocks.Application.Communication`.
-- Used by: `IMediator` (via `AddOrderingApplication`), called from `src/Host/Template.Core.Api/Prelaunch/Ordering/OrderItem/GrpcService.cs`; tests in `test/Modules/Ordering/Application/OrderItems` and `test_integration/Modules/Ordering/Application/OrderItems`.
+- Used by: `IMediator` (via `AddOrderingApplication`), called from `src/Host/Acme.Core.Api/Prelaunch/Ordering/OrderItem/GrpcService.cs`; tests in `test/Modules/Ordering/Application/OrderItems` and `test_integration/Modules/Ordering/Application/OrderItems`.
 
 ## Extending
 

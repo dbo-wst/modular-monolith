@@ -1,6 +1,6 @@
 # Errors
 
-Typed application errors (namespace `Template.Core.BuildingBlocks.Domain.Errors`, project `Template.Core.BuildingBlocks.Domain`). Every expected failure returned in a `Fin<T>` should be one of these records, so callers can classify failures by type or error code instead of parsing messages.
+Typed application errors (namespace `Acme.Core.BuildingBlocks.Domain.Errors`, project `Acme.Core.BuildingBlocks.Domain`). Every expected failure returned in a `Fin<T>` should be one of these records, so callers can classify failures by type or error code instead of parsing messages.
 
 ## Contents
 
@@ -35,7 +35,7 @@ var code = error is AppError app ? app.ErrorCode : ErrorCodes.Internal;
 
 ## Dependencies
 - References: LanguageExt.Core (`Expected`, `Error`, `Option`).
-- Used by: BuildingBlocks.Application (`ValidationBehavior`), BuildingBlocks.Persistence (`UnitOfWork<TContext>`), Ordering Domain/Application/Persistence, `Template.Core.Api` (`Prelaunch/ErrorCodeClassifier.cs` reads `AppError.ErrorCode`, falling back to `internal`).
+- Used by: BuildingBlocks.Application (`ValidationBehavior`), BuildingBlocks.Persistence (`UnitOfWork<TContext>`), Ordering Domain/Application/Persistence, `Acme.Core.Api` (`Prelaunch/ErrorCodeClassifier.cs` reads `AppError.ErrorCode`, falling back to `internal`).
 
 ## Extending
 - A new specific error: derive a `sealed record` from the matching category (`ConflictError`, `CancelledError`) or from `AppError` with an existing code, with a private constructor and a static `New` factory.

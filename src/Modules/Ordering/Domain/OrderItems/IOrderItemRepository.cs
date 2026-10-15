@@ -1,6 +1,6 @@
 using LanguageExt;
 
-namespace Template.Core.Ordering.Domain.OrderItems;
+namespace Acme.Core.Ordering.Domain.OrderItems;
 
 public interface IOrderItemRepository
 {

@@ -1,6 +1,6 @@
 # Ordering Test Companion (unit)
 
-Ordering-specific test helpers for the unit test projects: an in-memory `IOrderingDbContextFactory`, a class fixture, a scope-like persistence bundle and a recording domain event dispatcher. Assembly: `Template.Core.Ordering.TestCompanion` (library, contains no tests).
+Ordering-specific test helpers for the unit test projects: an in-memory `IOrderingDbContextFactory`, a class fixture, a scope-like persistence bundle and a recording domain event dispatcher. Assembly: `Acme.Core.Ordering.TestCompanion` (library, contains no tests).
 
 ## Contents
 
@@ -10,7 +10,7 @@ Ordering-specific test helpers for the unit test projects: an in-memory `IOrderi
 | `InMemoryFixture.cs` | fixture | xUnit class fixture exposing a `Bogus.Faker` and a `ContextFactory` from `DbContextFactory()` |
 | `OrderingPersistence.cs` | helper | `OrderingPersistence.Create(factory, dispatcher?)`: `UnitOfWork`, `Orders` and `OrderItems` repositories sharing one `OrderingDbContext` and one `DomainEventCollector`; `ForOrders`/`ForOrderItems` build handlers |
 | `RecordingDomainEventDispatcher.cs` | fake | `IDomainEventDispatcher` that records events in `Dispatched`; constructed with an `Error` it fails every dispatch |
-| `Template.Core.Ordering.TestCompanion.csproj` | project | Library project definition |
+| `Acme.Core.Ordering.TestCompanion.csproj` | project | Library project definition |
 
 ## How it works
 
@@ -22,7 +22,7 @@ Not run directly; consumed by `test/Modules/Ordering/Domain` and `test/Modules/O
 
 ## Dependencies
 
-- References: `src/Modules/Ordering/Domain`, `src/Modules/Ordering/Persistence`, `test/TestCompanion/Template.Core.TestCompanion.csproj`
+- References: `src/Modules/Ordering/Domain`, `src/Modules/Ordering/Persistence`, `test/TestCompanion/Acme.Core.TestCompanion.csproj`
 - Packages: `Bogus`, `FakeItEasy`, `LanguageExt.Core`, `Microsoft.EntityFrameworkCore.InMemory`, `Microsoft.Extensions.Configuration(.Json)`, `Microsoft.Extensions.DependencyInjection(.Abstractions)`, `Microsoft.Extensions.Options`, `Testcontainers.MsSql`, `Selenium.WebDriver`, `Serilog`, `Serilog.Extensions.Logging`, `Serilog.Settings.Configuration`, `coverlet.collector`, `xunit.v3`
 
 ## Extending

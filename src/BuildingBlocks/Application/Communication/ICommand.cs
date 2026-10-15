@@ -1,6 +1,6 @@
 using LanguageExt;
 
-namespace Template.Core.BuildingBlocks.Application.Communication;
+namespace Acme.Core.BuildingBlocks.Application.Communication;
 
 /// <summary>A request that changes state.</summary>
 public interface ICommand<TResponse> : IRequest<TResponse>;

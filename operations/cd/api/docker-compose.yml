@@ -1,7 +1,7 @@
 services:
   api:
-    image: "${IMAGE_TAG:-build.steubing.com/template-api:latest}"
-    container_name: ${CONTAINER_NAME:-template-api}
+    image: "${IMAGE_TAG:-build.steubing.com/acme-api:latest}"
+    container_name: ${CONTAINER_NAME:-acme-api}
     restart: unless-stopped
     pull_policy: never
     ports:
@@ -10,24 +10,24 @@ services:
       - path: ${ENV_FILE:-./conf.d/.env}
         required: false
     volumes:
-      - template-api-dp-keys:/root/.aspnet/DataProtection-Keys
-      - template-api-logs:/app/publish/logs
+      - acme-api-dp-keys:/root/.aspnet/DataProtection-Keys
+      - acme-api-logs:/app/publish/logs
     networks:
-      - template-network
+      - acme-network
       - rp
 
 networks:
-  template-network:
-    name: template-network
+  acme-network:
+    name: acme-network
     external: true
   rp:
     external: true
     name: rp_default_net
 
 volumes:
-  template-api-dp-keys:
+  acme-api-dp-keys:
     external: true
-    name: template-api-dp-keys
-  template-api-logs:
+    name: acme-api-dp-keys
+  acme-api-logs:
     external: true
-    name: template-api-logs
+    name: acme-api-logs

@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace Template.Core.Ordering.Persistence.Orders;
+namespace Acme.Core.Ordering.Persistence.Orders;
 
 public enum EStatusDbo
 {

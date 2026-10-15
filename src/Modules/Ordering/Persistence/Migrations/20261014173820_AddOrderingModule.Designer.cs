@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Template.Core.Ordering.Persistence.DbContext;
+using Acme.Core.Ordering.Persistence.DbContext;
 
 #nullable disable
 
-namespace Template.Core.Ordering.Persistence.Migrations
+namespace Acme.Core.Ordering.Persistence.Migrations
 {
     [DbContext(typeof(OrderingDbContext))]
     [Migration("20261014173820_AddOrderingModule")]
@@ -26,7 +26,7 @@ namespace Template.Core.Ordering.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Template.Core.Ordering.Persistence.Orders.OrderDbo", b =>
+            modelBuilder.Entity("Acme.Core.Ordering.Persistence.Orders.OrderDbo", b =>
                 {
                     b.Property<Guid>("OrderId")
                         .ValueGeneratedOnAdd()
@@ -53,7 +53,7 @@ namespace Template.Core.Ordering.Persistence.Migrations
                     b.ToTable("Orders", "ordering");
                 });
 
-            modelBuilder.Entity("Template.Core.Ordering.Persistence.OrderItems.OrderItemDbo", b =>
+            modelBuilder.Entity("Acme.Core.Ordering.Persistence.OrderItems.OrderItemDbo", b =>
                 {
                     b.Property<Guid>("OrderItemId")
                         .ValueGeneratedOnAdd()

@@ -1,7 +1,7 @@
 using LanguageExt;
-using Template.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Domain.Errors;
 
-namespace Template.Core.Ordering.Domain.ValueObjects;
+namespace Acme.Core.Ordering.Domain.ValueObjects;
 
 public record Price(decimal Value)
 {

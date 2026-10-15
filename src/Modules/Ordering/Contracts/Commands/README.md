@@ -22,7 +22,7 @@ Write-side requests of the Ordering module (Contracts layer). Each is a `sealed 
 ## Dependencies
 
 - References: `BuildingBlocks.Application.Communication` (`ICommand<T>`), `../Results`, `../Dto` (`EStatus`).
-- Used by: Application command handlers and validators; `Template.Core.Api` gRPC request mappers; tests.
+- Used by: Application command handlers and validators; `Acme.Core.Api` gRPC request mappers; tests.
 
 ## Extending
 

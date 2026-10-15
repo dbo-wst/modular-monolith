@@ -1,6 +1,6 @@
 # Ordering Domain Tests
 
-Unit tests for the Ordering domain model: the `Order` and `OrderItem` aggregates, their invariants, status transitions, raised domain events and strongly typed ids. Assembly: `Template.Core.Ordering.Domain.Test`.
+Unit tests for the Ordering domain model: the `Order` and `OrderItem` aggregates, their invariants, status transitions, raised domain events and strongly typed ids. Assembly: `Acme.Core.Ordering.Domain.Test`.
 
 ## Contents
 
@@ -10,7 +10,7 @@ Unit tests for the Ordering domain model: the `Order` and `OrderItem` aggregates
 | `Order/OrderIdTests.cs` | test class | `OrderId.From`/`MaybeCreate`, nullable overload, value equality |
 | `OrderItem/OrderItemTests.cs` | test class | `OrderItem.Create` validation (quantity > 0, price >= 0, order id required) and events, `Rehydrate`, `ChangeDetails`, `Delete` |
 | `OrderItem/OrderItemIdTests.cs` | test class | `OrderItemId.From`/`MaybeCreate`, nullable overload, value equality |
-| `Template.Core.Ordering.Domain.Test.csproj` | project | Test project definition |
+| `Acme.Core.Ordering.Domain.Test.csproj` | project | Test project definition |
 
 ## How it works
 
@@ -19,12 +19,12 @@ Pure unit tests: aggregates are built with `Create(...)` (validating, raises eve
 ## Running
 
 ```powershell
-dotnet test .\test\Modules\Ordering\Domain\Template.Core.Ordering.Domain.Test.csproj
+dotnet test .\test\Modules\Ordering\Domain\Acme.Core.Ordering.Domain.Test.csproj
 ```
 
 ## Dependencies
 
-- References: `src/Modules/Ordering/Domain/Template.Core.Ordering.Domain.csproj`, `test/Modules/Ordering/TestCompanion/Template.Core.Ordering.TestCompanion.csproj`
+- References: `src/Modules/Ordering/Domain/Acme.Core.Ordering.Domain.csproj`, `test/Modules/Ordering/TestCompanion/Acme.Core.Ordering.TestCompanion.csproj`
 - Packages: `xunit.v3`, `xunit.runner.visualstudio`, `Microsoft.NET.Test.Sdk`
 
 ## Extending

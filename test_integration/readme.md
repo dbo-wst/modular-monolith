@@ -1,12 +1,12 @@
 # Integration Tests
 
-Tests that exercise real infrastructure or a hosted application: the Ordering module against SQL Server, and the two hosts (`Template.Core.Api` gRPC, `Template.Api` HTTP gateway) through `WebApplicationFactory`. This guide is shared for all projects under `test_integration/`.
+Tests that exercise real infrastructure or a hosted application: the Ordering module against SQL Server, and the two hosts (`Acme.Core.Api` gRPC, `Acme.Api` HTTP gateway) through `WebApplicationFactory`. This guide is shared for all projects under `test_integration/`.
 
 ## Structure
 
 | Item | Kind | Description |
 |---|---|---|
-| [`Host`](Host/README.md) | folder | In-process host tests for `Template.Api` and `Template.Core.Api` (no database) |
+| [`Host`](Host/README.md) | folder | In-process host tests for `Acme.Api` and `Acme.Core.Api` (no database) |
 | [`Modules`](Modules/README.md) | folder | SQL Server-backed tests per business module (currently Ordering) |
 | [`TestCompanion`](TestCompanion/README.md) | folder (library) | Shared helpers, including the Testcontainers SQL Server container |
 | `Directory.Build.props` | build props | net10.0, nullable, `xUnit1051` suppressed; copies `appsettings.json` and an optional `appsettings.test.json` to the output |
@@ -21,10 +21,10 @@ Tests that exercise real infrastructure or a hosted application: the Ordering mo
 Run from the repository root (PowerShell):
 
 ```powershell
-dotnet test .\test_integration\Modules\Ordering\Persistence\Template.Core.Ordering.Persistence.IntegrationTest.csproj
-dotnet test .\test_integration\Modules\Ordering\Application\Template.Core.Ordering.Application.IntegrationTest.csproj
-dotnet test .\test_integration\Host\Template.Core.Api.IntegrationTest\Template.Core.Api.IntegrationTest.csproj
-dotnet test .\test_integration\Host\Template.Api.IntegrationTest\Template.Api.IntegrationTest.csproj
+dotnet test .\test_integration\Modules\Ordering\Persistence\Acme.Core.Ordering.Persistence.IntegrationTest.csproj
+dotnet test .\test_integration\Modules\Ordering\Application\Acme.Core.Ordering.Application.IntegrationTest.csproj
+dotnet test .\test_integration\Host\Acme.Core.Api.IntegrationTest\Acme.Core.Api.IntegrationTest.csproj
+dotnet test .\test_integration\Host\Acme.Api.IntegrationTest\Acme.Api.IntegrationTest.csproj
 ```
 
 ## Configuration

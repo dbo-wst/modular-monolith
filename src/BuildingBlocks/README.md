@@ -6,9 +6,9 @@ Shared, module-agnostic infrastructure that every module and host builds on. It 
 
 | Item | Kind | Description |
 |---|---|---|
-| [`Domain/`](Domain/README.md) | project folder (`Template.Core.BuildingBlocks.Domain`) | Aggregate root, domain events, unit-of-work and event-dispatcher ports, mapping interfaces, typed errors, `Fin<T>` helpers |
-| [`Application/`](Application/README.md) | project folder (`Template.Core.BuildingBlocks.Application`) | Custom CQRS mediator, pipeline behaviours, domain event dispatcher, DI registration, FluentValidation-based options validation |
-| [`Persistence/`](Persistence/README.md) | project folder (`Template.Core.BuildingBlocks.Persistence`) | EF Core `UnitOfWork<TContext>` and the scoped `DomainEventCollector` |
+| [`Domain/`](Domain/README.md) | project folder (`Acme.Core.BuildingBlocks.Domain`) | Aggregate root, domain events, unit-of-work and event-dispatcher ports, mapping interfaces, typed errors, `Fin<T>` helpers |
+| [`Application/`](Application/README.md) | project folder (`Acme.Core.BuildingBlocks.Application`) | Custom CQRS mediator, pipeline behaviours, domain event dispatcher, DI registration, FluentValidation-based options validation |
+| [`Persistence/`](Persistence/README.md) | project folder (`Acme.Core.BuildingBlocks.Persistence`) | EF Core `UnitOfWork<TContext>` and the scoped `DomainEventCollector` |
 
 ## How it works
 
@@ -23,7 +23,7 @@ Shared, module-agnostic infrastructure that every module and host builds on. It 
 
 ## Dependencies
 - References: LanguageExt.Core, LanguageExt.Transformers (Domain); FluentValidation, Microsoft.Extensions.DependencyInjection.Abstractions, Microsoft.Extensions.Options (Application); Microsoft.EntityFrameworkCore (Persistence).
-- Used by: `src/Modules/Ordering/*` (Domain, Application, Contracts, Persistence), `src/Host/Template.Core.Api`, `src/Host/Template.Api.Infrastructure.CoreApi`, tests in `test/BuildingBlocks`.
+- Used by: `src/Modules/Ordering/*` (Domain, Application, Contracts, Persistence), `src/Host/Acme.Core.Api`, `src/Host/Acme.Api.Infrastructure.CoreApi`, tests in `test/BuildingBlocks`.
 
 ## Extending
 - Put code here only if it is module-agnostic and needed by more than one module or host; module-specific code stays in its module.

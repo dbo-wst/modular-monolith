@@ -1,4 +1,4 @@
-namespace Template.Core.Ordering.Persistence;
+namespace Acme.Core.Ordering.Persistence;
 
 public interface IOrderingDbContextFactory
 {

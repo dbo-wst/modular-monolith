@@ -1,7 +1,7 @@
 using FluentValidation;
-using Template.Core.Ordering.Contracts.Commands;
+using Acme.Core.Ordering.Contracts.Commands;
 
-namespace Template.Core.Ordering.Application.OrderItems.CreateOrderItem;
+namespace Acme.Core.Ordering.Application.OrderItems.CreateOrderItem;
 
 internal sealed class CreateOrderItemValidator : AbstractValidator<CreateOrderItemCommand>
 {

@@ -1,4 +1,4 @@
-namespace Template.Core.BuildingBlocks.Domain.Errors;
+namespace Acme.Core.BuildingBlocks.Domain.Errors;
 
 /// <summary>
 /// Stable, transport-agnostic error codes. Hosts put these on the wire (gRPC *Error.Code) and the

@@ -1,10 +1,10 @@
 using LanguageExt;
-using Template.Core.Ordering.Domain.Orders.Events;
-using Template.Core.Ordering.Domain.ValueObjects;
-using Template.Core.BuildingBlocks.Domain;
-using Template.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.Ordering.Domain.Orders.Events;
+using Acme.Core.Ordering.Domain.ValueObjects;
+using Acme.Core.BuildingBlocks.Domain;
+using Acme.Core.BuildingBlocks.Domain.Errors;
 
-namespace Template.Core.Ordering.Domain.Orders;
+namespace Acme.Core.Ordering.Domain.Orders;
 
 public sealed class Order : AggregateRoot<OrderId>
 {

@@ -1,10 +1,10 @@
 using LanguageExt.UnsafeValueAccess;
-using Template.Core.Ordering.Domain;
-using Template.Core.Ordering.TestCompanion;
-using OrderId = Template.Core.Ordering.Domain.Orders.OrderId;
-using Support = Template.Core.Ordering.TestCompanion.Order.Support;
+using Acme.Core.Ordering.Domain;
+using Acme.Core.Ordering.TestCompanion;
+using OrderId = Acme.Core.Ordering.Domain.Orders.OrderId;
+using Support = Acme.Core.Ordering.TestCompanion.Order.Support;
 
-namespace Template.Core.Ordering.Persistence.IntegrationTest.Orders;
+namespace Acme.Core.Ordering.Persistence.IntegrationTest.Orders;
 
 [Collection(IntegrationTestsFixture.CollectionName)]
 public class ReadOnlyOperationsTests(IntegrationTestsFixture fixture)

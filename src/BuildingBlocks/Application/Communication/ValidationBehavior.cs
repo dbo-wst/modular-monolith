@@ -1,9 +1,9 @@
 using FluentValidation;
 using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
-using Template.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Domain.Errors;
 
-namespace Template.Core.BuildingBlocks.Application.Communication;
+namespace Acme.Core.BuildingBlocks.Application.Communication;
 
 /// <summary>Runs every registered FluentValidation validator for the request before its handler executes.</summary>
 public sealed class ValidationBehavior(IServiceProvider provider) : IPipelineBehavior

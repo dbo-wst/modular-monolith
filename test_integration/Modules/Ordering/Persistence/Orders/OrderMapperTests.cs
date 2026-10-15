@@ -1,9 +1,9 @@
-using Template.Core.Ordering.Domain.Orders;
-using Template.Core.Ordering.Persistence.Orders;
-using Template.Core.Ordering.Persistence.Orders.Mappers;
-using Template.Core.Ordering.Domain.ValueObjects;
+using Acme.Core.Ordering.Domain.Orders;
+using Acme.Core.Ordering.Persistence.Orders;
+using Acme.Core.Ordering.Persistence.Orders.Mappers;
+using Acme.Core.Ordering.Domain.ValueObjects;
 
-namespace Template.Core.Ordering.Persistence.IntegrationTest.Orders;
+namespace Acme.Core.Ordering.Persistence.IntegrationTest.Orders;
 
 public class OrderMapperTests
 {

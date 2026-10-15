@@ -1,10 +1,10 @@
-using Template.Core.BuildingBlocks.Domain;
+using Acme.Core.BuildingBlocks.Domain;
 
-namespace Template.Core.Ordering.Application.OrderItems.Mappers;
+namespace Acme.Core.Ordering.Application.OrderItems.Mappers;
 
-public readonly struct OrderItemMapper : IOnewayMap<Template.Core.Ordering.Domain.OrderItems.OrderItem, Contracts.Dto.OrderItem>
+public readonly struct OrderItemMapper : IOnewayMap<Acme.Core.Ordering.Domain.OrderItems.OrderItem, Contracts.Dto.OrderItem>
 {
-    public Contracts.Dto.OrderItem Map(Template.Core.Ordering.Domain.OrderItems.OrderItem left) => new(
+    public Contracts.Dto.OrderItem Map(Acme.Core.Ordering.Domain.OrderItems.OrderItem left) => new(
         left.Id.Value,
         left.OrderId.Value,
         left.Quantity.Value,

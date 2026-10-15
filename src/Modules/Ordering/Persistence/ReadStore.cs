@@ -1,13 +1,13 @@
 using LanguageExt;
-using Template.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Domain.Errors;
 using Microsoft.EntityFrameworkCore;
-using Template.Core.Ordering.Application;
-using Template.Core.Ordering.Contracts.Dto;
-using Template.Core.Ordering.Persistence.Orders;
-using Template.Core.Ordering.Domain.Orders;
-using Template.Core.Ordering.Domain.OrderItems;
+using Acme.Core.Ordering.Application;
+using Acme.Core.Ordering.Contracts.Dto;
+using Acme.Core.Ordering.Persistence.Orders;
+using Acme.Core.Ordering.Domain.Orders;
+using Acme.Core.Ordering.Domain.OrderItems;
 
-namespace Template.Core.Ordering.Persistence;
+namespace Acme.Core.Ordering.Persistence;
 
 /// <summary>Query side: no-tracking reads projected straight to DTOs, without rehydrating aggregates.</summary>
 public sealed class ReadStore(IOrderingDbContextFactory contextFactory) : IOrderingReadStore

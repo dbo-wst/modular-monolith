@@ -1,13 +1,13 @@
-using Template.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Domain.Errors;
 using LanguageExt.UnsafeValueAccess;
-using Template.Core.Ordering.Contracts.Dto;
-using Template.Core.Ordering.Persistence;
-using Template.Core.Ordering.TestCompanion;
-using CreateOrderHandler = Template.Core.Ordering.Application.Orders.CreateOrder.CreateOrderHandler;
-using GetOrderHandler = Template.Core.Ordering.Application.Orders.GetOrder.GetOrderHandler;
-using OrderId = Template.Core.Ordering.Domain.Orders.OrderId;
+using Acme.Core.Ordering.Contracts.Dto;
+using Acme.Core.Ordering.Persistence;
+using Acme.Core.Ordering.TestCompanion;
+using CreateOrderHandler = Acme.Core.Ordering.Application.Orders.CreateOrder.CreateOrderHandler;
+using GetOrderHandler = Acme.Core.Ordering.Application.Orders.GetOrder.GetOrderHandler;
+using OrderId = Acme.Core.Ordering.Domain.Orders.OrderId;
 
-namespace Template.Core.Ordering.Application.Test.Orders.GetOrder;
+namespace Acme.Core.Ordering.Application.Test.Orders.GetOrder;
 
 public class GetOrderHandlerTests(InMemoryFixture fixture) : IClassFixture<InMemoryFixture>
 {

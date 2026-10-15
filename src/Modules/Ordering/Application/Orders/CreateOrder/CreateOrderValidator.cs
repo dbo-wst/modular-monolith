@@ -1,7 +1,7 @@
 using FluentValidation;
-using Template.Core.Ordering.Contracts.Commands;
+using Acme.Core.Ordering.Contracts.Commands;
 
-namespace Template.Core.Ordering.Application.Orders.CreateOrder;
+namespace Acme.Core.Ordering.Application.Orders.CreateOrder;
 
 internal sealed class CreateOrderValidator : AbstractValidator<CreateOrderCommand>
 {

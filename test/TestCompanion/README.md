@@ -1,6 +1,6 @@
 # Test Companion (unit, shared)
 
-Module-agnostic helpers shared by the unit test projects under `test/`. Assembly: `Template.Core.TestCompanion` (library, contains no tests).
+Module-agnostic helpers shared by the unit test projects under `test/`. Assembly: `Acme.Core.TestCompanion` (library, contains no tests).
 
 ## Contents
 
@@ -8,11 +8,11 @@ Module-agnostic helpers shared by the unit test projects under `test/`. Assembly
 |---|---|---|
 | `Support.cs` | helper | `Support.NewFaker()` (Bogus) and `Support.AssertError(expected)` for asserting a LanguageExt `Error` by message |
 | `Support.Infrastructure.cs` | helper | `Support.Infrastructure.UseContainer()` (Testcontainers SQL Server 2025 container) and `Support.Domain.NewIsinAsString()` (random ISIN-shaped string) |
-| `Template.Core.TestCompanion.csproj` | project | Library project definition |
+| `Acme.Core.TestCompanion.csproj` | project | Library project definition |
 
 ## How it works
 
-`Support` is a `static partial class` in namespace `Template.Core.TestCompanion`, split across files by concern. `UseContainer()` only builds the container; unit tests do not start it. `test_integration/TestCompanion` has a same-named assembly used by the integration tests.
+`Support` is a `static partial class` in namespace `Acme.Core.TestCompanion`, split across files by concern. `UseContainer()` only builds the container; unit tests do not start it. `test_integration/TestCompanion` has a same-named assembly used by the integration tests.
 
 ## Running
 

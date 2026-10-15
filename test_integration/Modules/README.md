@@ -15,8 +15,8 @@ A module's `TestCompanion` provides an xUnit collection fixture that starts a SQ
 ## Running
 
 ```powershell
-dotnet test .\test_integration\Modules\Ordering\Persistence\Template.Core.Ordering.Persistence.IntegrationTest.csproj
-dotnet test .\test_integration\Modules\Ordering\Application\Template.Core.Ordering.Application.IntegrationTest.csproj
+dotnet test .\test_integration\Modules\Ordering\Persistence\Acme.Core.Ordering.Persistence.IntegrationTest.csproj
+dotnet test .\test_integration\Modules\Ordering\Application\Acme.Core.Ordering.Application.IntegrationTest.csproj
 ```
 
 ## Dependencies
@@ -25,4 +25,4 @@ dotnet test .\test_integration\Modules\Ordering\Application\Template.Core.Orderi
 
 ## Extending
 
-For a new module `<Module>`, create `test_integration/Modules/<Module>/` with `TestCompanion/` (fixture calling `Add<Module>Persistence`), `Persistence/` and `Application/` integration test projects named `Template.Core.<Module>.<Layer>.IntegrationTest`, each with an `appsettings.json`, and register them in `Template.Core.slnx`.
+For a new module `<Module>`, create `test_integration/Modules/<Module>/` with `TestCompanion/` (fixture calling `Add<Module>Persistence`), `Persistence/` and `Application/` integration test projects named `Acme.Core.<Module>.<Layer>.IntegrationTest`, each with an `appsettings.json`, and register them in `Acme.Core.slnx`.

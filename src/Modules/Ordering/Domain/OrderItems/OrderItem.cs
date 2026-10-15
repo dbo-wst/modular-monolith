@@ -1,11 +1,11 @@
 using LanguageExt;
-using Template.Core.Ordering.Domain.OrderItems.Events;
-using Template.Core.Ordering.Domain.Orders;
-using Template.Core.Ordering.Domain.ValueObjects;
-using Template.Core.BuildingBlocks.Domain;
-using Template.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.Ordering.Domain.OrderItems.Events;
+using Acme.Core.Ordering.Domain.Orders;
+using Acme.Core.Ordering.Domain.ValueObjects;
+using Acme.Core.BuildingBlocks.Domain;
+using Acme.Core.BuildingBlocks.Domain.Errors;
 
-namespace Template.Core.Ordering.Domain.OrderItems;
+namespace Acme.Core.Ordering.Domain.OrderItems;
 
 public sealed class OrderItem : AggregateRoot<OrderItemId>
 {

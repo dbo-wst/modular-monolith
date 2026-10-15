@@ -15,7 +15,7 @@ fi
 VERSION="$1"
 
 REGISTRY_HOST="build.steubing.com"
-IMAGE_NAME="template-core-api"
+IMAGE_NAME="acme-core-api"
 IMAGE_TAG="${REGISTRY_HOST}/${IMAGE_NAME}:${VERSION}"
 
 echo "Pulling ${IMAGE_TAG} from ${REGISTRY_HOST}..."

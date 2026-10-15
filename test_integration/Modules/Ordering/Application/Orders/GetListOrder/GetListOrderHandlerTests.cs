@@ -1,11 +1,11 @@
 using LanguageExt.UnsafeValueAccess;
-using Template.Core.Ordering.Contracts.Dto;
-using Template.Core.Ordering.Persistence;
-using Template.Core.Ordering.TestCompanion;
-using CreateOrderHandler = Template.Core.Ordering.Application.Orders.CreateOrder.CreateOrderHandler;
-using GetListOrderHandler = Template.Core.Ordering.Application.Orders.GetListOrder.GetListOrderHandler;
+using Acme.Core.Ordering.Contracts.Dto;
+using Acme.Core.Ordering.Persistence;
+using Acme.Core.Ordering.TestCompanion;
+using CreateOrderHandler = Acme.Core.Ordering.Application.Orders.CreateOrder.CreateOrderHandler;
+using GetListOrderHandler = Acme.Core.Ordering.Application.Orders.GetListOrder.GetListOrderHandler;
 
-namespace Template.Core.Ordering.Application.IntegrationTest.Orders.GetListOrder;
+namespace Acme.Core.Ordering.Application.IntegrationTest.Orders.GetListOrder;
 
 [Collection(IntegrationTestsFixture.CollectionName)]
 public class GetListOrderHandlerTests(IntegrationTestsFixture fixture)

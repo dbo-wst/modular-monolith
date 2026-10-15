@@ -1,4 +1,4 @@
-namespace Template.Core.BuildingBlocks.Domain.Functional;
+namespace Acme.Core.BuildingBlocks.Domain.Functional;
 
 public static class ListExtensions
 {

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
-namespace Template.Core.Ordering.Persistence.DbContext;
+namespace Acme.Core.Ordering.Persistence.DbContext;
 
 public class OrderingDbContextFactory : IOrderingDbContextFactory
 {

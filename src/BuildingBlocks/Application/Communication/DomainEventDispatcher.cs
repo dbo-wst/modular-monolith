@@ -1,9 +1,9 @@
 using System.Collections.Concurrent;
 using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
-using Template.Core.BuildingBlocks.Domain;
+using Acme.Core.BuildingBlocks.Domain;
 
-namespace Template.Core.BuildingBlocks.Application.Communication;
+namespace Acme.Core.BuildingBlocks.Application.Communication;
 
 /// <summary>
 /// Dispatches each event to every registered <see cref="IDomainEventHandler{TEvent}"/> of its runtime type,

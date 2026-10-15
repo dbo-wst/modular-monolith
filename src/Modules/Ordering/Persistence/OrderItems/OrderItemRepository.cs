@@ -1,11 +1,11 @@
 using LanguageExt;
-using Template.Core.BuildingBlocks.Domain.Errors;
-using Template.Core.BuildingBlocks.Persistence;
+using Acme.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Persistence;
 using Microsoft.EntityFrameworkCore;
-using Template.Core.Ordering.Persistence.DbContext;
-using DomainOrderItem = Template.Core.Ordering.Domain.OrderItems;
+using Acme.Core.Ordering.Persistence.DbContext;
+using DomainOrderItem = Acme.Core.Ordering.Domain.OrderItems;
 
-namespace Template.Core.Ordering.Persistence.OrderItems;
+namespace Acme.Core.Ordering.Persistence.OrderItems;
 
 public class OrderItemRepository(OrderingDbContext context, DomainEventCollector events): DomainOrderItem.IOrderItemRepository
 {

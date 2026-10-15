@@ -1,6 +1,6 @@
-using Template.Core.BuildingBlocks.Domain.Functional;
+using Acme.Core.BuildingBlocks.Domain.Functional;
 
-namespace Template.Core.BuildingBlocks.Domain.Test.Functional;
+namespace Acme.Core.BuildingBlocks.Domain.Test.Functional;
 
 public class AdvancedTests
 {

@@ -1,6 +1,6 @@
 using LanguageExt;
 
-namespace Template.Core.BuildingBlocks.Application.Communication;
+namespace Acme.Core.BuildingBlocks.Application.Communication;
 
 /// <summary>
 /// Cross-cutting step wrapped only around commands (<see cref="ICommand{TResponse}"/>), never queries —

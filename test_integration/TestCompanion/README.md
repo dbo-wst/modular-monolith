@@ -1,17 +1,17 @@
 # Test Companion (integration, shared)
 
-Module-agnostic helpers shared by the integration test projects. Assembly: `Template.Core.TestCompanion` (library, contains no tests).
+Module-agnostic helpers shared by the integration test projects. Assembly: `Acme.Core.TestCompanion` (library, contains no tests).
 
 ## Contents
 
 | Item | Kind | Description |
 |---|---|---|
 | `Support.Infrastructure.cs` | helper | `Support.Infrastructure.UseContainer()`: builds a Testcontainers `MsSqlContainer` (`mcr.microsoft.com/mssql/server:2025-latest`, password `MyP@ssword`, cleanup enabled) |
-| `Template.Core.TestCompanion.csproj` | project | Library project definition |
+| `Acme.Core.TestCompanion.csproj` | project | Library project definition |
 
 ## How it works
 
-`Support` and `Support.Infrastructure` are `static partial` classes in namespace `Template.Core.TestCompanion`. `UseContainer()` only builds the container; the caller (e.g. `IntegrationTestsFixture`) starts and disposes it, which requires Docker. This assembly has the same name as `test/TestCompanion` but is a separate project.
+`Support` and `Support.Infrastructure` are `static partial` classes in namespace `Acme.Core.TestCompanion`. `UseContainer()` only builds the container; the caller (e.g. `IntegrationTestsFixture`) starts and disposes it, which requires Docker. This assembly has the same name as `test/TestCompanion` but is a separate project.
 
 ## Running
 

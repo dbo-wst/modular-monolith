@@ -1,6 +1,6 @@
-using Template.Core.Ordering.Persistence;
+using Acme.Core.Ordering.Persistence;
 
-namespace Template.Core.Ordering.TestCompanion;
+namespace Acme.Core.Ordering.TestCompanion;
 
 public sealed class InMemoryFixture
 {

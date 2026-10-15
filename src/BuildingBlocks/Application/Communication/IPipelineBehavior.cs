@@ -1,6 +1,6 @@
 using LanguageExt;
 
-namespace Template.Core.BuildingBlocks.Application.Communication;
+namespace Acme.Core.BuildingBlocks.Application.Communication;
 
 /// <summary>
 /// Cross-cutting step wrapped around every request (command or query) handled by <see cref="IMediator"/>.

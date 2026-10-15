@@ -2,7 +2,7 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Template.Core.BuildingBlocks.Application.Validation;
+namespace Acme.Core.BuildingBlocks.Application.Validation;
 
 public class FluentValidateOptions<TOptions>(IServiceProvider serviceProvider, string? optionsName)
     : IValidateOptions<TOptions>

@@ -21,23 +21,23 @@ Fast, in-process unit tests for the building blocks, the Ordering module and the
 Run from the repository root (PowerShell). Run one test project:
 
 ```powershell
-dotnet test .\test\Modules\Ordering\Domain\Template.Core.Ordering.Domain.Test.csproj
+dotnet test .\test\Modules\Ordering\Domain\Acme.Core.Ordering.Domain.Test.csproj
 ```
 
 Test projects under `test/`:
 
 ```powershell
-dotnet test .\test\Architecture\Template.Core.Architecture.Test.csproj
-dotnet test .\test\BuildingBlocks\Domain\Template.Core.BuildingBlocks.Domain.Test.csproj
-dotnet test .\test\BuildingBlocks\Application\Template.Core.BuildingBlocks.Application.Test.csproj
-dotnet test .\test\Modules\Ordering\Domain\Template.Core.Ordering.Domain.Test.csproj
-dotnet test .\test\Modules\Ordering\Application\Template.Core.Ordering.Application.Test.csproj
+dotnet test .\test\Architecture\Acme.Core.Architecture.Test.csproj
+dotnet test .\test\BuildingBlocks\Domain\Acme.Core.BuildingBlocks.Domain.Test.csproj
+dotnet test .\test\BuildingBlocks\Application\Acme.Core.BuildingBlocks.Application.Test.csproj
+dotnet test .\test\Modules\Ordering\Domain\Acme.Core.Ordering.Domain.Test.csproj
+dotnet test .\test\Modules\Ordering\Application\Acme.Core.Ordering.Application.Test.csproj
 ```
 
 Run everything in the solution (unit and integration tests; integration tests need Docker, see `test_integration/readme.md`):
 
 ```powershell
-dotnet test .\Template.Core.slnx
+dotnet test .\Acme.Core.slnx
 ```
 
 ## Notes

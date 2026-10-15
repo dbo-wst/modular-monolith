@@ -1,6 +1,6 @@
 ﻿using Google.Protobuf;
 
-namespace Template.Core.Protocol;
+namespace Acme.Core.Protocol;
 
 public static class BytesExtension
 {

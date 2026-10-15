@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Template.Core.Ordering.Persistence.DbContext;
+namespace Acme.Core.Ordering.Persistence.DbContext;
 
 public class OrderingDbDesignTimeContextFactory : IDesignTimeDbContextFactory<OrderingDbContext>
 {

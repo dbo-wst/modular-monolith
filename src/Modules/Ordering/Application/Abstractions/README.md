@@ -10,13 +10,13 @@ Ports (interfaces) owned by the Ordering application layer and implemented by an
 
 ## How it works
 
-- Note: the interface lives in namespace `Template.Core.Ordering.Application` (not `.Abstractions`).
+- Note: the interface lives in namespace `Acme.Core.Ordering.Application` (not `.Abstractions`).
 - Single-item reads return `Task<Fin<Dto>>` (a `NotFoundError` when missing); list reads return `Task<IReadOnlyList<Dto>>` for a `pageNumber`/`pageSize` page and never fail.
 - It bypasses domain aggregates entirely (CQRS read side); write-side ports (`IOrderRepository`, `IOrderItemRepository`) live in Domain, `IUnitOfWork` in BuildingBlocks.Domain.
 
 ## Dependencies
 
-- References: `Template.Core.Ordering.Contracts` (`Dto.Order`, `Dto.OrderItem`), LanguageExt.
+- References: `Acme.Core.Ordering.Contracts` (`Dto.Order`, `Dto.OrderItem`), LanguageExt.
 - Used by: `GetOrderHandler`, `GetListOrderHandler`, `GetOrderItemHandler`, `GetListOrderItemHandler`; implemented by `Persistence/ReadStore.cs` (registered scoped in `AddOrderingPersistence`); test fakes in `test/Modules/Ordering`.
 
 ## Extending

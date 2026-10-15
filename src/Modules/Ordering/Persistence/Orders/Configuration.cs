@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Template.Core.Ordering.Persistence.Orders;
+namespace Acme.Core.Ordering.Persistence.Orders;
 
 public class Configuration : IEntityTypeConfiguration<OrderDbo>
 {

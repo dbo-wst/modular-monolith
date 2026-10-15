@@ -1,6 +1,6 @@
 # Ordering Application Tests
 
-Unit tests for the Ordering application layer: every vertical-slice handler, the mediator pipeline with validation, and domain event dispatch through the unit of work. Runs against the EF Core in-memory provider. Assembly: `Template.Core.Ordering.Application.Test`.
+Unit tests for the Ordering application layer: every vertical-slice handler, the mediator pipeline with validation, and domain event dispatch through the unit of work. Runs against the EF Core in-memory provider. Assembly: `Acme.Core.Ordering.Application.Test`.
 
 ## Contents
 
@@ -18,7 +18,7 @@ Unit tests for the Ordering application layer: every vertical-slice handler, the
 | `OrderItems/GetListOrderItem/GetListOrderItemHandlerTests.cs` | test class | List returns created order items |
 | `OrderItems/UpdateOrderItem/UpdateOrderItemHandlerTests.cs` | test class | Update then get, missing order item fails |
 | `OrderItems/DeleteOrderItem/DeleteOrderItemHandlerTests.cs` | test class | Delete existing order item, missing order item fails |
-| `Template.Core.Ordering.Application.Test.csproj` | project | Test project definition |
+| `Acme.Core.Ordering.Application.Test.csproj` | project | Test project definition |
 
 ## How it works
 
@@ -33,12 +33,12 @@ No Docker or SQL Server is required.
 ## Running
 
 ```powershell
-dotnet test .\test\Modules\Ordering\Application\Template.Core.Ordering.Application.Test.csproj
+dotnet test .\test\Modules\Ordering\Application\Acme.Core.Ordering.Application.Test.csproj
 ```
 
 ## Dependencies
 
-- References: `src/Modules/Ordering/Application/Template.Core.Ordering.Application.csproj`, `src/Modules/Ordering/Domain/Template.Core.Ordering.Domain.csproj`, `test/Modules/Ordering/TestCompanion/Template.Core.Ordering.TestCompanion.csproj`
+- References: `src/Modules/Ordering/Application/Acme.Core.Ordering.Application.csproj`, `src/Modules/Ordering/Domain/Acme.Core.Ordering.Domain.csproj`, `test/Modules/Ordering/TestCompanion/Acme.Core.Ordering.TestCompanion.csproj`
 - Packages: `xunit.v3`, `xunit.runner.visualstudio`, `Microsoft.NET.Test.Sdk`, `Microsoft.Extensions.DependencyInjection`
 
 ## Extending

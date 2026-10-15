@@ -1,12 +1,12 @@
 using LanguageExt;
-using Template.Core.BuildingBlocks.Domain;
-using Template.Core.Ordering.Domain.Orders;
-using Template.Core.Ordering.Contracts.Commands;
-using Template.Core.Ordering.Contracts.Results;
-using Template.Core.BuildingBlocks.Application.Communication;
-using Template.Core.BuildingBlocks.Domain.Functional;
+using Acme.Core.BuildingBlocks.Domain;
+using Acme.Core.Ordering.Domain.Orders;
+using Acme.Core.Ordering.Contracts.Commands;
+using Acme.Core.Ordering.Contracts.Results;
+using Acme.Core.BuildingBlocks.Application.Communication;
+using Acme.Core.BuildingBlocks.Domain.Functional;
 
-namespace Template.Core.Ordering.Application.Orders.DeleteOrder;
+namespace Acme.Core.Ordering.Application.Orders.DeleteOrder;
 
 internal sealed class DeleteOrderHandler(Domain.Orders.IOrderRepository orders, IUnitOfWork unitOfWork): ICommandHandler<DeleteOrderCommand, DeleteOrderResult>
 {

@@ -1,7 +1,7 @@
-using Template.Core.Ordering.Persistence.Orders.Mappers;
-using OrderItemMapper = Template.Core.Ordering.Persistence.OrderItems.Mappers.OrderItemMapper;
+using Acme.Core.Ordering.Persistence.Orders.Mappers;
+using OrderItemMapper = Acme.Core.Ordering.Persistence.OrderItems.Mappers.OrderItemMapper;
 
-namespace Template.Core.Ordering.Persistence;
+namespace Acme.Core.Ordering.Persistence;
 
 public static class DboMappers
 {

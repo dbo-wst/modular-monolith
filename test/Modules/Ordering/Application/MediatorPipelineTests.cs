@@ -1,13 +1,13 @@
-using Template.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Domain.Errors;
 using Microsoft.Extensions.DependencyInjection;
-using Template.Core.Ordering.Contracts.Commands;
-using Template.Core.Ordering.Persistence;
-using Template.Core.Ordering.TestCompanion;
-using Template.Core.BuildingBlocks.Application.Communication;
-using Template.Core.BuildingBlocks.Domain;
-using Template.Core.BuildingBlocks.Persistence;
+using Acme.Core.Ordering.Contracts.Commands;
+using Acme.Core.Ordering.Persistence;
+using Acme.Core.Ordering.TestCompanion;
+using Acme.Core.BuildingBlocks.Application.Communication;
+using Acme.Core.BuildingBlocks.Domain;
+using Acme.Core.BuildingBlocks.Persistence;
 
-namespace Template.Core.Ordering.Application.Test;
+namespace Acme.Core.Ordering.Application.Test;
 
 public class MediatorPipelineTests
 {

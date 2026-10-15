@@ -1,7 +1,7 @@
 using LanguageExt;
 using LanguageExt.Common;
 
-namespace Template.Core.BuildingBlocks.Domain.Functional;
+namespace Acme.Core.BuildingBlocks.Domain.Functional;
 
 public static class FinAsyncExtensions
 {

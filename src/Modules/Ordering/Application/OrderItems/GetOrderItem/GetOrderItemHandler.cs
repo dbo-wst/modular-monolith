@@ -1,10 +1,10 @@
 using LanguageExt;
-using Template.Core.Ordering.Contracts.Queries;
-using Template.Core.Ordering.Contracts.Results;
-using Template.Core.BuildingBlocks.Application.Communication;
-using Template.Core.BuildingBlocks.Domain.Functional;
+using Acme.Core.Ordering.Contracts.Queries;
+using Acme.Core.Ordering.Contracts.Results;
+using Acme.Core.BuildingBlocks.Application.Communication;
+using Acme.Core.BuildingBlocks.Domain.Functional;
 
-namespace Template.Core.Ordering.Application.OrderItems.GetOrderItem;
+namespace Acme.Core.Ordering.Application.OrderItems.GetOrderItem;
 
 internal sealed class GetOrderItemHandler(IOrderingReadStore readStore) : IQueryHandler<GetOrderItemQuery, GetOrderItemResult>
 {

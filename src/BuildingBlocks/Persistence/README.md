@@ -1,12 +1,12 @@
 # BuildingBlocks.Persistence
 
-Project `Template.Core.BuildingBlocks.Persistence` (namespace `Template.Core.BuildingBlocks.Persistence`). The infrastructure-layer building block for EF Core: a reusable unit of work that maps database exceptions to typed errors and dispatches domain events after a successful save.
+Project `Acme.Core.BuildingBlocks.Persistence` (namespace `Acme.Core.BuildingBlocks.Persistence`). The infrastructure-layer building block for EF Core: a reusable unit of work that maps database exceptions to typed errors and dispatches domain events after a successful save.
 
 ## Contents
 
 | Item | Kind | Description |
 |---|---|---|
-| `Template.Core.BuildingBlocks.Persistence.csproj` | project | References Microsoft.EntityFrameworkCore and BuildingBlocks.Domain |
+| `Acme.Core.BuildingBlocks.Persistence.csproj` | project | References Microsoft.EntityFrameworkCore and BuildingBlocks.Domain |
 | `UnitOfWork.cs` | abstract class `UnitOfWork<TContext>` | EF Core implementation of `IUnitOfWork`; modules derive from it to bind their `DbContext` |
 | `DomainEventCollector.cs` | sealed class | Scoped registry of aggregates touched in the current unit of work |
 
@@ -37,8 +37,8 @@ services.AddScoped<IUnitOfWork, UnitOfWork>();
 ```
 
 ## Dependencies
-- References: Microsoft.EntityFrameworkCore; project `Template.Core.BuildingBlocks.Domain` (`IUnitOfWork`, `IDomainEventDispatcher`, `IHasDomainEvents`, `Errors`). The `IDomainEventDispatcher` implementation comes from BuildingBlocks.Application, registered by the host via `AddMediator()`.
-- Used by: `Template.Core.Ordering.Persistence` (`UnitOfWork`, `OrderRepository`, `OrderItemRepository`, `ServiceCollectionExtensions`).
+- References: Microsoft.EntityFrameworkCore; project `Acme.Core.BuildingBlocks.Domain` (`IUnitOfWork`, `IDomainEventDispatcher`, `IHasDomainEvents`, `Errors`). The `IDomainEventDispatcher` implementation comes from BuildingBlocks.Application, registered by the host via `AddMediator()`.
+- Used by: `Acme.Core.Ordering.Persistence` (`UnitOfWork`, `OrderRepository`, `OrderItemRepository`, `ServiceCollectionExtensions`).
 
 ## Extending
 - New module: derive `UnitOfWork<YourDbContext>`, register it as scoped `IUnitOfWork`, register `DomainEventCollector` with `TryAddScoped`, and share one `DbContext` per scope between the unit of work and repositories.

@@ -1,18 +1,18 @@
 using LanguageExt;
 using LanguageExt.Common;
 using Microsoft.Extensions.DependencyInjection;
-using Template.Core.BuildingBlocks.Application.Communication;
-using Template.Core.BuildingBlocks.Domain;
-using Template.Core.BuildingBlocks.Domain.Errors;
-using Template.Core.BuildingBlocks.Persistence;
-using Template.Core.Ordering.Contracts.Commands;
-using Template.Core.Ordering.Domain.Orders;
-using Template.Core.Ordering.Domain.Orders.Events;
-using Template.Core.Ordering.Domain.ValueObjects;
-using Template.Core.Ordering.Persistence;
-using Template.Core.Ordering.TestCompanion;
+using Acme.Core.BuildingBlocks.Application.Communication;
+using Acme.Core.BuildingBlocks.Domain;
+using Acme.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Persistence;
+using Acme.Core.Ordering.Contracts.Commands;
+using Acme.Core.Ordering.Domain.Orders;
+using Acme.Core.Ordering.Domain.Orders.Events;
+using Acme.Core.Ordering.Domain.ValueObjects;
+using Acme.Core.Ordering.Persistence;
+using Acme.Core.Ordering.TestCompanion;
 
-namespace Template.Core.Ordering.Application.Test.DomainEvents;
+namespace Acme.Core.Ordering.Application.Test.DomainEvents;
 
 /// <summary>Domain events are dispatched by the unit of work only after a successful save.</summary>
 public class DomainEventDispatchTests

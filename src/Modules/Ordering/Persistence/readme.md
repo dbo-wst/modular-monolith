@@ -1,6 +1,6 @@
 # Ordering Persistence
 
-EF Core / SQL Server adapter of the Ordering module (assembly `Template.Core.Ordering.Persistence`). It implements the domain repository ports, the application read-store port and the unit of work, and owns the `ordering` database schema and its migrations.
+EF Core / SQL Server adapter of the Ordering module (assembly `Acme.Core.Ordering.Persistence`). It implements the domain repository ports, the application read-store port and the unit of work, and owns the `ordering` database schema and its migrations.
 
 ## Contents
 
@@ -21,7 +21,7 @@ EF Core / SQL Server adapter of the Ordering module (assembly `Template.Core.Ord
 | `PersistenceOptionsValidator.cs` | sealed class | FluentValidation: `ConnectionString` not empty. |
 | `Constants.cs` | static class | Schema `ordering`, migrations table `__EFMigrationsHistory`, `SQL_CONNECTION_STRING` env lookup (design time). |
 | `AssemblyReference.cs` | static class + `Anchor` record | Assembly handle used to apply all `IEntityTypeConfiguration`s. |
-| `Template.Core.Ordering.Persistence.csproj` | project | EF Core SQL Server adapter project. |
+| `Acme.Core.Ordering.Persistence.csproj` | project | EF Core SQL Server adapter project. |
 
 ## How it works
 
@@ -43,8 +43,8 @@ Read side: `ReadStore` creates its own short-lived context from `IOrderingDbCont
 
 ## Dependencies
 
-- References: `Template.Core.Ordering.Domain`, `Template.Core.Ordering.Application`, `Template.Core.BuildingBlocks.Persistence`; packages `LanguageExt.Core`, `Microsoft.EntityFrameworkCore`, `.SqlServer`, `.Design` (private), `Microsoft.Extensions.Options`, `.Options.ConfigurationExtensions`, `Microsoft.Extensions.Configuration.Abstractions`.
-- Used by: `src/Host/Template.Core.Api` (`AddOrderingModule` -> `AddOrderingPersistence`), `test_integration/Modules/Ordering/Persistence`, `test_integration/Modules/Ordering/TestCompanion`, `test/Modules/Ordering/TestCompanion`, `test/Architecture` (listed in `Adapters`).
+- References: `Acme.Core.Ordering.Domain`, `Acme.Core.Ordering.Application`, `Acme.Core.BuildingBlocks.Persistence`; packages `LanguageExt.Core`, `Microsoft.EntityFrameworkCore`, `.SqlServer`, `.Design` (private), `Microsoft.Extensions.Options`, `.Options.ConfigurationExtensions`, `Microsoft.Extensions.Configuration.Abstractions`.
+- Used by: `src/Host/Acme.Core.Api` (`AddOrderingModule` -> `AddOrderingPersistence`), `test_integration/Modules/Ordering/Persistence`, `test_integration/Modules/Ordering/TestCompanion`, `test/Modules/Ordering/TestCompanion`, `test/Architecture` (listed in `Adapters`).
 
 ## Extending
 
@@ -58,13 +58,13 @@ Read side: `ReadStore` creates its own short-lived context from `IOrderingDbCont
 PowerShell:
 
 ```powershell
-[Environment]::SetEnvironmentVariable("SQL_CONNECTION_STRING", "Server=tcp:localhost,1433;Database=template-core-local;User Id=sa;Password=MyP@ssword;TrustServerCertificate=True;")
+[Environment]::SetEnvironmentVariable("SQL_CONNECTION_STRING", "Server=tcp:localhost,1433;Database=acme-core-local;User Id=sa;Password=MyP@ssword;TrustServerCertificate=True;")
 ```
 
 Bash (Linux/macOS):
 
 ```bash
-export SQL_CONNECTION_STRING="Server=tcp:localhost,1433;Database=template-core-local;User Id=sa;Password=MyP@ssword;TrustServerCertificate=True;"
+export SQL_CONNECTION_STRING="Server=tcp:localhost,1433;Database=acme-core-local;User Id=sa;Password=MyP@ssword;TrustServerCertificate=True;"
 ```
 
 ### Get connection string
@@ -89,16 +89,16 @@ PowerShell:
 
 ```powershell
 dotnet ef migrations add AddOrderingModule `
-  --project .\src\Modules\Ordering\Persistence\Template.Core.Ordering.Persistence.csproj `
-  --context Template.Core.Ordering.Persistence.DbContext.OrderingDbContext
+  --project .\src\Modules\Ordering\Persistence\Acme.Core.Ordering.Persistence.csproj `
+  --context Acme.Core.Ordering.Persistence.DbContext.OrderingDbContext
 ```
 
 Bash (Linux/macOS):
 
 ```bash
 dotnet ef migrations add AddOrderingModule \
-  --project ./src/Modules/Ordering/Persistence/Template.Core.Ordering.Persistence.csproj \
-  --context Template.Core.Ordering.Persistence.DbContext.OrderingDbContext
+  --project ./src/Modules/Ordering/Persistence/Acme.Core.Ordering.Persistence.csproj \
+  --context Acme.Core.Ordering.Persistence.DbContext.OrderingDbContext
 ```
 
 Migration files are generated in `src/Modules/Ordering/Persistence/Migrations`.
@@ -109,14 +109,14 @@ PowerShell:
 
 ```powershell
 dotnet ef database update `
-  --project .\src\Modules\Ordering\Persistence\Template.Core.Ordering.Persistence.csproj `
-  --context Template.Core.Ordering.Persistence.DbContext.OrderingDbContext
+  --project .\src\Modules\Ordering\Persistence\Acme.Core.Ordering.Persistence.csproj `
+  --context Acme.Core.Ordering.Persistence.DbContext.OrderingDbContext
 ```
 
 Bash (Linux/macOS):
 
 ```bash
 dotnet ef database update \
-  --project ./src/Modules/Ordering/Persistence/Template.Core.Ordering.Persistence.csproj \
-  --context Template.Core.Ordering.Persistence.DbContext.OrderingDbContext
+  --project ./src/Modules/Ordering/Persistence/Acme.Core.Ordering.Persistence.csproj \
+  --context Acme.Core.Ordering.Persistence.DbContext.OrderingDbContext
 ```

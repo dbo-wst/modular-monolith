@@ -1,4 +1,4 @@
-# Template
+# Acme
 
 ###### Modular monolith solution template
 

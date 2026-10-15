@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option csharp_namespace = "Template.Core.Protocol.Prelaunch.Ordering.OrderItem";
+option csharp_namespace = "Acme.Core.Protocol.Prelaunch.Ordering.OrderItem";
 
-package template.core.protocol.prelaunch.ordering.order_item;
+package acme.core.protocol.prelaunch.ordering.order_item;
 
 import "prelaunch/ordering/order_item/create-order-item.proto";
 import "prelaunch/ordering/order_item/get-order-item.proto";

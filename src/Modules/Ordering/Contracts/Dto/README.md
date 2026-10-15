@@ -19,7 +19,7 @@ Data transfer objects exposed by the Ordering module (Contracts layer). They are
 ## Dependencies
 
 - References: none.
-- Used by: `../Results`, `../Commands` (`EStatus`), Application mappers and `IOrderingReadStore`, Persistence `ReadStore`, `Template.Core.Api` gRPC mappers, tests.
+- Used by: `../Results`, `../Commands` (`EStatus`), Application mappers and `IOrderingReadStore`, Persistence `ReadStore`, `Acme.Core.Api` gRPC mappers, tests.
 
 ## Extending
 

@@ -1,13 +1,13 @@
-using Template.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Domain.Errors;
 using LanguageExt.UnsafeValueAccess;
-using Template.Core.Ordering.Domain;
-using Template.Core.Ordering.TestCompanion;
-using Template.Core.Ordering.Domain.ValueObjects;
-using OrderId = Template.Core.Ordering.Domain.Orders.OrderId;
-using Support = Template.Core.Ordering.TestCompanion.Order.Support;
+using Acme.Core.Ordering.Domain;
+using Acme.Core.Ordering.TestCompanion;
+using Acme.Core.Ordering.Domain.ValueObjects;
+using OrderId = Acme.Core.Ordering.Domain.Orders.OrderId;
+using Support = Acme.Core.Ordering.TestCompanion.Order.Support;
 
 
-namespace Template.Core.Ordering.Persistence.IntegrationTest.Orders;
+namespace Acme.Core.Ordering.Persistence.IntegrationTest.Orders;
 
 [Collection(IntegrationTestsFixture.CollectionName)]
 public class WriteOnlyOperationsTests(IntegrationTestsFixture fixture)

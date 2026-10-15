@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Template.Core.Ordering.Persistence.Migrations
+namespace Acme.Core.Ordering.Persistence.Migrations
 {
     /// <inheritdoc />
     public partial class AddOrderingModule : Migration

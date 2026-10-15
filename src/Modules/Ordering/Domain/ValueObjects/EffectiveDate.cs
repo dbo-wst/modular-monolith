@@ -1,7 +1,7 @@
 using LanguageExt;
-using Template.Core.BuildingBlocks.Domain.Functional;
+using Acme.Core.BuildingBlocks.Domain.Functional;
 
-namespace Template.Core.Ordering.Domain.ValueObjects;
+namespace Acme.Core.Ordering.Domain.ValueObjects;
 
 public record EffectiveDate(DateOnly Value)
 {

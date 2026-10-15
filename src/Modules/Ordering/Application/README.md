@@ -1,6 +1,6 @@
 # Ordering Application
 
-Application layer of the Ordering module (assembly `Template.Core.Ordering.Application`). It implements every command and query from Contracts as a vertical slice (handler + optional FluentValidation validator) and defines the read-store port used by queries.
+Application layer of the Ordering module (assembly `Acme.Core.Ordering.Application`). It implements every command and query from Contracts as a vertical slice (handler + optional FluentValidation validator) and defines the read-store port used by queries.
 
 ## Contents
 
@@ -11,11 +11,11 @@ Application layer of the Ordering module (assembly `Template.Core.Ordering.Appli
 | [`OrderItems/`](OrderItems/README.md) | folder | Order item slices and mapper. |
 | `DtoMappers.cs` | static class | Singleton mapper instances: `DtoMappers.Order`, `DtoMappers.Status`, `DtoMappers.OrderItem`. |
 | `ServiceCollectionExtensions.cs` | static class | `AddOrderingApplication()` registers all handlers and validators of this assembly. |
-| `Template.Core.Ordering.Application.csproj` | project | References Domain, Contracts, `BuildingBlocks.Application`. |
+| `Acme.Core.Ordering.Application.csproj` | project | References Domain, Contracts, `BuildingBlocks.Application`. |
 
 ## How it works
 
-- Handlers implement `ICommandHandler<TCommand, TResult>` / `IQueryHandler<TQuery, TResult>` and return `Task<Fin<TResult>>`. They are `internal sealed`; tests get access via `InternalsVisibleTo` (`Template.Core.Ordering.Application.Test`, `...Application.IntegrationTest`).
+- Handlers implement `ICommandHandler<TCommand, TResult>` / `IQueryHandler<TQuery, TResult>` and return `Task<Fin<TResult>>`. They are `internal sealed`; tests get access via `InternalsVisibleTo` (`Acme.Core.Ordering.Application.Test`, `...Application.IntegrationTest`).
 - Pipeline (from BuildingBlocks): `IMediator.SendAsync` -> `ValidationBehavior` runs all `IValidator<TRequest>`; any failure returns a single `ValidationError` (messages joined with `"; "`) and the handler is not called.
 - Command handlers: build/load aggregate -> domain method -> repository -> `IUnitOfWork.SaveChangesAsync` -> map aggregate to DTO with `DtoMappers`. Domain events are dispatched by the unit of work after the save.
 - Query handlers: call `IOrderingReadStore` and wrap the DTOs in a result; no aggregates involved.
@@ -24,8 +24,8 @@ Application layer of the Ordering module (assembly `Template.Core.Ordering.Appli
 
 ## Dependencies
 
-- References: `Template.Core.Ordering.Domain`, `Template.Core.Ordering.Contracts`, `Template.Core.BuildingBlocks.Application` (FluentValidation, LanguageExt via BuildingBlocks.Domain); packages `Microsoft.Extensions.DependencyInjection.Abstractions`, `Microsoft.Extensions.Logging.Abstractions`.
-- Used by: `Template.Core.Ordering.Persistence` (implements `IOrderingReadStore`), `src/Host/Template.Core.Api` (`AddOrderingModule`), `test/Modules/Ordering/Application`, `test_integration/Modules/Ordering/Application`, `test/Architecture`.
+- References: `Acme.Core.Ordering.Domain`, `Acme.Core.Ordering.Contracts`, `Acme.Core.BuildingBlocks.Application` (FluentValidation, LanguageExt via BuildingBlocks.Domain); packages `Microsoft.Extensions.DependencyInjection.Abstractions`, `Microsoft.Extensions.Logging.Abstractions`.
+- Used by: `Acme.Core.Ordering.Persistence` (implements `IOrderingReadStore`), `src/Host/Acme.Core.Api` (`AddOrderingModule`), `test/Modules/Ordering/Application`, `test_integration/Modules/Ordering/Application`, `test/Architecture`.
 
 ## Extending
 

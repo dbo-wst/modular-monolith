@@ -1,12 +1,12 @@
 using LanguageExt;
 using LanguageExt.Common;
-using Template.Core.Ordering.Domain.Orders;
-using Template.Core.Ordering.TestCompanion;
-using Template.Core.Ordering.Domain.ValueObjects;
-using Template.Core.BuildingBlocks.Domain.Errors;
-using Template.Core.BuildingBlocks.Domain.Functional;
+using Acme.Core.Ordering.Domain.Orders;
+using Acme.Core.Ordering.TestCompanion;
+using Acme.Core.Ordering.Domain.ValueObjects;
+using Acme.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Domain.Functional;
 
-namespace Template.Core.Ordering.Persistence.IntegrationTest;
+namespace Acme.Core.Ordering.Persistence.IntegrationTest;
 
 [Collection(IntegrationTestsFixture.CollectionName)]
 public class UnitOfWorkTests(IntegrationTestsFixture fixture)

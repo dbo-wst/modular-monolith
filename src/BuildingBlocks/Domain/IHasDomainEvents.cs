@@ -1,4 +1,4 @@
-namespace Template.Core.BuildingBlocks.Domain;
+namespace Acme.Core.BuildingBlocks.Domain;
 
 public interface IHasDomainEvents
 {

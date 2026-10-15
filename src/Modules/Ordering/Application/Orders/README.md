@@ -22,7 +22,7 @@ Vertical slices for the `Order` aggregate (application layer): one folder per co
 ## Dependencies
 
 - References: Domain `Orders`, `ValueObjects`; Contracts `Commands`, `Queries`, `Results`, `Dto`; `BuildingBlocks.Application.Communication`.
-- Used by: `IMediator` (via `AddOrderingApplication`), called from `src/Host/Template.Core.Api/Prelaunch/Ordering/Order/GrpcService.cs`; tests in `test/Modules/Ordering/Application/Orders` and `test_integration/Modules/Ordering/Application/Orders`.
+- Used by: `IMediator` (via `AddOrderingApplication`), called from `src/Host/Acme.Core.Api/Prelaunch/Ordering/Order/GrpcService.cs`; tests in `test/Modules/Ordering/Application/Orders` and `test_integration/Modules/Ordering/Application/Orders`.
 
 ## Extending
 

@@ -1,10 +1,10 @@
 using FakeItEasy;
 using Microsoft.EntityFrameworkCore;
-using Template.Core.Ordering.Persistence;
-using Template.Core.Ordering.Persistence.DbContext;
-using Template.Core.BuildingBlocks.Domain.Functional;
+using Acme.Core.Ordering.Persistence;
+using Acme.Core.Ordering.Persistence.DbContext;
+using Acme.Core.BuildingBlocks.Domain.Functional;
 
-namespace Template.Core.Ordering.TestCompanion;
+namespace Acme.Core.Ordering.TestCompanion;
 
 public static class Support
 {

@@ -1,6 +1,6 @@
 # Ordering Domain
 
-Domain layer of the Ordering module (assembly `Template.Core.Ordering.Domain`). Contains the `Order` and `OrderItem` aggregates, their strongly typed ids, value objects, domain events and repository ports. It is framework-free: no EF Core, DI or FluentValidation.
+Domain layer of the Ordering module (assembly `Acme.Core.Ordering.Domain`). Contains the `Order` and `OrderItem` aggregates, their strongly typed ids, value objects, domain events and repository ports. It is framework-free: no EF Core, DI or FluentValidation.
 
 ## Contents
 
@@ -9,7 +9,7 @@ Domain layer of the Ordering module (assembly `Template.Core.Ordering.Domain`). 
 | [`Orders/`](Orders/README.md) | folder | `Order` aggregate, `OrderId`, `OrderStatus`, `IOrderRepository`, order events. |
 | [`OrderItems/`](OrderItems/README.md) | folder | `OrderItem` aggregate, `OrderItemId`, `IOrderItemRepository`, item events. |
 | [`ValueObjects/`](ValueObjects/README.md) | folder | `OrderNumber`, `EffectiveDate`, `Quantity`, `Price`. |
-| `Template.Core.Ordering.Domain.csproj` | project | References `BuildingBlocks.Domain` only. |
+| `Acme.Core.Ordering.Domain.csproj` | project | References `BuildingBlocks.Domain` only. |
 
 ## How it works
 
@@ -20,8 +20,8 @@ Domain layer of the Ordering module (assembly `Template.Core.Ordering.Domain`). 
 
 ## Dependencies
 
-- References: `Template.Core.BuildingBlocks.Domain` (which brings `LanguageExt.Core`).
-- Used by: `Template.Core.Ordering.Application`, `Template.Core.Ordering.Persistence`, `test/Modules/Ordering/Domain`, `test/Architecture`, test companions.
+- References: `Acme.Core.BuildingBlocks.Domain` (which brings `LanguageExt.Core`).
+- Used by: `Acme.Core.Ordering.Application`, `Acme.Core.Ordering.Persistence`, `test/Modules/Ordering/Domain`, `test/Architecture`, test companions.
 
 ## Extending
 

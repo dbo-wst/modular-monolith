@@ -1,6 +1,6 @@
 using FluentValidation;
 
-namespace Template.Core.Ordering.Persistence;
+namespace Acme.Core.Ordering.Persistence;
 
 public sealed class PersistenceOptionsValidator : AbstractValidator<PersistenceOptions>
 {

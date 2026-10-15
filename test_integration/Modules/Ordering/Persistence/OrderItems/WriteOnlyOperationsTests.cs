@@ -1,6 +1,6 @@
-using Template.Core.Ordering.Persistence.OrderItems;
+using Acme.Core.Ordering.Persistence.OrderItems;
 
-namespace Template.Core.Ordering.Persistence.IntegrationTest.OrderItems;
+namespace Acme.Core.Ordering.Persistence.IntegrationTest.OrderItems;
 
 public class WriteOnlyOperationsTests
 {

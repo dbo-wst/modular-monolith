@@ -1,6 +1,6 @@
 using LanguageExt;
 
-namespace Template.Core.BuildingBlocks.Application.Communication;
+namespace Acme.Core.BuildingBlocks.Application.Communication;
 
 /// <summary>
 /// Dispatches a request to its single <see cref="IRequestHandler{TRequest,TResponse}"/>, wrapped by the

@@ -1,6 +1,6 @@
 # Functional
 
-Functional-programming helpers (namespace `Template.Core.BuildingBlocks.Domain.Functional`, project `Template.Core.BuildingBlocks.Domain`) on top of LanguageExt `Fin<T>` / `Option<T>`, used to compose railway-style handler and value-object code.
+Functional-programming helpers (namespace `Acme.Core.BuildingBlocks.Domain.Functional`, project `Acme.Core.BuildingBlocks.Domain`) on top of LanguageExt `Fin<T>` / `Option<T>`, used to compose railway-style handler and value-object code.
 
 ## Contents
 

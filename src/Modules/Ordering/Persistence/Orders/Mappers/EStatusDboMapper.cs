@@ -1,7 +1,7 @@
-using Template.Core.BuildingBlocks.Domain;
-using DomainEStatus = Template.Core.Ordering.Domain.Orders.OrderStatus;
+using Acme.Core.BuildingBlocks.Domain;
+using DomainEStatus = Acme.Core.Ordering.Domain.Orders.OrderStatus;
 
-namespace Template.Core.Ordering.Persistence.Orders.Mappers;
+namespace Acme.Core.Ordering.Persistence.Orders.Mappers;
 
 public readonly struct EStatusDboMapper : IMap<DomainEStatus, EStatusDbo>
 {

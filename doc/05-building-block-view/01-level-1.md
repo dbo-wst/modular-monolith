@@ -13,7 +13,7 @@ src/
     <Adapter>/       further adapters as separate projects (Messaging, ExternalServices, ...)
     Contracts/       commands, queries, results, DTOs
   Protocol/          gRPC contracts
-  Host/              Template.Api (HTTP gateway), Template.Core.Api (gRPC host)
+  Host/              Acme.Api (HTTP gateway), Acme.Core.Api (gRPC host)
 ```
 
 Dependency rule: Domain <- Application <- adapters (Persistence, ...); adapters do not reference each other; hosts reference Contracts only (see [ADR 0001](../09-architecture-decisions/0001-modular-monolith-clean-architecture-cqrs.md)). BuildingBlocks follow the same layering: modules reference the building block of their own layer (Domain -> BuildingBlocks.Domain, Application/Contracts -> BuildingBlocks.Application, Persistence -> BuildingBlocks.Persistence); BuildingBlocks.Domain stays free of EF Core, DI and FluentValidation.

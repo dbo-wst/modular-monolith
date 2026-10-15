@@ -25,7 +25,7 @@ Success payloads of the Ordering commands and queries (Contracts layer). Each re
 ## Dependencies
 
 - References: `../Dto`, `System.Collections.Immutable`.
-- Used by: `../Commands`, `../Queries` (as `TResult`), Application handlers, `Template.Core.Api` gRPC response mappers, tests.
+- Used by: `../Commands`, `../Queries` (as `TResult`), Application handlers, `Acme.Core.Api` gRPC response mappers, tests.
 
 ## Extending
 

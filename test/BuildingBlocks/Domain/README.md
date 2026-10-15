@@ -1,6 +1,6 @@
 # BuildingBlocks Domain Tests
 
-Unit tests for `src/BuildingBlocks/Domain`: typed errors, domain events and aggregate roots, and the LanguageExt-based functional helpers. Assembly: `Template.Core.BuildingBlocks.Domain.Test`.
+Unit tests for `src/BuildingBlocks/Domain`: typed errors, domain events and aggregate roots, and the LanguageExt-based functional helpers. Assembly: `Acme.Core.BuildingBlocks.Domain.Test`.
 
 ## Contents
 
@@ -13,7 +13,7 @@ Unit tests for `src/BuildingBlocks/Domain`: typed errors, domain events and aggr
 | `Functional/FinAsyncExtensionsTests.cs` | test class | `Task<Fin<T>>` helpers: `ToUnitAsync`, `TryAsync`, `MapAsync`, `BindAsync`, `BindForceAsync`, `MatchAsync` |
 | `Functional/FuncFinAsyncExtensionsTests.cs` | test class | The same async helpers applied to `Func<Task<Fin<T>>>` |
 | `Functional/GeneralTests.cs` | test class | `ToError`, `Then`, `Unit.Success/Failure`, `ToFin`/`ToFinAsync` for values, `Option` and `Task<Option>` |
-| `Template.Core.BuildingBlocks.Domain.Test.csproj` | project | Test project definition |
+| `Acme.Core.BuildingBlocks.Domain.Test.csproj` | project | Test project definition |
 
 ## How it works
 
@@ -22,12 +22,12 @@ Plain xUnit v3 facts/theories against the domain building blocks; test types (ag
 ## Running
 
 ```powershell
-dotnet test .\test\BuildingBlocks\Domain\Template.Core.BuildingBlocks.Domain.Test.csproj
+dotnet test .\test\BuildingBlocks\Domain\Acme.Core.BuildingBlocks.Domain.Test.csproj
 ```
 
 ## Dependencies
 
-- References: `src/BuildingBlocks/Domain/Template.Core.BuildingBlocks.Domain.csproj`, `test/TestCompanion/Template.Core.TestCompanion.csproj`
+- References: `src/BuildingBlocks/Domain/Acme.Core.BuildingBlocks.Domain.csproj`, `test/TestCompanion/Acme.Core.TestCompanion.csproj`
 - Packages: `xunit.v3`, `xunit.runner.visualstudio`, `Microsoft.NET.Test.Sdk`
 
 ## Extending

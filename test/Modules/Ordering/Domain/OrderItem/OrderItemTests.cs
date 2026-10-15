@@ -1,11 +1,11 @@
 using LanguageExt.UnsafeValueAccess;
-using Template.Core.Ordering.Domain.OrderItems;
-using Template.Core.Ordering.Domain.OrderItems.Events;
-using Template.Core.Ordering.Domain.Orders;
-using Template.Core.Ordering.Domain.ValueObjects;
-using DomainOrderItem = Template.Core.Ordering.Domain.OrderItems.OrderItem;
+using Acme.Core.Ordering.Domain.OrderItems;
+using Acme.Core.Ordering.Domain.OrderItems.Events;
+using Acme.Core.Ordering.Domain.Orders;
+using Acme.Core.Ordering.Domain.ValueObjects;
+using DomainOrderItem = Acme.Core.Ordering.Domain.OrderItems.OrderItem;
 
-namespace Template.Core.Ordering.Domain.Test.OrderItem;
+namespace Acme.Core.Ordering.Domain.Test.OrderItem;
 
 public class OrderItemTests
 {

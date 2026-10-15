@@ -1,8 +1,8 @@
 using LanguageExt.Common;
-using Template.Core.BuildingBlocks.Domain.Errors;
-using Template.Core.BuildingBlocks.Domain.Functional;
+using Acme.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Domain.Functional;
 
-namespace Template.Core.BuildingBlocks.Domain.Test.Errors;
+namespace Acme.Core.BuildingBlocks.Domain.Test.Errors;
 
 public sealed class AppErrorTests
 {

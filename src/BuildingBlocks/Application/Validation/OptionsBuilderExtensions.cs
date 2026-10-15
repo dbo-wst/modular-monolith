@@ -1,7 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Template.Core.BuildingBlocks.Application.Validation;
+namespace Acme.Core.BuildingBlocks.Application.Validation;
 
 public static class OptionsBuilderExtensions
 {

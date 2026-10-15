@@ -1,4 +1,4 @@
-namespace Template.Core.Ordering.Persistence.OrderItems;
+namespace Acme.Core.Ordering.Persistence.OrderItems;
 
 public class OrderItemDbo
 {

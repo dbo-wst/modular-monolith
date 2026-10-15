@@ -1,4 +1,4 @@
-namespace Template.Core.BuildingBlocks.Domain;
+namespace Acme.Core.BuildingBlocks.Domain;
 
 /// <summary>
 /// Something that happened in the domain. Every instance carries its own identity and timestamp, so two

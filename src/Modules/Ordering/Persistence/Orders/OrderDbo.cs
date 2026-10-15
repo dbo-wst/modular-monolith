@@ -1,4 +1,4 @@
-namespace Template.Core.Ordering.Persistence.Orders;
+namespace Acme.Core.Ordering.Persistence.Orders;
 
 public class OrderDbo
 {

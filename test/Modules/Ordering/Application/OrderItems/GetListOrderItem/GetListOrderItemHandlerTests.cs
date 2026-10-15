@@ -1,10 +1,10 @@
 using LanguageExt.UnsafeValueAccess;
-using Template.Core.Ordering.Persistence;
-using Template.Core.Ordering.TestCompanion;
-using CreateOrderItemHandler = Template.Core.Ordering.Application.OrderItems.CreateOrderItem.CreateOrderItemHandler;
-using GetListOrderItemHandler = Template.Core.Ordering.Application.OrderItems.GetListOrderItem.GetListOrderItemHandler;
+using Acme.Core.Ordering.Persistence;
+using Acme.Core.Ordering.TestCompanion;
+using CreateOrderItemHandler = Acme.Core.Ordering.Application.OrderItems.CreateOrderItem.CreateOrderItemHandler;
+using GetListOrderItemHandler = Acme.Core.Ordering.Application.OrderItems.GetListOrderItem.GetListOrderItemHandler;
 
-namespace Template.Core.Ordering.Application.Test.OrderItems.GetListOrderItem;
+namespace Acme.Core.Ordering.Application.Test.OrderItems.GetListOrderItem;
 
 public class GetListOrderItemHandlerTests
 {

@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Template.Core.Ordering.Persistence.Orders;
-using Template.Core.Ordering.Persistence.OrderItems;
+using Acme.Core.Ordering.Persistence.Orders;
+using Acme.Core.Ordering.Persistence.OrderItems;
 
-namespace Template.Core.Ordering.Persistence.DbContext;
+namespace Acme.Core.Ordering.Persistence.DbContext;
 
 public class OrderingDbContext(DbContextOptions<OrderingDbContext> options) : Microsoft.EntityFrameworkCore.DbContext(options)
 {

@@ -17,8 +17,8 @@ Both test projects define the xUnit collection `IntegrationTestsFixture.Collecti
 ## Running
 
 ```powershell
-dotnet test .\test_integration\Modules\Ordering\Persistence\Template.Core.Ordering.Persistence.IntegrationTest.csproj
-dotnet test .\test_integration\Modules\Ordering\Application\Template.Core.Ordering.Application.IntegrationTest.csproj
+dotnet test .\test_integration\Modules\Ordering\Persistence\Acme.Core.Ordering.Persistence.IntegrationTest.csproj
+dotnet test .\test_integration\Modules\Ordering\Application\Acme.Core.Ordering.Application.IntegrationTest.csproj
 ```
 
 ## Dependencies

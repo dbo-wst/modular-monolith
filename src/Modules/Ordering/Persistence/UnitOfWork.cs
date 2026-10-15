@@ -1,8 +1,8 @@
-using Template.Core.BuildingBlocks.Domain;
-using Template.Core.BuildingBlocks.Persistence;
-using Template.Core.Ordering.Persistence.DbContext;
+using Acme.Core.BuildingBlocks.Domain;
+using Acme.Core.BuildingBlocks.Persistence;
+using Acme.Core.Ordering.Persistence.DbContext;
 
-namespace Template.Core.Ordering.Persistence;
+namespace Acme.Core.Ordering.Persistence;
 
 public sealed class UnitOfWork(
     OrderingDbContext context,

@@ -1,13 +1,13 @@
-using Template.Core.BuildingBlocks.Domain;
-using Template.Core.BuildingBlocks.Persistence;
-using Template.Core.Ordering.Domain.OrderItems;
-using Template.Core.Ordering.Domain.Orders;
-using Template.Core.Ordering.Persistence;
-using Template.Core.Ordering.Persistence.DbContext;
-using Template.Core.Ordering.Persistence.Orders;
-using Template.Core.Ordering.Persistence.OrderItems;
+using Acme.Core.BuildingBlocks.Domain;
+using Acme.Core.BuildingBlocks.Persistence;
+using Acme.Core.Ordering.Domain.OrderItems;
+using Acme.Core.Ordering.Domain.Orders;
+using Acme.Core.Ordering.Persistence;
+using Acme.Core.Ordering.Persistence.DbContext;
+using Acme.Core.Ordering.Persistence.Orders;
+using Acme.Core.Ordering.Persistence.OrderItems;
 
-namespace Template.Core.Ordering.TestCompanion;
+namespace Acme.Core.Ordering.TestCompanion;
 
 /// <summary>
 /// Unit of work and repositories sharing ONE <see cref="OrderingDbContext"/> and ONE

@@ -1,15 +1,15 @@
-using Template.Core.Ordering.Domain.Orders;
+using Acme.Core.Ordering.Domain.Orders;
 using LanguageExt;
-using Template.Core.BuildingBlocks.Domain;
-using Template.Core.Ordering.Domain.OrderItems;
-using Template.Core.Ordering.Contracts.Commands;
-using Template.Core.Ordering.Contracts.Results;
-using Template.Core.BuildingBlocks.Application.Communication;
-using Template.Core.Ordering.Domain.ValueObjects;
-using Template.Core.BuildingBlocks.Domain.Errors;
-using Template.Core.BuildingBlocks.Domain.Functional;
+using Acme.Core.BuildingBlocks.Domain;
+using Acme.Core.Ordering.Domain.OrderItems;
+using Acme.Core.Ordering.Contracts.Commands;
+using Acme.Core.Ordering.Contracts.Results;
+using Acme.Core.BuildingBlocks.Application.Communication;
+using Acme.Core.Ordering.Domain.ValueObjects;
+using Acme.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Domain.Functional;
 
-namespace Template.Core.Ordering.Application.OrderItems.CreateOrderItem;
+namespace Acme.Core.Ordering.Application.OrderItems.CreateOrderItem;
 
 internal sealed class CreateOrderItemHandler(Domain.OrderItems.IOrderItemRepository orderItems, IUnitOfWork unitOfWork) : ICommandHandler<CreateOrderItemCommand, CreateOrderItemResult>
 {

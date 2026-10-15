@@ -4,7 +4,7 @@
 # its own conf.d/.env correctly.
 #
 #   docker compose -f operations/cd/docker-compose.yml up -d
-name: template
+name: acme
 
 include:
   - ./core-api/docker-compose.yml

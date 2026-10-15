@@ -1,6 +1,6 @@
 # Communication
 
-In-process CQRS messaging (namespace `Template.Core.BuildingBlocks.Application.Communication`, project `Template.Core.BuildingBlocks.Application`): a custom mediator that returns LanguageExt `Fin<T>`, its pipeline behaviours, the domain event dispatcher, and DI registration.
+In-process CQRS messaging (namespace `Acme.Core.BuildingBlocks.Application.Communication`, project `Acme.Core.BuildingBlocks.Application`): a custom mediator that returns LanguageExt `Fin<T>`, its pipeline behaviours, the domain event dispatcher, and DI registration.
 
 ## Contents
 
@@ -58,7 +58,7 @@ var result = await mediator.SendAsync(new PingQuery(), ct); // Fin<string>
 
 ## Dependencies
 - References: FluentValidation, Microsoft.Extensions.DependencyInjection.Abstractions, BuildingBlocks.Domain (`DomainEvent`, `IDomainEventDispatcher`, `Errors`).
-- Used by: `Template.Core.Api` (`AddMediator`, gRPC services use `IMediator`), Ordering Application (handlers, `AddRequestHandlersFromAssembly`), Ordering Contracts (`ICommand`/`IQuery`), `UnitOfWork<TContext>` via `IDomainEventDispatcher`, `test/BuildingBlocks/Application/Communication`.
+- Used by: `Acme.Core.Api` (`AddMediator`, gRPC services use `IMediator`), Ordering Application (handlers, `AddRequestHandlersFromAssembly`), Ordering Contracts (`ICommand`/`IQuery`), `UnitOfWork<TContext>` via `IDomainEventDispatcher`, `test/BuildingBlocks/Application/Communication`.
 
 ## Extending
 - New use case: define an `ICommand<T>`/`IQuery<T>` in the module's Contracts and an `ICommandHandler`/`IQueryHandler` in its Application project; it is picked up by `AddRequestHandlersFromAssembly`. Add an `AbstractValidator<TRequest>` to get validation automatically.

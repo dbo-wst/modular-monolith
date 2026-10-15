@@ -1,8 +1,8 @@
-using Template.Core.Ordering.Domain.Orders;
-using Template.Core.Ordering.Domain.OrderItems;
-using Template.Core.Ordering.Domain.ValueObjects;
+using Acme.Core.Ordering.Domain.Orders;
+using Acme.Core.Ordering.Domain.OrderItems;
+using Acme.Core.Ordering.Domain.ValueObjects;
 
-namespace Template.Core.Ordering.Persistence.IntegrationTest.OrderItems;
+namespace Acme.Core.Ordering.Persistence.IntegrationTest.OrderItems;
 
 public class ReadOnlyOperationsTests
 {

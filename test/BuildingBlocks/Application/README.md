@@ -1,6 +1,6 @@
 # BuildingBlocks Application Tests
 
-Unit tests for the in-house mediator in `src/BuildingBlocks/Application/Communication`: request dispatch, pipeline behaviours, validation, domain event dispatch and DI registration. Assembly: `Template.Core.BuildingBlocks.Application.Test`.
+Unit tests for the in-house mediator in `src/BuildingBlocks/Application/Communication`: request dispatch, pipeline behaviours, validation, domain event dispatch and DI registration. Assembly: `Acme.Core.BuildingBlocks.Application.Test`.
 
 ## Contents
 
@@ -9,7 +9,7 @@ Unit tests for the in-house mediator in `src/BuildingBlocks/Application/Communic
 | `Communication/MediatorTests.cs` | test class | Behaviour order (generic, then command, then handler), queries skip command behaviours, `ICommand` returning `Unit`, exception propagation, pipeline caching, `IRequest<T>` covariance |
 | `Communication/DomainEventDispatcherTests.cs` | test class | All handlers per event run in order, events without handlers succeed, first failure stops dispatch, scoped dispatcher registered once, handlers discovered once per assembly |
 | `Communication/ServiceCollectionExtensionsTests.cs` | test class | `AddMediator` idempotency, handler and FluentValidation validator discovery via `AddRequestHandlersFromAssembly`, duplicate handler for the same request throws |
-| `Template.Core.BuildingBlocks.Application.Test.csproj` | project | Test project definition |
+| `Acme.Core.BuildingBlocks.Application.Test.csproj` | project | Test project definition |
 
 ## How it works
 
@@ -18,12 +18,12 @@ Each test builds a real `ServiceCollection` (`AddMediator()`, `AddRequestHandler
 ## Running
 
 ```powershell
-dotnet test .\test\BuildingBlocks\Application\Template.Core.BuildingBlocks.Application.Test.csproj
+dotnet test .\test\BuildingBlocks\Application\Acme.Core.BuildingBlocks.Application.Test.csproj
 ```
 
 ## Dependencies
 
-- References: `src/BuildingBlocks/Application/Template.Core.BuildingBlocks.Application.csproj`, `test/TestCompanion/Template.Core.TestCompanion.csproj`
+- References: `src/BuildingBlocks/Application/Acme.Core.BuildingBlocks.Application.csproj`, `test/TestCompanion/Acme.Core.TestCompanion.csproj`
 - Packages: `xunit.v3`, `xunit.runner.visualstudio`, `Microsoft.NET.Test.Sdk`, `Microsoft.Extensions.DependencyInjection`
 
 ## Extending

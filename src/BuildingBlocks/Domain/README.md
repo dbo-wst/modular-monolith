@@ -1,6 +1,6 @@
 # BuildingBlocks.Domain
 
-Project `Template.Core.BuildingBlocks.Domain` (namespace `Template.Core.BuildingBlocks.Domain`). The domain-layer building block: base types and ports that module Domain projects depend on, with no infrastructure dependencies beyond LanguageExt.
+Project `Acme.Core.BuildingBlocks.Domain` (namespace `Acme.Core.BuildingBlocks.Domain`). The domain-layer building block: base types and ports that module Domain projects depend on, with no infrastructure dependencies beyond LanguageExt.
 
 ## Contents
 
@@ -34,7 +34,7 @@ public sealed class Order : AggregateRoot<OrderId>
 
 ## Dependencies
 - References: LanguageExt.Core, LanguageExt.Transformers (no project references).
-- Used by: BuildingBlocks.Application, BuildingBlocks.Persistence, `Template.Core.Ordering.Domain` (`Order`, `OrderItem` aggregates), Ordering Application/Persistence (`IMap`/`IOnewayMap` mappers, `IUnitOfWork`), `Template.Core.Api` and `Template.Api.Infrastructure.CoreApi` (gRPC/HTTP mappers implementing `IOnewayMap`/`IMap`), `test/BuildingBlocks/Domain`.
+- Used by: BuildingBlocks.Application, BuildingBlocks.Persistence, `Acme.Core.Ordering.Domain` (`Order`, `OrderItem` aggregates), Ordering Application/Persistence (`IMap`/`IOnewayMap` mappers, `IUnitOfWork`), `Acme.Core.Api` and `Acme.Api.Infrastructure.CoreApi` (gRPC/HTTP mappers implementing `IOnewayMap`/`IMap`), `test/BuildingBlocks/Domain`.
 
 ## Extending
 - New domain event: derive a `sealed record` from `DomainEvent` in the module's Domain project and `Raise` it from the aggregate.

@@ -17,8 +17,8 @@ Domain tests need nothing but the domain assembly. Application tests wire real h
 ## Running
 
 ```powershell
-dotnet test .\test\Modules\Ordering\Domain\Template.Core.Ordering.Domain.Test.csproj
-dotnet test .\test\Modules\Ordering\Application\Template.Core.Ordering.Application.Test.csproj
+dotnet test .\test\Modules\Ordering\Domain\Acme.Core.Ordering.Domain.Test.csproj
+dotnet test .\test\Modules\Ordering\Application\Acme.Core.Ordering.Application.Test.csproj
 ```
 
 ## Dependencies
@@ -28,4 +28,4 @@ dotnet test .\test\Modules\Ordering\Application\Template.Core.Ordering.Applicati
 ## Extending
 
 - New aggregate: add `Domain/<Aggregate>/` tests and `Application/<Aggregate>s/<Slice>/` handler tests.
-- New layer project (e.g. Contracts): add `test/Modules/Ordering/<Layer>/Template.Core.Ordering.<Layer>.Test.csproj` and register it in `Template.Core.slnx`.
+- New layer project (e.g. Contracts): add `test/Modules/Ordering/<Layer>/Acme.Core.Ordering.<Layer>.Test.csproj` and register it in `Acme.Core.slnx`.

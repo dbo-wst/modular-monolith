@@ -1,4 +1,4 @@
-namespace Template.Core.Ordering.Domain.Orders;
+namespace Acme.Core.Ordering.Domain.Orders;
 
 public enum OrderStatus
 {

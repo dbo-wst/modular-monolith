@@ -24,4 +24,4 @@ Command slice that creates a new order (application layer).
 ## Dependencies
 
 - References: Domain `Orders`, `ValueObjects`; Contracts; `BuildingBlocks` (`IUnitOfWork`, `ValidationError`, `Fin` helpers).
-- Used by: mediator; `Order.GrpcService.CreateOrder` in `Template.Core.Api`; slice tests.
+- Used by: mediator; `Order.GrpcService.CreateOrder` in `Acme.Core.Api`; slice tests.

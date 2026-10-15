@@ -1,6 +1,6 @@
-using Template.Core.Ordering.TestCompanion;
+using Acme.Core.Ordering.TestCompanion;
 
-namespace Template.Core.Ordering.Persistence.IntegrationTest;
+namespace Acme.Core.Ordering.Persistence.IntegrationTest;
 
 [CollectionDefinition(IntegrationTestsFixture.CollectionName)]
 public sealed class TestsCollectionDefinition : ICollectionFixture<IntegrationTestsFixture>;

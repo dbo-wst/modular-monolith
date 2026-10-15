@@ -6,8 +6,8 @@ In-process tests of the two ASP.NET Core hosts using `WebApplicationFactory<Prog
 
 | Item | Kind | Description |
 |---|---|---|
-| [`Template.Api.IntegrationTest`](Template.Api.IntegrationTest/README.md) | folder (test project) | HTTP gateway (`Template.Api`) endpoints with faked gRPC clients |
-| [`Template.Core.Api.IntegrationTest`](Template.Core.Api.IntegrationTest/README.md) | folder (test project) | gRPC services of `Template.Core.Api` with faked repositories, unit of work and read store |
+| [`Acme.Api.IntegrationTest`](Acme.Api.IntegrationTest/README.md) | folder (test project) | HTTP gateway (`Acme.Api`) endpoints with faked gRPC clients |
+| [`Acme.Core.Api.IntegrationTest`](Acme.Core.Api.IntegrationTest/README.md) | folder (test project) | gRPC services of `Acme.Core.Api` with faked repositories, unit of work and read store |
 
 ## How it works
 
@@ -16,13 +16,13 @@ Each project has its own factory (`GatewayApiFactory`, `CoreApiFactory`) that ru
 ## Running
 
 ```powershell
-dotnet test .\test_integration\Host\Template.Api.IntegrationTest\Template.Api.IntegrationTest.csproj
-dotnet test .\test_integration\Host\Template.Core.Api.IntegrationTest\Template.Core.Api.IntegrationTest.csproj
+dotnet test .\test_integration\Host\Acme.Api.IntegrationTest\Acme.Api.IntegrationTest.csproj
+dotnet test .\test_integration\Host\Acme.Core.Api.IntegrationTest\Acme.Core.Api.IntegrationTest.csproj
 ```
 
 ## Dependencies
 
-- References: `src/Host/Template.Api`, `src/Host/Template.Api.Infrastructure.CoreApi`, `src/Host/Template.Core.Api`, `src/Protocol`, `src/Modules/Ordering/Domain`
+- References: `src/Host/Acme.Api`, `src/Host/Acme.Api.Infrastructure.CoreApi`, `src/Host/Acme.Core.Api`, `src/Protocol`, `src/Modules/Ordering/Domain`
 
 ## Extending
 

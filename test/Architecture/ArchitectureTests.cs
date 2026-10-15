@@ -1,12 +1,12 @@
 using System.Reflection;
 using NetArchTest.Rules;
 
-namespace Template.Core.Architecture.Test;
+namespace Acme.Core.Architecture.Test;
 
 /// <summary>Guard rails for the Clean Architecture dependency rule inside the Ordering module.</summary>
 public class ArchitectureTests
 {
-    private const string Root = "Template.Core.Ordering";
+    private const string Root = "Acme.Core.Ordering";
 
     private static readonly Assembly Domain = typeof(Ordering.Domain.Orders.Order).Assembly;
     private static readonly Assembly Application = typeof(Ordering.Application.IOrderingReadStore).Assembly;
@@ -68,7 +68,7 @@ public class ArchitectureTests
     [Fact]
     public void Gateway_OnlyKnowsTheModuleThroughContractsOrProtocol()
     {
-        var gateway = typeof(Template.Api.Segments).Assembly;
+        var gateway = typeof(Acme.Api.Segments).Assembly;
         AssertNoDependency(gateway, [$"{Root}.Domain", $"{Root}.Application", .. AdapterNamespaces]);
     }
 
@@ -83,12 +83,12 @@ public class ArchitectureTests
     [Fact]
     public void BuildingBlocksDomain_DoesNotDependOnOtherBuildingBlocks() =>
         AssertNoDependency(BuildingBlocksDomain,
-            "Template.Core.BuildingBlocks.Application", "Template.Core.BuildingBlocks.Persistence");
+            "Acme.Core.BuildingBlocks.Application", "Acme.Core.BuildingBlocks.Persistence");
 
     [Fact]
     public void BuildingBlocksApplication_DoesNotDependOnEfCoreOrPersistence() =>
         AssertNoDependency(BuildingBlocksApplication,
-            "Microsoft.EntityFrameworkCore", "Template.Core.BuildingBlocks.Persistence");
+            "Microsoft.EntityFrameworkCore", "Acme.Core.BuildingBlocks.Persistence");
 
     [Fact]
     public void CommandsAndQueries_AreSealed()

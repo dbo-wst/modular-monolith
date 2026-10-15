@@ -1,8 +1,8 @@
 using LanguageExt;
 using LanguageExt.Common;
-using Template.Core.BuildingBlocks.Domain;
+using Acme.Core.BuildingBlocks.Domain;
 
-namespace Template.Core.Ordering.TestCompanion;
+namespace Acme.Core.Ordering.TestCompanion;
 
 /// <summary>Test double that records every dispatched event; optionally fails every dispatch.</summary>
 public sealed class RecordingDomainEventDispatcher(Error? failWith = null) : IDomainEventDispatcher

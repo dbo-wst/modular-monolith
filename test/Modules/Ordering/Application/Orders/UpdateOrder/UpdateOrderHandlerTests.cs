@@ -1,14 +1,14 @@
-using Template.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Domain.Errors;
 using LanguageExt.UnsafeValueAccess;
-using Template.Core.Ordering.Domain.Orders;
-using Template.Core.Ordering.Persistence;
-using Template.Core.Ordering.TestCompanion;
-using CreateOrderHandler = Template.Core.Ordering.Application.Orders.CreateOrder.CreateOrderHandler;
-using EStatus = Template.Core.Ordering.Contracts.Dto.EStatus;
-using GetOrderHandler = Template.Core.Ordering.Application.Orders.GetOrder.GetOrderHandler;
-using UpdateOrderHandler = Template.Core.Ordering.Application.Orders.UpdateOrder.UpdateOrderHandler;
+using Acme.Core.Ordering.Domain.Orders;
+using Acme.Core.Ordering.Persistence;
+using Acme.Core.Ordering.TestCompanion;
+using CreateOrderHandler = Acme.Core.Ordering.Application.Orders.CreateOrder.CreateOrderHandler;
+using EStatus = Acme.Core.Ordering.Contracts.Dto.EStatus;
+using GetOrderHandler = Acme.Core.Ordering.Application.Orders.GetOrder.GetOrderHandler;
+using UpdateOrderHandler = Acme.Core.Ordering.Application.Orders.UpdateOrder.UpdateOrderHandler;
 
-namespace Template.Core.Ordering.Application.Test.Orders.UpdateOrder;
+namespace Acme.Core.Ordering.Application.Test.Orders.UpdateOrder;
 
 public class UpdateOrderHandlerTests(InMemoryFixture fixture) : IClassFixture<InMemoryFixture>
 {

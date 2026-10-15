@@ -8,8 +8,8 @@
 ## Quick Start
 
 ```bash
-dotnet build Template.Core.slnx
-dotnet test Template.Core.slnx
+dotnet build Acme.Core.slnx
+dotnet test Acme.Core.slnx
 ```
 
 ## Local database

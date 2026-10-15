@@ -1,7 +1,7 @@
 using LanguageExt;
 using LanguageExt.Common;
 
-namespace Template.Core.BuildingBlocks.Domain.Errors;
+namespace Acme.Core.BuildingBlocks.Domain.Errors;
 
 public record CancelledError : AppError
 {

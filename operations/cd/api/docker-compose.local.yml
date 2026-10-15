@@ -3,8 +3,8 @@ services:
     build:
       context: ../../..
       dockerfile: operations/ci/api/Dockerfile
-    image: "${IMAGE_TAG:-template-api:latest}"
-    container_name: ${CONTAINER_NAME:-template-api}
+    image: "${IMAGE_TAG:-acme-api:latest}"
+    container_name: ${CONTAINER_NAME:-acme-api}
     restart: unless-stopped
     pull_policy: build
     env_file:
@@ -13,16 +13,16 @@ services:
     ports:
       - "${API_HOST_PORT:-5081}:80"
     volumes:
-      - template-api-dp-keys:/root/.aspnet/DataProtection-Keys
-      - template-api-logs:/app/publish/logs
+      - acme-api-dp-keys:/root/.aspnet/DataProtection-Keys
+      - acme-api-logs:/app/publish/logs
     networks:
-      - template-network
+      - acme-network
       - mssql-network
       - rp
 
 networks:
-  template-network:
-    name: template-network
+  acme-network:
+    name: acme-network
     external: true
   mssql-network:
     name: mssql-network
@@ -32,9 +32,9 @@ networks:
     name: rp_default_net
 
 volumes:
-  template-api-dp-keys:
+  acme-api-dp-keys:
     external: true
-    name: template-api-dp-keys
-  template-api-logs:
+    name: acme-api-dp-keys
+  acme-api-logs:
     external: true
-    name: template-api-logs
+    name: acme-api-logs

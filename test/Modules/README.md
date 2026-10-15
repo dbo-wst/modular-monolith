@@ -15,8 +15,8 @@ Module tests run fully in-process. Persistence is replaced by the EF Core in-mem
 ## Running
 
 ```powershell
-dotnet test .\test\Modules\Ordering\Domain\Template.Core.Ordering.Domain.Test.csproj
-dotnet test .\test\Modules\Ordering\Application\Template.Core.Ordering.Application.Test.csproj
+dotnet test .\test\Modules\Ordering\Domain\Acme.Core.Ordering.Domain.Test.csproj
+dotnet test .\test\Modules\Ordering\Application\Acme.Core.Ordering.Application.Test.csproj
 ```
 
 ## Dependencies
@@ -25,4 +25,4 @@ dotnet test .\test\Modules\Ordering\Application\Template.Core.Ordering.Applicati
 
 ## Extending
 
-For a new module `<Module>`, create `test/Modules/<Module>/` with `Domain/Template.Core.<Module>.Domain.Test.csproj`, `Application/Template.Core.<Module>.Application.Test.csproj` and `TestCompanion/Template.Core.<Module>.TestCompanion.csproj`, following the Ordering layout, and register the projects in `Template.Core.slnx`.
+For a new module `<Module>`, create `test/Modules/<Module>/` with `Domain/Acme.Core.<Module>.Domain.Test.csproj`, `Application/Acme.Core.<Module>.Application.Test.csproj` and `TestCompanion/Acme.Core.<Module>.TestCompanion.csproj`, following the Ordering layout, and register the projects in `Acme.Core.slnx`.

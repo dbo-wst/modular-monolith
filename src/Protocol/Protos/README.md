@@ -1,13 +1,13 @@
 # Protos
 
-Protocol Buffers sources for `Template.Core.Protocol`. This folder is the `ProtoRoot`, so imports are written relative to it (e.g. `import "prelaunch/ordering/order/entities.proto";`).
+Protocol Buffers sources for `Acme.Core.Protocol`. This folder is the `ProtoRoot`, so imports are written relative to it (e.g. `import "prelaunch/ordering/order/entities.proto";`).
 
 ## Contents
 
 | Item | Kind | Description |
 |---|---|---|
-| `prelaunch/ordering/order/` | proto package | `template.core.protocol.prelaunch.ordering.order` (C# `Template.Core.Protocol.Prelaunch.Ordering.Order`): `OrderService`. |
-| `prelaunch/ordering/order_item/` | proto package | `template.core.protocol.prelaunch.ordering.order_item` (C# `Template.Core.Protocol.Prelaunch.Ordering.OrderItem`): `OrderItemService`. |
+| `prelaunch/ordering/order/` | proto package | `acme.core.protocol.prelaunch.ordering.order` (C# `Acme.Core.Protocol.Prelaunch.Ordering.Order`): `OrderService`. |
+| `prelaunch/ordering/order_item/` | proto package | `acme.core.protocol.prelaunch.ordering.order_item` (C# `Acme.Core.Protocol.Prelaunch.Ordering.OrderItem`): `OrderItemService`. |
 
 Files per package: `entities.proto` (shared types), `service.proto` (service definition) and one file per operation (`create-*`, `get-*`, `get-*s`, `update-*`, `delete-*`).
 
@@ -41,13 +41,13 @@ Files per package: `entities.proto` (shared types), `service.proto` (service def
 
 **Conventions**
 - Every `<Op>Response` is `oneof result { <Op>Success success|deleted = 1; <Op>Error error = 2; }`.
-- `<Op>Error { string code; string message; }`; `code` is one of `not_found`, `validation`, `conflict`, `cancelled`, `internal` (set by `ErrorCodeClassifier` in `Template.Core.Api`).
+- `<Op>Error { string code; string message; }`; `code` is one of `not_found`, `validation`, `conflict`, `cancelled`, `internal` (set by `ErrorCodeClassifier` in `Acme.Core.Api`).
 - Ids are `bytes` (convert with `BytesExtension`); dates are `google.protobuf.Timestamp` (convert with `TimestampExtension`).
 - `optional` marks "may be absent / not updated" and generates `Has*` properties.
 
 ## Dependencies
 - References: `google/protobuf/timestamp.proto` (well-known types from `Google.Protobuf`).
-- Used by: `Template.Core.Protocol.csproj` (code generation).
+- Used by: `Acme.Core.Protocol.csproj` (code generation).
 
 ## Extending
-Create `prelaunch/<module>/<resource>/` with `entities.proto`, one `<op>.proto` per operation following the Success/Error/`oneof` convention, and a `service.proto` importing them; keep `package template.core.protocol.prelaunch.<module>.<resource>` and the matching `csharp_namespace`; register all files in the csproj. Never renumber existing fields.
+Create `prelaunch/<module>/<resource>/` with `entities.proto`, one `<op>.proto` per operation following the Success/Error/`oneof` convention, and a `service.proto` importing them; keep `package acme.core.protocol.prelaunch.<module>.<resource>` and the matching `csharp_namespace`; register all files in the csproj. Never renumber existing fields.

@@ -19,7 +19,7 @@ Read-side requests of the Ordering module (Contracts layer). Each is a `sealed r
 ## Dependencies
 
 - References: `BuildingBlocks.Application.Communication` (`IQuery<T>`), `../Results`.
-- Used by: Application query handlers; `Template.Core.Api` gRPC request mappers; tests.
+- Used by: Application query handlers; `Acme.Core.Api` gRPC request mappers; tests.
 
 ## Extending
 

@@ -2,9 +2,9 @@ syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 
-option csharp_namespace = "Template.Core.Protocol.Prelaunch.Ordering.Order";
+option csharp_namespace = "Acme.Core.Protocol.Prelaunch.Ordering.Order";
 
-package template.core.protocol.prelaunch.ordering.order;
+package acme.core.protocol.prelaunch.ordering.order;
 
 
 enum Status {

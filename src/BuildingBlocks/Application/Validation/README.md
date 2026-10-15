@@ -1,6 +1,6 @@
 # Validation
 
-Options validation with FluentValidation (namespace `Template.Core.BuildingBlocks.Application.Validation`, project `Template.Core.BuildingBlocks.Application`). Lets configuration classes bound via `IOptions<T>` be validated by an `IValidator<T>` instead of data annotations.
+Options validation with FluentValidation (namespace `Acme.Core.BuildingBlocks.Application.Validation`, project `Acme.Core.BuildingBlocks.Application`). Lets configuration classes bound via `IOptions<T>` be validated by an `IValidator<T>` instead of data annotations.
 
 ## Contents
 
@@ -27,7 +27,7 @@ services.AddOptions<PersistenceOptions>()
 
 ## Dependencies
 - References: FluentValidation, Microsoft.Extensions.Options, Microsoft.Extensions.DependencyInjection.Abstractions.
-- Used by: `Template.Core.Ordering.Persistence` (`ServiceCollectionExtensions.AddOrderingPersistence` for `PersistenceOptions`).
+- Used by: `Acme.Core.Ordering.Persistence` (`ServiceCollectionExtensions.AddOrderingPersistence` for `PersistenceOptions`).
 
 ## Extending
 - For a new options class: write an `AbstractValidator<TOptions>`, register it as `IValidator<TOptions>`, and call `.ValidateFluentValidation()` on its options builder.

@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace Template.Core.Ordering.Persistence;
+namespace Acme.Core.Ordering.Persistence;
 
 public record Anchor;
 // ReSharper disable once UnusedType.Global

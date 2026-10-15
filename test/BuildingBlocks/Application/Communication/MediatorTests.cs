@@ -1,8 +1,8 @@
 using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
-using Template.Core.BuildingBlocks.Application.Communication;
+using Acme.Core.BuildingBlocks.Application.Communication;
 
-namespace Template.Core.BuildingBlocks.Application.Test.Communication;
+namespace Acme.Core.BuildingBlocks.Application.Test.Communication;
 
 public class MediatorTests
 {

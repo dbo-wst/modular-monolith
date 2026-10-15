@@ -1,6 +1,6 @@
 # Ordering Contracts
 
-Public API of the Ordering module (assembly `Template.Core.Ordering.Contracts`): the commands, queries, results and DTOs that callers send through `IMediator`. It depends on no other layer of the module, so hosts and other modules can reference it without seeing the domain.
+Public API of the Ordering module (assembly `Acme.Core.Ordering.Contracts`): the commands, queries, results and DTOs that callers send through `IMediator`. It depends on no other layer of the module, so hosts and other modules can reference it without seeing the domain.
 
 ## Contents
 
@@ -12,7 +12,7 @@ Public API of the Ordering module (assembly `Template.Core.Ordering.Contracts`):
 | [`Dto/`](Dto/README.md) | folder | `Order`, `OrderItem` DTOs and the `EStatus` enum. |
 | [`Events/`](Events/README.md) | folder (empty, `.gitkeep`) | Placeholder for integration events. |
 | [`Responses/`](Responses/README.md) | folder (empty, `.gitkeep`) | Placeholder. |
-| `Template.Core.Ordering.Contracts.csproj` | project | References `BuildingBlocks.Application` only (for `ICommand<T>` / `IQuery<T>`). |
+| `Acme.Core.Ordering.Contracts.csproj` | project | References `BuildingBlocks.Application` only (for `ICommand<T>` / `IQuery<T>`). |
 
 ## How it works
 
@@ -23,8 +23,8 @@ Public API of the Ordering module (assembly `Template.Core.Ordering.Contracts`):
 
 ## Dependencies
 
-- References: `Template.Core.BuildingBlocks.Application`.
-- Used by: `Template.Core.Ordering.Application` (handlers, mappers, `IOrderingReadStore`), `Template.Core.Ordering.Persistence` (read store DTOs), `src/Host/Template.Core.Api` (gRPC `ProtoMappers` map protobuf <-> contracts, transitively via the Application reference), tests.
+- References: `Acme.Core.BuildingBlocks.Application`.
+- Used by: `Acme.Core.Ordering.Application` (handlers, mappers, `IOrderingReadStore`), `Acme.Core.Ordering.Persistence` (read store DTOs), `src/Host/Acme.Core.Api` (gRPC `ProtoMappers` map protobuf <-> contracts, transitively via the Application reference), tests.
 
 ## Extending
 

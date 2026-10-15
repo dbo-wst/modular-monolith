@@ -3,10 +3,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Testcontainers.MsSql;
-using Template.Core.BuildingBlocks.Application.Communication;
-using Template.Core.Ordering.Persistence;
+using Acme.Core.BuildingBlocks.Application.Communication;
+using Acme.Core.Ordering.Persistence;
 
-namespace Template.Core.Ordering.TestCompanion;
+namespace Acme.Core.Ordering.TestCompanion;
 
 public sealed class IntegrationTestsFixture : IAsyncLifetime
 {
@@ -24,7 +24,7 @@ public sealed class IntegrationTestsFixture : IAsyncLifetime
 
         if (useContainer)
         {
-            _dbContainer = Template.Core.TestCompanion.Support.Infrastructure.UseContainer();
+            _dbContainer = Acme.Core.TestCompanion.Support.Infrastructure.UseContainer();
             await _dbContainer.StartAsync();
             var connectionString = _dbContainer.GetConnectionString();
             _serviceProvider = BuildServiceProvider(InMemoryConfig(connectionString));

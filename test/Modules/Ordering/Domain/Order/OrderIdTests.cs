@@ -1,6 +1,6 @@
-using Template.Core.Ordering.Domain.Orders;
+using Acme.Core.Ordering.Domain.Orders;
 
-namespace Template.Core.Ordering.Domain.Test.Order;
+namespace Acme.Core.Ordering.Domain.Test.Order;
 
 public class OrderIdTests
 {

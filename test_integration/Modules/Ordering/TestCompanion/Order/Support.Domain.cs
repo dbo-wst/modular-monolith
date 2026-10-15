@@ -1,7 +1,7 @@
-using Template.Core.Ordering.Domain.Orders;
-using Template.Core.Ordering.Domain.ValueObjects;
+using Acme.Core.Ordering.Domain.Orders;
+using Acme.Core.Ordering.Domain.ValueObjects;
 
-namespace Template.Core.Ordering.TestCompanion.Order;
+namespace Acme.Core.Ordering.TestCompanion.Order;
 
 public static class Support
 {

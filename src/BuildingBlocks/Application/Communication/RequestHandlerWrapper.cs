@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 using LanguageExt;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Template.Core.BuildingBlocks.Application.Communication;
+namespace Acme.Core.BuildingBlocks.Application.Communication;
 
 /// <summary>
 /// Strongly-typed bridge from <see cref="IMediator.SendAsync{TResponse}"/> (which only knows <typeparamref name="TResponse"/>)

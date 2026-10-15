@@ -1,10 +1,10 @@
-using Template.Core.BuildingBlocks.Domain.Errors;
-using Template.Core.Ordering.Persistence;
-using Template.Core.Ordering.TestCompanion;
-using OrderItemId = Template.Core.Ordering.Domain.OrderItems.OrderItemId;
-using GetOrderItemHandler = Template.Core.Ordering.Application.OrderItems.GetOrderItem.GetOrderItemHandler;
+using Acme.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.Ordering.Persistence;
+using Acme.Core.Ordering.TestCompanion;
+using OrderItemId = Acme.Core.Ordering.Domain.OrderItems.OrderItemId;
+using GetOrderItemHandler = Acme.Core.Ordering.Application.OrderItems.GetOrderItem.GetOrderItemHandler;
 
-namespace Template.Core.Ordering.Application.IntegrationTest.OrderItems.GetOrderItem;
+namespace Acme.Core.Ordering.Application.IntegrationTest.OrderItems.GetOrderItem;
 
 [Collection(IntegrationTestsFixture.CollectionName)]
 public class GetOrderItemHandlerTests(IntegrationTestsFixture fixture)

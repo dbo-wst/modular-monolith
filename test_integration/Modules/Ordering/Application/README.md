@@ -1,6 +1,6 @@
 # Ordering Application Integration Tests
 
-Runs the Ordering vertical-slice handlers against a real SQL Server database to verify they work with the production EF Core mapping and migrations. Assembly: `Template.Core.Ordering.Application.IntegrationTest`.
+Runs the Ordering vertical-slice handlers against a real SQL Server database to verify they work with the production EF Core mapping and migrations. Assembly: `Acme.Core.Ordering.Application.IntegrationTest`.
 
 ## Contents
 
@@ -18,7 +18,7 @@ Runs the Ordering vertical-slice handlers against a real SQL Server database to 
 | `OrderItems/UpdateOrderItem/UpdateOrderItemHandlerTests.cs` | test class | Update then get order item |
 | `OrderItems/DeleteOrderItem/DeleteOrderItemHandlerTests.cs` | test class | Delete existing order item, missing order item fails |
 | `appsettings.json` | config | Logging/Serilog settings (console and rolling file `logs/log-.log`) |
-| `Template.Core.Ordering.Application.IntegrationTest.csproj` | project | Test project definition |
+| `Acme.Core.Ordering.Application.IntegrationTest.csproj` | project | Test project definition |
 
 ## How it works
 
@@ -27,12 +27,12 @@ Test classes are in `[Collection(IntegrationTestsFixture.CollectionName)]` and r
 ## Running
 
 ```powershell
-dotnet test .\test_integration\Modules\Ordering\Application\Template.Core.Ordering.Application.IntegrationTest.csproj
+dotnet test .\test_integration\Modules\Ordering\Application\Acme.Core.Ordering.Application.IntegrationTest.csproj
 ```
 
 ## Dependencies
 
-- References: `src/Modules/Ordering/Application`, `src/Modules/Ordering/Domain`, `src/Modules/Ordering/Persistence`, `test_integration/Modules/Ordering/TestCompanion/Template.Core.Ordering.TestCompanion.csproj`
+- References: `src/Modules/Ordering/Application`, `src/Modules/Ordering/Domain`, `src/Modules/Ordering/Persistence`, `test_integration/Modules/Ordering/TestCompanion/Acme.Core.Ordering.TestCompanion.csproj`
 - Packages: `xunit.v3`, `xunit.runner.visualstudio`, `Microsoft.NET.Test.Sdk`, `Serilog`, `Serilog.Extensions.Logging`, `Serilog.Settings.Configuration`
 
 ## Extending

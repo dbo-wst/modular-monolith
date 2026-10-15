@@ -1,6 +1,6 @@
 using LanguageExt;
 
-namespace Template.Core.BuildingBlocks.Domain;
+namespace Acme.Core.BuildingBlocks.Domain;
 
 /// <summary>
 /// Domain-level port for committing the changes of one business operation. A successful

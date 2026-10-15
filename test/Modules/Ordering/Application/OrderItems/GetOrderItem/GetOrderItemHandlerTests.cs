@@ -1,10 +1,10 @@
 using LanguageExt.UnsafeValueAccess;
-using Template.Core.Ordering.Persistence;
-using Template.Core.Ordering.TestCompanion;
-using CreateOrderItemHandler = Template.Core.Ordering.Application.OrderItems.CreateOrderItem.CreateOrderItemHandler;
-using GetOrderItemHandler = Template.Core.Ordering.Application.OrderItems.GetOrderItem.GetOrderItemHandler;
+using Acme.Core.Ordering.Persistence;
+using Acme.Core.Ordering.TestCompanion;
+using CreateOrderItemHandler = Acme.Core.Ordering.Application.OrderItems.CreateOrderItem.CreateOrderItemHandler;
+using GetOrderItemHandler = Acme.Core.Ordering.Application.OrderItems.GetOrderItem.GetOrderItemHandler;
 
-namespace Template.Core.Ordering.Application.Test.OrderItems.GetOrderItem;
+namespace Acme.Core.Ordering.Application.Test.OrderItems.GetOrderItem;
 
 public class GetOrderItemHandlerTests(InMemoryFixture fixture) : IClassFixture<InMemoryFixture>
 {

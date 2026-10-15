@@ -1,7 +1,7 @@
 using LanguageExt;
 using LanguageExt.Common;
 
-namespace Template.Core.BuildingBlocks.Domain.Errors;
+namespace Acme.Core.BuildingBlocks.Domain.Errors;
 
 /// <summary>The request conflicts with the current state (duplicate entity, concurrent modification, ...).</summary>
 public record ConflictError : AppError

@@ -1,9 +1,9 @@
-using Template.Core.Ordering.Domain.Orders;
-using Template.Core.BuildingBlocks.Domain;
-using Template.Core.Ordering.Domain.ValueObjects;
-using OrderId = Template.Core.Ordering.Domain.Orders.OrderId;
+using Acme.Core.Ordering.Domain.Orders;
+using Acme.Core.BuildingBlocks.Domain;
+using Acme.Core.Ordering.Domain.ValueObjects;
+using OrderId = Acme.Core.Ordering.Domain.Orders.OrderId;
 
-namespace Template.Core.Ordering.Persistence.Orders.Mappers;
+namespace Acme.Core.Ordering.Persistence.Orders.Mappers;
 
 public struct OrderMapper : IMap<Domain.Orders.Order, OrderDbo>
 {

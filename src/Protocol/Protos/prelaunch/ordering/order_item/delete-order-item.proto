@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option csharp_namespace = "Template.Core.Protocol.Prelaunch.Ordering.OrderItem";
+option csharp_namespace = "Acme.Core.Protocol.Prelaunch.Ordering.OrderItem";
 
-package template.core.protocol.prelaunch.ordering.order_item;
+package acme.core.protocol.prelaunch.ordering.order_item;
 
 message DeleteOrderItemRequest {
   bytes order_item_id = 1;

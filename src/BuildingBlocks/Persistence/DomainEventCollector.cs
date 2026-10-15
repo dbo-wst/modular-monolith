@@ -1,6 +1,6 @@
-using Template.Core.BuildingBlocks.Domain;
+using Acme.Core.BuildingBlocks.Domain;
 
-namespace Template.Core.BuildingBlocks.Persistence;
+namespace Acme.Core.BuildingBlocks.Persistence;
 
 /// <summary>
 /// Scoped registry of the aggregates touched in the current unit of work. Repositories map aggregates to

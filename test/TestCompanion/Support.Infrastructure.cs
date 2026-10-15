@@ -1,6 +1,6 @@
 using Testcontainers.MsSql;
 
-namespace Template.Core.TestCompanion;
+namespace Acme.Core.TestCompanion;
 
 public static partial class Support
 {

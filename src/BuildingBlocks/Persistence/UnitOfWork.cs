@@ -1,9 +1,9 @@
 using LanguageExt;
 using Microsoft.EntityFrameworkCore;
-using Template.Core.BuildingBlocks.Domain;
-using Template.Core.BuildingBlocks.Domain.Errors;
+using Acme.Core.BuildingBlocks.Domain;
+using Acme.Core.BuildingBlocks.Domain.Errors;
 
-namespace Template.Core.BuildingBlocks.Persistence;
+namespace Acme.Core.BuildingBlocks.Persistence;
 
 /// <summary>
 /// Reusable EF Core unit of work: saves changes and runs work inside a transaction (honouring the

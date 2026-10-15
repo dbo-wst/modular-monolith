@@ -1,7 +1,7 @@
 using LanguageExt;
 using LanguageExt.Common;
 
-namespace Template.Core.BuildingBlocks.Domain.Errors;
+namespace Acme.Core.BuildingBlocks.Domain.Errors;
 
 /// <summary>
 /// Base of all typed application errors. Consumers classify by type / <see cref="ErrorCode"/>,
