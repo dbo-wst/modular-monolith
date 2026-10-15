@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Acme.Core.Ordering.Domain.csproj" />
+    <ProjectReference Include="..\Contracts\Acme.Core.Ordering.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Application\Acme.Core.BuildingBlocks.Application.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Acme.Core.Ordering.Application.Test" />
+    <InternalsVisibleTo Include="Acme.Core.Ordering.Application.IntegrationTest" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+</Project>
+

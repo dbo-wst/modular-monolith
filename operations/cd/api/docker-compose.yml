@@ -1,7 +1,7 @@
 services:
   api:
-    image: "${IMAGE_TAG:-build.steubing.com/wst-trios-api:latest}"
-    container_name: ${CONTAINER_NAME:-wst-trios-api}
+    image: "${IMAGE_TAG:-build.steubing.com/acme-api:latest}"
+    container_name: ${CONTAINER_NAME:-acme-api}
     restart: unless-stopped
     pull_policy: never
     ports:
@@ -10,24 +10,24 @@ services:
       - path: ${ENV_FILE:-./conf.d/.env}
         required: false
     volumes:
-      - wst-trios-api-dp-keys:/root/.aspnet/DataProtection-Keys
-      - wst-trios-api-logs:/app/publish/logs
+      - acme-api-dp-keys:/root/.aspnet/DataProtection-Keys
+      - acme-api-logs:/app/publish/logs
     networks:
-      - trios-network
+      - acme-network
       - rp
 
 networks:
-  trios-network:
-    name: trios-network
+  acme-network:
+    name: acme-network
     external: true
   rp:
     external: true
     name: rp_default_net
 
 volumes:
-  wst-trios-api-dp-keys:
+  acme-api-dp-keys:
     external: true
-    name: wst-trios-api-dp-keys
-  wst-trios-api-logs:
+    name: acme-api-dp-keys
+  acme-api-logs:
     external: true
-    name: wst-trios-api-logs
+    name: acme-api-logs

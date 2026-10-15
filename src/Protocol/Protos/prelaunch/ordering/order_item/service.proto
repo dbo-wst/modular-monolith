@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "Acme.Core.Protocol.Prelaunch.Ordering.OrderItem";
+
+package acme.core.protocol.prelaunch.ordering.order_item;
+
+import "prelaunch/ordering/order_item/create-order-item.proto";
+import "prelaunch/ordering/order_item/get-order-item.proto";
+import "prelaunch/ordering/order_item/get-order-items.proto";
+import "prelaunch/ordering/order_item/update-order-item.proto";
+import "prelaunch/ordering/order_item/delete-order-item.proto";
+
+service OrderItemService {
+  rpc CreateOrderItem (CreateOrderItemRequest) returns (CreateOrderItemResponse);
+
+  rpc GetOrderItem (GetOrderItemRequest) returns (GetOrderItemResponse);
+
+  rpc GetOrderItems (GetOrderItemsRequest) returns (GetOrderItemsResponse);
+
+  rpc UpdateOrderItem (UpdateOrderItemRequest) returns (UpdateOrderItemResponse);
+
+  rpc DeleteOrderItem (DeleteOrderItemRequest) returns (DeleteOrderItemResponse);
+}

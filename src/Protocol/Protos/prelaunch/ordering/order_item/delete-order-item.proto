@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option csharp_namespace = "Acme.Core.Protocol.Prelaunch.Ordering.OrderItem";
+
+package acme.core.protocol.prelaunch.ordering.order_item;
+
+message DeleteOrderItemRequest {
+  bytes order_item_id = 1;
+}
+
+message DeleteOrderItemSuccess {
+  bytes order_item_id = 1;
+}
+
+message DeleteOrderItemError {
+  string code = 1;
+  string message = 2;
+}
+
+message DeleteOrderItemResponse {
+  oneof result {
+    DeleteOrderItemSuccess deleted = 1;
+    DeleteOrderItemError error = 2;
+  }
+}

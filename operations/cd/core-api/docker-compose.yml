@@ -1,31 +1,31 @@
 services:
   core-api:
-    image: "${IMAGE_TAG:-build.steubing.com/wst-trios-core-api:latest}"
-    container_name: ${CONTAINER_NAME:-wst-trios-core-api}
+    image: "${IMAGE_TAG:-build.steubing.com/acme-core-api:latest}"
+    container_name: ${CONTAINER_NAME:-acme-core-api}
     restart: unless-stopped
     pull_policy: never
     env_file:
       - path: ${ENV_FILE:-./conf.d/.env}
         required: false
     volumes:
-      - wst-trios-core-api-dp-keys:/root/.aspnet/DataProtection-Keys
-      - wst-trios-core-api-logs:/app/publish/logs
+      - acme-core-api-dp-keys:/root/.aspnet/DataProtection-Keys
+      - acme-core-api-logs:/app/publish/logs
     networks:
-      - trios-network
+      - acme-network
       - rp
 
 networks:
-  trios-network:
-    name: trios-network
+  acme-network:
+    name: acme-network
     external: true
   rp:
     external: true
     name: rp_default_net
 
 volumes:
-  wst-trios-core-api-dp-keys:
+  acme-core-api-dp-keys:
     external: true
-    name: wst-trios-core-api-dp-keys
-  wst-trios-core-api-logs:
+    name: acme-core-api-dp-keys
+  acme-core-api-logs:
     external: true
-    name: wst-trios-core-api-logs
+    name: acme-core-api-logs

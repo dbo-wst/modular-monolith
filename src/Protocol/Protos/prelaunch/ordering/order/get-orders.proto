@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option csharp_namespace = "Acme.Core.Protocol.Prelaunch.Ordering.Order";
+
+package acme.core.protocol.prelaunch.ordering.order;
+
+import "prelaunch/ordering/order/entities.proto";
+
+message GetOrdersRequest {
+  int32 page_number = 1;
+  int32 page_size = 2;
+}
+
+message GetOrdersSuccess {
+  repeated Order orders = 1;
+  int32 page_number = 2;
+  int32 page_size = 3;
+}
+
+message GetOrdersError {
+  string code = 1;
+  string message = 2;
+}
+
+message GetOrdersResponse {
+  oneof result {
+    GetOrdersSuccess success = 1;
+    GetOrdersError error = 2;
+  }
+}

@@ -17,11 +17,11 @@ VERSION="$1"
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 
 REGISTRY_HOST="build.steubing.com"
-IMAGE_NAME="wst-trios-docs"
+IMAGE_NAME="acme-docs"
 IMAGE_TAG="${REGISTRY_HOST}/${IMAGE_NAME}:${VERSION}"
 
-CONTAINER_NAME="wst-trios-docs"
-TRIOS_NETWORK="trios-network"
+CONTAINER_NAME="acme-docs"
+ACME_NETWORK="acme-network"
 RP_NETWORK="rp_default_net"
 
 COMPOSE_FILE="${SCRIPT_DIR}/docker-compose.yml"
@@ -45,7 +45,7 @@ ensure_network() {
   fi
 }
 
-ensure_network "${TRIOS_NETWORK}"
+ensure_network "${ACME_NETWORK}"
 ensure_network "${RP_NETWORK}"
 
 echo "Recreating docker compose stack from ${COMPOSE_FILE}..."

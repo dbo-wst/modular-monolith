@@ -1,5 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <ProjectReference Include="..\..\Shared.Kernel\Wst.Trios.Core.Shared.Kernel.csproj" />
-  </ItemGroup>
-</Project>

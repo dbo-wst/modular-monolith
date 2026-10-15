@@ -1,7 +1,6 @@
-# TRIOS
+# Acme
 
-###### Trading - Risk - Information - Operations - Settlement
-
+###### Modular monolith solution template
 
 #### Index
 
@@ -31,9 +30,8 @@
     - [8.8 Error Handling](08-cross-cutting-concepts/08-error-handling.md)
     - [8.9 Logging](08-cross-cutting-concepts/09-logging.md)
     - [8.10 Testability](08-cross-cutting-concepts/10-testability.md)
-
 - [9. Architecture Decisions](09-architecture-decisions/index.md)
-    - [9.1 Requirement Defined](09-architecture-decisions/0001-requirement-defined.md)
+    - [9.1 Modular Monolith, Clean Architecture, Vertical Slices and CQRS](09-architecture-decisions/0001-modular-monolith-clean-architecture-cqrs.md)
 - [10. Quality Requirements](10-quality-requirements/index.md)
     - [10.1 Quality Tree](10-quality-requirements/01-quality-tree.md)
     - [10.2 Quality Scenarios](10-quality-requirements/02-quality-scenarios.md)
@@ -41,5 +39,4 @@
 - [12. Glossary](12-glossary/index.md)
 - [Intro](intro.md)
 - [Setup](setup.md)
-- [Operations Template](operations/index.md)
-                                                                                                                                                                                                                                          
+- [Operations](operations/index.md)

@@ -1,6 +1,6 @@
 using Google.Protobuf.WellKnownTypes;
 
-namespace Wst.Trios.Core.Protocol;
+namespace Acme.Core.Protocol;
 
 public static class TimestampExtension
 {

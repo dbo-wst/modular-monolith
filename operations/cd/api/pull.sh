@@ -15,7 +15,7 @@ fi
 VERSION="$1"
 
 REGISTRY_HOST="build.steubing.com"
-IMAGE_NAME="wst-trios-api"
+IMAGE_NAME="acme-api"
 IMAGE_TAG="${REGISTRY_HOST}/${IMAGE_NAME}:${VERSION}"
 
 echo "Pulling ${IMAGE_TAG} from ${REGISTRY_HOST}..."

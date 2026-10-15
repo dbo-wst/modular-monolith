@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <IsPackable>false</IsPackable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk"/>
+        <PackageReference Include="NetArchTest.Rules"/>
+        <PackageReference Include="xunit.runner.visualstudio"/>
+        <PackageReference Include="xunit.v3"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Using Include="Xunit"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\Modules\Ordering\Domain\Acme.Core.Ordering.Domain.csproj"/>
+        <ProjectReference Include="..\..\src\Modules\Ordering\Application\Acme.Core.Ordering.Application.csproj"/>
+        <ProjectReference Include="..\..\src\Modules\Ordering\Contracts\Acme.Core.Ordering.Contracts.csproj"/>
+        <ProjectReference Include="..\..\src\Modules\Ordering\Persistence\Acme.Core.Ordering.Persistence.csproj"/>
+        <ProjectReference Include="..\..\src\Host\Acme.Api\Acme.Api.csproj"/>
+    </ItemGroup>
+</Project>

@@ -3,8 +3,8 @@ services:
     build:
       context: ../../..
       dockerfile: operations/ci/core-api/Dockerfile
-    image: "${IMAGE_TAG:-wst-trios-core-api:latest}"
-    container_name: ${CONTAINER_NAME:-wst-trios-core-api}
+    image: "${IMAGE_TAG:-acme-core-api:latest}"
+    container_name: ${CONTAINER_NAME:-acme-core-api}
     restart: unless-stopped
     pull_policy: build
     env_file:
@@ -13,16 +13,16 @@ services:
     ports:
       - "${CORE_API_HOST_PORT:-5080}:80"
     volumes:
-      - wst-trios-core-api-dp-keys:/root/.aspnet/DataProtection-Keys
-      - wst-trios-core-api-logs:/app/publish/logs
+      - acme-core-api-dp-keys:/root/.aspnet/DataProtection-Keys
+      - acme-core-api-logs:/app/publish/logs
     networks:
-      - trios-network
+      - acme-network
       - mssql-network
       - rp
 
 networks:
-  trios-network:
-    name: trios-network
+  acme-network:
+    name: acme-network
     external: true
   mssql-network:
     name: mssql-network
@@ -32,9 +32,9 @@ networks:
     name: rp_default_net
 
 volumes:
-  wst-trios-core-api-dp-keys:
+  acme-core-api-dp-keys:
     external: true
-    name: wst-trios-core-api-dp-keys
-  wst-trios-core-api-logs:
+    name: acme-core-api-dp-keys
+  acme-core-api-logs:
     external: true
-    name: wst-trios-core-api-logs
+    name: acme-core-api-logs

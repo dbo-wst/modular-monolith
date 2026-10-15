@@ -1,0 +1,65 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Google.Protobuf"/>
+        <PackageReference Include="Grpc.Net.Client"/>
+        <PackageReference Include="Grpc.Tools" PrivateAssets="All"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Protobuf Include="Protos\prelaunch\ordering\order\entities.proto" ProtoRoot="Protos" >
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Protos\prelaunch\ordering\order\service.proto" GrpcServices="Server,Client" ProtoRoot="Protos">
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Protos\prelaunch\ordering\order\create-order.proto" ProtoRoot="Protos">
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Protos\prelaunch\ordering\order\get-order.proto" ProtoRoot="Protos">
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Protos\prelaunch\ordering\order\get-orders.proto" ProtoRoot="Protos">
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Protos\prelaunch\ordering\order\update-order.proto" ProtoRoot="Protos">
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Protos\prelaunch\ordering\order\delete-order.proto" ProtoRoot="Protos">
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Protos\prelaunch\ordering\order_item\entities.proto" ProtoRoot="Protos" >
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Protos\prelaunch\ordering\order_item\service.proto" GrpcServices="Server,Client" ProtoRoot="Protos">
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Protos\prelaunch\ordering\order_item\create-order-item.proto" ProtoRoot="Protos">
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Protos\prelaunch\ordering\order_item\get-order-item.proto" ProtoRoot="Protos">
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Protos\prelaunch\ordering\order_item\get-order-items.proto" ProtoRoot="Protos">
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Protos\prelaunch\ordering\order_item\update-order-item.proto" ProtoRoot="Protos">
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+        <Protobuf Include="Protos\prelaunch\ordering\order_item\delete-order-item.proto" ProtoRoot="Protos">
+            <Generator>MSBuild:Compile</Generator>
+        </Protobuf>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Protos\prelaunch\ordering\order" />
+      <Folder Include="Protos\prelaunch\ordering\order_item" />
+    </ItemGroup>
+
+</Project>

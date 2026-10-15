@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "Acme.Core.Protocol.Prelaunch.Ordering.Order";
+
+package acme.core.protocol.prelaunch.ordering.order;
+
+
+enum Status {
+  STATUS_UNSPECIFIED = 0;
+  NEW = 1;
+  IN_PROGRESS = 2;
+  COMPLETED = 3;
+  CANCELLED = 4;
+  REJECTED = 5;
+}
+
+message Order {
+  bytes order_id = 1;
+  optional string number = 2;
+  google.protobuf.Timestamp effective_date = 3;
+  optional Status status = 4;
+}

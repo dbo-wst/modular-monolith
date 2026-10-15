@@ -1,4 +1,4 @@
-# Multi-stage build for TRIOS documentation
+# Multi-stage build for Acme documentation
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /repo
 

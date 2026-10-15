@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option csharp_namespace = "Acme.Core.Protocol.Prelaunch.Ordering.Order";
+
+package acme.core.protocol.prelaunch.ordering.order;
+
+import "prelaunch/ordering/order/entities.proto";
+import "google/protobuf/timestamp.proto";
+
+message CreateOrderRequest {
+  bytes order_id = 1;
+  optional string number = 2;
+  google.protobuf.Timestamp effective_date = 3;
+}
+
+message CreateOrderSuccess {
+  Order order = 1;
+}
+
+message CreateOrderError {
+  string code = 1;
+  string message = 2;
+}
+
+message CreateOrderResponse {
+  oneof result {
+    CreateOrderSuccess success = 1;
+    CreateOrderError error = 2;
+  }
+}

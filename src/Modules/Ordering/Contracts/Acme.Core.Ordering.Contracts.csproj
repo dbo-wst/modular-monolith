@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Application\Acme.Core.BuildingBlocks.Application.csproj" />
+  </ItemGroup>
+</Project>

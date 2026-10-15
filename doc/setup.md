@@ -1,14 +1,25 @@
+# Setup
+
 ## Prerequisites
 
-- runtimes
-- tools
+- .NET 10 SDK
+- Docker (for SQL Server and the container workflow)
 
 ## Quick Start
 
-## Containerised Workflow
+```bash
+dotnet build Acme.Core.slnx
+dotnet test Acme.Core.slnx
+```
 
-    - describe how to start application locally
+## Local database
 
-## Verification
+```bash
+docker compose -f operations/sql/docker-compose.mssql.local.yml up -d
+```
 
-    - Health tests
+Migrations: set `SQL_CONNECTION_STRING` and run `./add-migrations.sh` (see `src/Modules/Ordering/Persistence/readme.md`).
+
+## Containerised workflow
+
+Images are built with `operations/ci/build.sh <version>` and started with `operations/cd/run.sh <version>`.

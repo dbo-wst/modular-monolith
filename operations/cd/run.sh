@@ -17,17 +17,17 @@ VERSION="$1"
 SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 
 REGISTRY_HOST="build.steubing.com"
-CORE_API_IMAGE_TAG="${REGISTRY_HOST}/wst-trios-core-api:${VERSION}"
-API_IMAGE_TAG="${REGISTRY_HOST}/wst-trios-api:${VERSION}"
-DOCS_IMAGE_TAG="${REGISTRY_HOST}/wst-trios-docs:${VERSION}"
+CORE_API_IMAGE_TAG="${REGISTRY_HOST}/acme-core-api:${VERSION}"
+API_IMAGE_TAG="${REGISTRY_HOST}/acme-api:${VERSION}"
+DOCS_IMAGE_TAG="${REGISTRY_HOST}/acme-docs:${VERSION}"
 
-TRIOS_NETWORK="trios-network"
+ACME_NETWORK="acme-network"
 RP_NETWORK="rp_default_net"
 
-CORE_API_DP_KEYS_VOLUME="wst-trios-core-api-dp-keys"
-CORE_API_LOGS_VOLUME="wst-trios-core-api-logs"
-API_DP_KEYS_VOLUME="wst-trios-api-dp-keys"
-API_LOGS_VOLUME="wst-trios-api-logs"
+CORE_API_DP_KEYS_VOLUME="acme-core-api-dp-keys"
+CORE_API_LOGS_VOLUME="acme-core-api-logs"
+API_DP_KEYS_VOLUME="acme-api-dp-keys"
+API_LOGS_VOLUME="acme-api-logs"
 
 COMPOSE_FILE="${SCRIPT_DIR}/docker-compose.yml"
 
@@ -60,7 +60,7 @@ ensure_volume() {
   fi
 }
 
-ensure_network "${TRIOS_NETWORK}"
+ensure_network "${ACME_NETWORK}"
 ensure_network "${RP_NETWORK}"
 ensure_volume "${CORE_API_DP_KEYS_VOLUME}"
 ensure_volume "${CORE_API_LOGS_VOLUME}"
