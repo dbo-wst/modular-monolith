@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Template.Core.Ordering.Contracts.Commands;
-using Template.Core.Ordering.Infrastructure;
+using Template.Core.Ordering.Persistence;
 using Template.Core.Ordering.TestCompanion;
 using Template.Core.Shared.Kernel.Communication;
 
@@ -15,8 +15,8 @@ public class MediatorPipelineTests
         services.AddApplication(null!);
         services.AddScoped(_ => factory.CreateDbContext());
         services.AddScoped<Domain.Abstractions.IUnitOfWork, UnitOfWork>();
-        services.AddScoped<Domain.Orders.IOrderRepository, Infrastructure.Order.OrderRepository>();
-        services.AddScoped<Domain.OrderItems.IOrderItemRepository, Infrastructure.OrderItem.OrderItemRepository>();
+        services.AddScoped<Domain.Orders.IOrderRepository, Persistence.Orders.OrderRepository>();
+        services.AddScoped<Domain.OrderItems.IOrderItemRepository, Persistence.OrderItems.OrderItemRepository>();
         services.AddScoped<IOrderingReadStore>(_ => new ReadStore(factory));
         return services.BuildServiceProvider().CreateScope().ServiceProvider.GetRequiredService<IMediator>();
     }

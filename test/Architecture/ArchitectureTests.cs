@@ -12,6 +12,14 @@ public class ArchitectureTests
     private static readonly Assembly Application = typeof(Ordering.Application.IOrderingReadStore).Assembly;
     private static readonly Assembly Contracts = typeof(Ordering.Contracts.Dto.Order).Assembly;
 
+    // One project per adapter. Add new adapter projects (Messaging, ExternalServices, ...) here.
+    private static readonly Assembly[] Adapters =
+    [
+        typeof(Ordering.Persistence.UnitOfWork).Assembly
+    ];
+
+    private static string[] AdapterNamespaces => Adapters.Select(a => a.GetName().Name!).ToArray();
+
     private static void AssertNoDependency(Assembly assembly, params string[] forbidden)
     {
         var result = Types.InAssembly(assembly).ShouldNot().HaveDependencyOnAny(forbidden).GetResult();
@@ -20,22 +28,37 @@ public class ArchitectureTests
     }
 
     [Fact]
-    public void Domain_DependsOnNeitherApplicationInfrastructureNorContracts() =>
-        AssertNoDependency(Domain, $"{Root}.Application", $"{Root}.Infrastructure", $"{Root}.Contracts");
+    public void AdapterAssemblies_LiveInTheModuleNamespace() =>
+        Assert.All(AdapterNamespaces, name => Assert.StartsWith($"{Root}.", name));
+
+    [Fact]
+    public void Domain_DependsOnNeitherApplicationContractsNorAdapters() =>
+        AssertNoDependency(Domain, [$"{Root}.Application", $"{Root}.Contracts", .. AdapterNamespaces]);
 
     [Fact]
     public void Contracts_DependOnNoOtherModuleLayer() =>
-        AssertNoDependency(Contracts, $"{Root}.Domain", $"{Root}.Application", $"{Root}.Infrastructure");
+        AssertNoDependency(Contracts, [$"{Root}.Domain", $"{Root}.Application", .. AdapterNamespaces]);
 
     [Fact]
-    public void Application_DoesNotDependOnInfrastructure() =>
-        AssertNoDependency(Application, $"{Root}.Infrastructure", "Microsoft.EntityFrameworkCore");
+    public void Application_DoesNotDependOnAdaptersOrEfCore() =>
+        AssertNoDependency(Application, [.. AdapterNamespaces, "Microsoft.EntityFrameworkCore"]);
+
+    [Fact]
+    public void Adapters_DoNotDependOnEachOther()
+    {
+        foreach (var adapter in Adapters)
+        {
+            var others = AdapterNamespaces.Where(n => n != adapter.GetName().Name).ToArray();
+            if (others.Length > 0)
+                AssertNoDependency(adapter, others);
+        }
+    }
 
     [Fact]
     public void Gateway_OnlyKnowsTheModuleThroughContractsOrProtocol()
     {
         var gateway = typeof(Template.Api.Segments).Assembly;
-        AssertNoDependency(gateway, $"{Root}.Domain", $"{Root}.Application", $"{Root}.Infrastructure");
+        AssertNoDependency(gateway, [$"{Root}.Domain", $"{Root}.Application", .. AdapterNamespaces]);
     }
 
     [Fact]

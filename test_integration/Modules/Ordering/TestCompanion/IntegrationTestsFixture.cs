@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Testcontainers.MsSql;
-using Template.Core.Ordering.Infrastructure;
+using Template.Core.Ordering.Persistence;
 
 namespace Template.Core.Ordering.TestCompanion;
 
@@ -96,7 +96,7 @@ public sealed class IntegrationTestsFixture : IAsyncLifetime
         services.AddOptions();
 
 
-        services.AddInfrastructure(configuration);
+        services.AddPersistence(configuration);
 
         return services.BuildServiceProvider();
     }

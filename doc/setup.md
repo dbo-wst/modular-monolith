@@ -18,7 +18,7 @@ dotnet test Template.Core.slnx
 docker compose -f operations/sql/docker-compose.mssql.local.yml up -d
 ```
 
-Migrations: set `SQL_CONNECTION_STRING` and run `./add-migrations.sh` (see `src/Modules/Ordering/Infrastructure/readme.md`).
+Migrations: set `SQL_CONNECTION_STRING` and run `./add-migrations.sh` (see `src/Modules/Ordering/Persistence/readme.md`).
 
 ## Containerised workflow
 

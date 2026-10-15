@@ -1,5 +1,5 @@
 using Template.Core.Ordering.Application;
-using Template.Core.Ordering.Infrastructure;
+using Template.Core.Ordering.Persistence;
 
 namespace Template.Core.Api.Prelaunch.Ordering;
 
@@ -9,7 +9,7 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services, IConfiguration configuration)
     {
         services.AddApplication(configuration);
-        services.AddInfrastructure(configuration);
+        services.AddPersistence(configuration);
 
         return services;
     }

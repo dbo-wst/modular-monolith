@@ -1,10 +1,10 @@
 using Template.Core.Ordering.Domain.Abstractions;
 using Template.Core.Ordering.Domain.OrderItems;
 using Template.Core.Ordering.Domain.Orders;
-using Template.Core.Ordering.Infrastructure;
-using Template.Core.Ordering.Infrastructure.DbContext;
-using Template.Core.Ordering.Infrastructure.Order;
-using Template.Core.Ordering.Infrastructure.OrderItem;
+using Template.Core.Ordering.Persistence;
+using Template.Core.Ordering.Persistence.DbContext;
+using Template.Core.Ordering.Persistence.Orders;
+using Template.Core.Ordering.Persistence.OrderItems;
 
 namespace Template.Core.Ordering.TestCompanion;
 

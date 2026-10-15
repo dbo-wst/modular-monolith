@@ -1,4 +1,4 @@
-using Template.Core.Ordering.Infrastructure;
+using Template.Core.Ordering.Persistence;
 
 namespace Template.Core.Ordering.TestCompanion;
 

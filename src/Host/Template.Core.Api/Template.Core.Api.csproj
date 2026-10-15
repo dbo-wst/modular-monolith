@@ -9,7 +9,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Protocol\Template.Core.Protocol.csproj"/>
         <ProjectReference Include="..\..\Modules\Ordering\Application\Template.Core.Ordering.Application.csproj"/>
-        <ProjectReference Include="..\..\Modules\Ordering\Infrastructure\Template.Core.Ordering.Infrastructure.csproj"/>
+        <ProjectReference Include="..\..\Modules\Ordering\Persistence\Template.Core.Ordering.Persistence.csproj"/>
 <!--        <ProjectReference Include="..\..\ClientSide\Application\Template.Core.ClientSide.Application.csproj"/>-->
 <!--        <ProjectReference Include="..\..\ClientSide\Persistence\Template.Core.ClientSide.Persistence.csproj"/>-->
 <!--        <ProjectReference Include="..\..\Allocation\Application\Template.Core.Allocation.Application.csproj"/>-->

@@ -31,7 +31,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\..\..\src\Modules\Ordering\Domain\Template.Core.Ordering.Domain.csproj"/>
-        <ProjectReference Include="..\..\..\..\src\Modules\Ordering\Infrastructure\Template.Core.Ordering.Infrastructure.csproj"/>
+        <ProjectReference Include="..\..\..\..\src\Modules\Ordering\Persistence\Template.Core.Ordering.Persistence.csproj"/>
         <ProjectReference Include="..\..\..\TestCompanion\Template.Core.TestCompanion.csproj" />
     </ItemGroup>
 

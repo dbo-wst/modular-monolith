@@ -1,4 +1,4 @@
-using Template.Core.Ordering.Infrastructure;
+using Template.Core.Ordering.Persistence;
 using Template.Core.Ordering.TestCompanion;
 using OrderItemId = Template.Core.Ordering.Domain.OrderItems.OrderItemId;
 using GetOrderItemHandler = Template.Core.Ordering.Application.OrderItems.GetOrderItem.GetOrderItemHandler;

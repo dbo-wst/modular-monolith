@@ -1,7 +1,7 @@
 using FakeItEasy;
 using Microsoft.EntityFrameworkCore;
-using Template.Core.Ordering.Infrastructure;
-using Template.Core.Ordering.Infrastructure.DbContext;
+using Template.Core.Ordering.Persistence;
+using Template.Core.Ordering.Persistence.DbContext;
 using Template.Core.Shared.Kernel.Functional;
 
 namespace Template.Core.Ordering.TestCompanion;

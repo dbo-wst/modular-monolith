@@ -16,7 +16,7 @@
         <Project Path="src/Modules/Ordering/Application/Template.Core.Ordering.Application.csproj" />
         <Project Path="src/Modules/Ordering/Domain/Template.Core.Ordering.Domain.csproj" />
         <Project Path="src/Modules/Ordering/Contracts/Template.Core.Ordering.Contracts.csproj" />
-        <Project Path="src/Modules/Ordering/Infrastructure/Template.Core.Ordering.Infrastructure.csproj" />
+        <Project Path="src/Modules/Ordering/Persistence/Template.Core.Ordering.Persistence.csproj" />
     </Folder>
   <Folder Name="/src/Protocol/">
     <Project Path="src/Protocol/Template.Core.Protocol.csproj" />
@@ -50,7 +50,7 @@
   </Folder>
     <Folder Name="/test_integration/Modules/Ordering/">
         <Project Path="test_integration/Modules/Ordering/Application/Template.Core.Ordering.Application.IntegrationTest.csproj" />
-        <Project Path="test_integration/Modules/Ordering/Infrastructure/Template.Core.Ordering.Infrastructure.IntegrationTest.csproj" />
+        <Project Path="test_integration/Modules/Ordering/Persistence/Template.Core.Ordering.Persistence.IntegrationTest.csproj" />
         <Project Path="test_integration/Modules/Ordering/TestCompanion/Template.Core.Ordering.TestCompanion.csproj" />
     </Folder>
   <Folder Name="/test_integration/FolderItems/">

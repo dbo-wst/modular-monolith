@@ -1,5 +1,5 @@
 using LanguageExt.UnsafeValueAccess;
-using Template.Core.Ordering.Infrastructure;
+using Template.Core.Ordering.Persistence;
 using Template.Core.Ordering.TestCompanion;
 using CreateOrderItemHandler = Template.Core.Ordering.Application.OrderItems.CreateOrderItem.CreateOrderItemHandler;
 using GetOrderItemHandler = Template.Core.Ordering.Application.OrderItems.GetOrderItem.GetOrderItemHandler;

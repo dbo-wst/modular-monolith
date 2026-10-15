@@ -1,6 +1,6 @@
 using LanguageExt.UnsafeValueAccess;
 using Template.Core.Ordering.Contracts.Dto;
-using Template.Core.Ordering.Infrastructure;
+using Template.Core.Ordering.Persistence;
 using Template.Core.Ordering.TestCompanion;
 using CreateOrderHandler = Template.Core.Ordering.Application.Orders.CreateOrder.CreateOrderHandler;
 using GetListOrderHandler = Template.Core.Ordering.Application.Orders.GetListOrder.GetListOrderHandler;
