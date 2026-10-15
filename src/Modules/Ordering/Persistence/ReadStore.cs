@@ -1,4 +1,5 @@
 using LanguageExt;
+using Template.Core.BuildingBlocks.Domain.Errors;
 using Microsoft.EntityFrameworkCore;
 using Template.Core.Ordering.Application;
 using Template.Core.Ordering.Contracts.Dto;
@@ -18,7 +19,7 @@ public sealed class ReadStore(IOrderingDbContextFactory contextFactory) : IOrder
             .FirstOrDefaultAsync(o => o.OrderId == orderId, cancellationToken);
 
         return found == null
-            ? PersistenceErrors.NotFound(OrderId.From(orderId))
+            ? NotFoundError.ForEntity(OrderId.From(orderId))
             : ToDto(found);
     }
 
@@ -40,7 +41,7 @@ public sealed class ReadStore(IOrderingDbContextFactory contextFactory) : IOrder
             .FirstOrDefaultAsync(o => o.OrderItemId == orderItemId, cancellationToken);
 
         return found == null
-            ? PersistenceErrors.NotFound(OrderItemId.From(orderItemId))
+            ? NotFoundError.ForEntity(OrderItemId.From(orderItemId))
             : ToDto(found);
     }
 

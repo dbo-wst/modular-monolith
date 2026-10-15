@@ -1,5 +1,5 @@
 using Template.Core.Ordering.Contracts.Results;
-using Template.Core.Shared.Kernel.Communication;
+using Template.Core.BuildingBlocks.Application.Communication;
 
 namespace Template.Core.Ordering.Contracts.Commands;
 

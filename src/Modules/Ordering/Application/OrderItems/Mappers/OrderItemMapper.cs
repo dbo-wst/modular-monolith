@@ -1,4 +1,4 @@
-using Template.Core.Shared.Kernel;
+using Template.Core.BuildingBlocks.Domain;
 
 namespace Template.Core.Ordering.Application.OrderItems.Mappers;
 

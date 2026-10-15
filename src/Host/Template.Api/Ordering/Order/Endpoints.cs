@@ -1,5 +1,6 @@
 using LanguageExt.Common;
 using Template.Api.Infrastructure.CoreApi;
+using Template.Core.BuildingBlocks.Domain.Errors;
 using Template.Api.Infrastructure.CoreApi.Prelaunch.Ordering.Order;
 using Template.Api.Infrastructure.CoreApi.Prelaunch.Ordering.Order.Requests;
 using Template.Api.Infrastructure.CoreApi.Prelaunch.Ordering.Order.Responses;
@@ -74,16 +75,16 @@ public static class Endpoints
 
     private static IResult ToProblem(Error error)
     {
-        var code = error is ApiError apiError ? apiError.ErrorCode : "internal";
+        var code = error is ApiError apiError ? apiError.ErrorCode : ErrorCodes.Internal;
         return Results.Problem(detail: error.Message, statusCode: StatusFor(code), title: code);
     }
 
     private static int StatusFor(string errorCode) => errorCode switch
     {
-        "not_found" => StatusCodes.Status404NotFound,
-        "validation" => StatusCodes.Status400BadRequest,
-        "conflict" => StatusCodes.Status409Conflict,
-        "cancelled" => StatusCodes.Status409Conflict,
+        ErrorCodes.NotFound => StatusCodes.Status404NotFound,
+        ErrorCodes.Validation => StatusCodes.Status400BadRequest,
+        ErrorCodes.Conflict => StatusCodes.Status409Conflict,
+        ErrorCodes.Cancelled => StatusCodes.Status409Conflict,
         _ => StatusCodes.Status500InternalServerError
     };
 }

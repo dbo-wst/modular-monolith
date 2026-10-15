@@ -1,15 +1,16 @@
 using LanguageExt;
+using Template.Core.BuildingBlocks.Domain;
 using Template.Core.Ordering.Domain.Orders;
 using Template.Core.Ordering.Contracts.Commands;
 using Template.Core.Ordering.Contracts.Results;
-using Template.Core.Shared.Kernel.Communication;
+using Template.Core.BuildingBlocks.Application.Communication;
 using Template.Core.Ordering.Domain.ValueObjects;
-using Template.Core.Shared.Kernel.Errors;
-using Template.Core.Shared.Kernel.Functional;
+using Template.Core.BuildingBlocks.Domain.Errors;
+using Template.Core.BuildingBlocks.Domain.Functional;
 
 namespace Template.Core.Ordering.Application.Orders.UpdateOrder;
 
-internal sealed class UpdateOrderHandler(Domain.Orders.IOrderRepository orders, Domain.Abstractions.IUnitOfWork unitOfWork): ICommandHandler<UpdateOrderCommand, UpdateOrderResult>
+internal sealed class UpdateOrderHandler(Domain.Orders.IOrderRepository orders, IUnitOfWork unitOfWork): ICommandHandler<UpdateOrderCommand, UpdateOrderResult>
 {
     public Task<Fin<UpdateOrderResult>> HandleAsync(UpdateOrderCommand request, CancellationToken ct = default) =>
         orders.GetByIdAsync(OrderId.From(request.OrderId), ct)
@@ -41,7 +42,7 @@ internal sealed class UpdateOrderHandler(Domain.Orders.IOrderRepository orders, 
             OrderStatus.Completed => order.Complete(),
             OrderStatus.Cancelled => order.Cancel(),
             OrderStatus.Rejected => order.Reject(),
-            _ => Fin<Order>.Fail(ValidationErrors.ValidationError($"Cannot change order status from {order.Status} to {target}."))
+            _ => Fin<Order>.Fail(ValidationError.New($"Cannot change order status from {order.Status} to {target}."))
         };
     }
 }

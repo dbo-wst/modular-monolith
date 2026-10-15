@@ -7,9 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Template.Api.Infrastructure.CoreApi\Template.Api.Infrastructure.CoreApi.csproj" />
-        <ProjectReference Include="..\..\BuildingBlocks\Shared.Kernel\Template.Core.Shared.Kernel.csproj" />
-    </ItemGroup>
+        <ProjectReference Include="..\Template.Api.Infrastructure.CoreApi\Template.Api.Infrastructure.CoreApi.csproj" />    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="LanguageExt.Core"/>

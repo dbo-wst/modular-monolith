@@ -1,16 +1,17 @@
 using Template.Core.Ordering.Domain.Orders;
 using LanguageExt;
+using Template.Core.BuildingBlocks.Domain;
 using Template.Core.Ordering.Domain.OrderItems;
 using Template.Core.Ordering.Contracts.Commands;
 using Template.Core.Ordering.Contracts.Results;
-using Template.Core.Shared.Kernel.Communication;
+using Template.Core.BuildingBlocks.Application.Communication;
 using Template.Core.Ordering.Domain.ValueObjects;
-using Template.Core.Shared.Kernel.Errors;
-using Template.Core.Shared.Kernel.Functional;
+using Template.Core.BuildingBlocks.Domain.Errors;
+using Template.Core.BuildingBlocks.Domain.Functional;
 
 namespace Template.Core.Ordering.Application.OrderItems.CreateOrderItem;
 
-internal sealed class CreateOrderItemHandler(Domain.OrderItems.IOrderItemRepository orderItems, Domain.Abstractions.IUnitOfWork unitOfWork) : ICommandHandler<CreateOrderItemCommand, CreateOrderItemResult>
+internal sealed class CreateOrderItemHandler(Domain.OrderItems.IOrderItemRepository orderItems, IUnitOfWork unitOfWork) : ICommandHandler<CreateOrderItemCommand, CreateOrderItemResult>
 {
     public Task<Fin<CreateOrderItemResult>> HandleAsync(CreateOrderItemCommand request, CancellationToken ct = default) =>
         Build(request)
@@ -26,7 +27,7 @@ internal sealed class CreateOrderItemHandler(Domain.OrderItems.IOrderItemReposit
         var price = Price.From(request.Price);
 
         return orderId is null || quantity is null || price is null
-            ? Fin<OrderItem>.Fail(ValidationErrors.ValidationError("Order id, quantity and price are required."))
+            ? Fin<OrderItem>.Fail(ValidationError.New("Order id, quantity and price are required."))
             : OrderItem.Create(orderId, quantity, price);
     }
 }

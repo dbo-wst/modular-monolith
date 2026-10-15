@@ -1,4 +1,4 @@
-using Template.Core.Shared.Kernel;
+using Template.Core.BuildingBlocks.Domain;
 using GrpcOrderItem = Template.Core.Protocol.Prelaunch.Ordering.OrderItem;
 
 namespace Template.Core.Api.Prelaunch.Ordering.OrderItem.Mappers.DeleteOrderItem;
@@ -10,7 +10,7 @@ public readonly struct DeleteOrderItemErrorResponse : IOnewayMap<LanguageExt.Com
     {
         Error = new GrpcOrderItem.DeleteOrderItemError
         {
-            Code = OrderItemErrorCode.Classify(left),
+            Code = ErrorCodeClassifier.Classify(left),
             Message = left.Message
         }
     };

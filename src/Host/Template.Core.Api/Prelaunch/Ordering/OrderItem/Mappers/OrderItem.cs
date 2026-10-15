@@ -1,6 +1,6 @@
 using System.Globalization;
 using Template.Core.Protocol;
-using Template.Core.Shared.Kernel;
+using Template.Core.BuildingBlocks.Domain;
 using GrpcOrderItem = Template.Core.Protocol.Prelaunch.Ordering.OrderItem;
 
 namespace Template.Core.Api.Prelaunch.Ordering.OrderItem.Mappers;

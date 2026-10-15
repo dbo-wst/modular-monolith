@@ -1,4 +1,4 @@
-using Template.Core.Shared.Kernel;
+using Template.Core.BuildingBlocks.Domain;
 using DomainEStatus = Template.Core.Ordering.Domain.Orders.OrderStatus;
 
 namespace Template.Core.Ordering.Persistence.Orders.Mappers;

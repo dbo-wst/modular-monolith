@@ -1,5 +1,6 @@
 using FakeItEasy;
 using LanguageExt;
+using Template.Core.BuildingBlocks.Domain.Errors;
 using Template.Core.Protocol;
 using Template.Core.Protocol.Prelaunch.Ordering.Order;
 using Template.Core.Ordering.Domain.ValueObjects;
@@ -38,7 +39,7 @@ public sealed class OrderServiceTests : IClassFixture<CoreApiFactory>
     private static OrderDto ToDto(DomainOrder o) => new(o.Id.Value, o.OrderNumber?.Value, o.EffectiveDate?.Value, StatusDto.New);
 
     private static Fin<DomainOrder> NotFound() =>
-        Fin<DomainOrder>.Fail(LanguageExt.Common.Error.New("Entity was not found."));
+        Fin<DomainOrder>.Fail(NotFoundError.New("Entity was not found."));
 
     // ---------- CreateOrder ----------
 
@@ -74,6 +75,7 @@ public sealed class OrderServiceTests : IClassFixture<CoreApiFactory>
 
         // EffectiveDate is required: validation failure.
         Assert.Equal(CreateOrderResponse.ResultOneofCase.Error, response.ResultCase);
+        Assert.Equal(ErrorCodes.Validation, response.Error.Code);
     }
 
     [Fact]
@@ -117,7 +119,7 @@ public sealed class OrderServiceTests : IClassFixture<CoreApiFactory>
     public async Task GetOrder_ReturnsNotFoundError_WhenMissing()
     {
         A.CallTo(() => _readStore.GetOrderAsync(A<Guid>._, A<CancellationToken>._))
-            .Returns(Fin<OrderDto>.Fail(LanguageExt.Common.Error.New("Entity was not found.")));
+            .Returns(Fin<OrderDto>.Fail(NotFoundError.New("Entity was not found.")));
 
         var response = await _client.GetOrderAsync(new GetOrderRequest { OrderId = Guid.NewGuid().AsByteString() });
 
@@ -262,7 +264,7 @@ public sealed class OrderServiceTests : IClassFixture<CoreApiFactory>
         var id = Guid.NewGuid();
         A.CallTo(() => _repository.GetByIdAsync(A<OrderId>._, A<CancellationToken>._))
             .Returns(Fin<DomainOrder>.Succ(NewOrder(OrderId.From(id))));
-        A.CallTo(() => _repository.DeleteAsync(A<OrderId>._, A<CancellationToken>._))
+        A.CallTo(() => _repository.DeleteAsync(A<DomainOrder>._, A<CancellationToken>._))
             .Returns(Fin<Unit>.Succ(Unit.Default));
 
         var response = await _client.DeleteOrderAsync(new DeleteOrderRequest { OrderId = id.AsByteString() });
@@ -281,5 +283,46 @@ public sealed class OrderServiceTests : IClassFixture<CoreApiFactory>
 
         Assert.Equal(DeleteOrderResponse.ResultOneofCase.Error, response.ResultCase);
         Assert.Equal("not_found", response.Error.Code);
+    }
+
+    // ---------- Error classification (by type, never by message) ----------
+
+    public static TheoryData<string, string> ClassificationCases() => new()
+    {
+        { "untyped error mentioning 'was not found'", ErrorCodes.Internal },
+        { "typed NotFoundError with unrelated message", ErrorCodes.NotFound },
+        { "typed ValidationError wrapped as inner error", ErrorCodes.Validation },
+        { "ManyErrors with untyped error first and ConflictError second", ErrorCodes.Conflict },
+        { "OperationCancelled", ErrorCodes.Cancelled },
+        { "ConcurrencyConflict", ErrorCodes.Conflict },
+        { "PersistenceFailed", ErrorCodes.Internal },
+    };
+
+    private static LanguageExt.Common.Error ErrorFor(string scenario) => scenario switch
+    {
+        "untyped error mentioning 'was not found'" => LanguageExt.Common.Error.New("Entity was not found. Validation Error. already exists"),
+        "typed NotFoundError with unrelated message" => NotFoundError.New("boom"),
+        "typed ValidationError wrapped as inner error" => LanguageExt.Common.Error.New("outer", (LanguageExt.Common.Error)ValidationError.New("inner")),
+        "ManyErrors with untyped error first and ConflictError second" =>
+            LanguageExt.Common.Error.Many(LanguageExt.Common.Error.New("first"), ConflictError.New("second")),
+        "OperationCancelled" => OperationCancelled.New(new OperationCanceledException()),
+        "ConcurrencyConflict" => ConcurrencyConflict.New(new InvalidOperationException()),
+        "PersistenceFailed" => PersistenceFailed.New(new InvalidOperationException()),
+        _ => throw new ArgumentOutOfRangeException(nameof(scenario), scenario, null)
+    };
+
+    [Theory]
+    [MemberData(nameof(ClassificationCases))]
+    public async Task GetOrder_ClassifiesErrorCodeByType_NotByMessage(string scenario, string expectedCode)
+    {
+        var error = ErrorFor(scenario);
+        A.CallTo(() => _readStore.GetOrderAsync(A<Guid>._, A<CancellationToken>._))
+            .Returns(Fin<OrderDto>.Fail(error));
+
+        var response = await _client.GetOrderAsync(new GetOrderRequest { OrderId = Guid.NewGuid().AsByteString() });
+
+        Assert.Equal(GetOrderResponse.ResultOneofCase.Error, response.ResultCase);
+        Assert.Equal(expectedCode, response.Error.Code);
+        Assert.Equal(error.Message, response.Error.Message);
     }
 }

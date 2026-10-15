@@ -1,5 +1,5 @@
 using Grpc.Core;
-using Template.Core.Shared.Kernel.Communication;
+using Template.Core.BuildingBlocks.Application.Communication;
 using GrpcProtocol = Template.Core.Protocol.Prelaunch.Ordering.OrderItem;
 
 namespace Template.Core.Api.Prelaunch.Ordering.OrderItem;

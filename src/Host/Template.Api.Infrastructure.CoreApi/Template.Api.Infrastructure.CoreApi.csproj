@@ -8,7 +8,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Protocol\Template.Core.Protocol.csproj"/>
-        <ProjectReference Include="..\..\BuildingBlocks\Shared.Kernel\Template.Core.Shared.Kernel.csproj"/>
+        <ProjectReference Include="..\..\BuildingBlocks\Domain\Template.Core.BuildingBlocks.Domain.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

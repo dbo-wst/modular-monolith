@@ -1,5 +1,5 @@
 using Template.Core.Ordering.Domain.Orders;
-using Template.Core.Shared.Kernel;
+using Template.Core.BuildingBlocks.Domain;
 using Template.Core.Ordering.Domain.ValueObjects;
 using OrderId = Template.Core.Ordering.Domain.Orders.OrderId;
 

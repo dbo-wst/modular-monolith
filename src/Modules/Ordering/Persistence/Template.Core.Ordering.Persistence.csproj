@@ -16,6 +16,7 @@
     <ItemGroup>
       <ProjectReference Include="..\Domain\Template.Core.Ordering.Domain.csproj" />
       <ProjectReference Include="..\Application\Template.Core.Ordering.Application.csproj" />
+      <ProjectReference Include="..\..\..\BuildingBlocks\Persistence\Template.Core.BuildingBlocks.Persistence.csproj" />
     </ItemGroup>
 </Project>
 

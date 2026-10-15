@@ -10,7 +10,7 @@ namespace Template.Core.Ordering.Persistence.IntegrationTest.Orders;
 public class ReadOnlyOperationsTests(IntegrationTestsFixture fixture)
 {
     private readonly Domain.Orders.IOrderRepository _orders = fixture.GetRequiredService<Domain.Orders.IOrderRepository>();
-    private readonly Domain.Abstractions.IUnitOfWork _unitOfWork = fixture.GetRequiredService<Domain.Abstractions.IUnitOfWork>();
+    private readonly BuildingBlocks.Domain.IUnitOfWork _unitOfWork = fixture.GetRequiredService<BuildingBlocks.Domain.IUnitOfWork>();
 
     [Fact]
     public async Task Test_GetByIdAsync_ReturnsFailForMissingEntity()

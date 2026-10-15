@@ -1,3 +1,4 @@
+using Template.Core.BuildingBlocks.Domain.Errors;
 using Template.Core.Ordering.Persistence;
 using Template.Core.Ordering.TestCompanion;
 using OrderId = Template.Core.Ordering.Domain.Orders.OrderId;
@@ -18,7 +19,8 @@ public class GetOrderHandlerTests(IntegrationTestsFixture fixture)
         var actual = await _getService.HandleAsync(new Contracts.Queries.GetOrderQuery(missingId.Value));
 
         Assert.True(actual.IsFail);
-        var message = actual.Match(Succ: _ => string.Empty, Fail: error => error.Message);
-        Assert.Equal(PersistenceErrors.NotFound(missingId).Message, message);
+        var error = Assert.IsType<NotFoundError>(actual.Match(Succ: _ => null!, Fail: e => e));
+        Assert.Equal(ErrorCodes.NotFound, error.ErrorCode);
+        Assert.Equal(NotFoundError.ForEntity(missingId).Message, error.Message);
     }
 }

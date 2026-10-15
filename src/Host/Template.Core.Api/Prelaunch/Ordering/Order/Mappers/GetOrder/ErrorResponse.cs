@@ -1,4 +1,4 @@
-using Template.Core.Shared.Kernel;
+using Template.Core.BuildingBlocks.Domain;
 using GrpcOrder = Template.Core.Protocol.Prelaunch.Ordering.Order;
 
 namespace Template.Core.Api.Prelaunch.Ordering.Order.Mappers.GetOrder;
@@ -10,7 +10,7 @@ public readonly struct GetOrderErrorResponse : IOnewayMap<LanguageExt.Common.Err
     {
         Error = new GrpcOrder.GetOrderError
         {
-            Code = OrderErrorCode.Classify(left),
+            Code = ErrorCodeClassifier.Classify(left),
             Message = left.Message
         }
     };

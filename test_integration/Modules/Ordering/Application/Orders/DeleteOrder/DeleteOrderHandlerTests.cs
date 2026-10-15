@@ -1,3 +1,4 @@
+using Template.Core.BuildingBlocks.Domain.Errors;
 using LanguageExt.UnsafeValueAccess;
 using Template.Core.Ordering.Persistence;
 using Template.Core.Ordering.TestCompanion;
@@ -40,7 +41,8 @@ public class DeleteOrderHandlerTests(IntegrationTestsFixture fixture)
         var actual = await _deleteService.HandleAsync(new Contracts.Commands.DeleteOrderCommand(missingId.Value));
 
         Assert.True(actual.IsFail);
-        var message = actual.Match(Succ: _ => string.Empty, Fail: error => error.Message);
-        Assert.Equal(PersistenceErrors.NotFound(missingId).Message, message);
+        var error = Assert.IsType<NotFoundError>(actual.Match(Succ: _ => null!, Fail: e => e));
+        Assert.Equal(ErrorCodes.NotFound, error.ErrorCode);
+        Assert.Equal(NotFoundError.ForEntity(missingId).Message, error.Message);
     }
 }

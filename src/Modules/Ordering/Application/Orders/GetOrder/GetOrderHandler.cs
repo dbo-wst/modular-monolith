@@ -1,8 +1,8 @@
 using LanguageExt;
 using Template.Core.Ordering.Contracts.Queries;
 using Template.Core.Ordering.Contracts.Results;
-using Template.Core.Shared.Kernel.Communication;
-using Template.Core.Shared.Kernel.Functional;
+using Template.Core.BuildingBlocks.Application.Communication;
+using Template.Core.BuildingBlocks.Domain.Functional;
 
 namespace Template.Core.Ordering.Application.Orders.GetOrder;
 

@@ -1,4 +1,5 @@
-using Template.Core.Ordering.Domain.Abstractions;
+using Template.Core.BuildingBlocks.Domain;
+using Template.Core.BuildingBlocks.Persistence;
 using Template.Core.Ordering.Domain.OrderItems;
 using Template.Core.Ordering.Domain.Orders;
 using Template.Core.Ordering.Persistence;
@@ -9,26 +10,31 @@ using Template.Core.Ordering.Persistence.OrderItems;
 namespace Template.Core.Ordering.TestCompanion;
 
 /// <summary>
-/// Unit of work and repositories sharing ONE <see cref="OrderingDbContext"/>, mirroring one DI scope.
+/// Unit of work and repositories sharing ONE <see cref="OrderingDbContext"/> and ONE
+/// <see cref="DomainEventCollector"/>, mirroring one DI scope.
 /// </summary>
 public sealed class OrderingPersistence : IAsyncDisposable
 {
     private readonly OrderingDbContext _context;
 
-    private OrderingPersistence(OrderingDbContext context)
+    private OrderingPersistence(OrderingDbContext context, IDomainEventDispatcher dispatcher)
     {
         _context = context;
-        UnitOfWork = new UnitOfWork(context);
-        Orders = new OrderRepository(context);
-        OrderItems = new OrderItemRepository(context);
+        var collector = new DomainEventCollector();
+        Dispatcher = dispatcher;
+        UnitOfWork = new UnitOfWork(context, collector, dispatcher);
+        Orders = new OrderRepository(context, collector);
+        OrderItems = new OrderItemRepository(context, collector);
     }
 
+    public IDomainEventDispatcher Dispatcher { get; }
     public IUnitOfWork UnitOfWork { get; }
     public IOrderRepository Orders { get; }
     public IOrderItemRepository OrderItems { get; }
 
-    public static OrderingPersistence Create(IOrderingDbContextFactory contextFactory) =>
-        new(contextFactory.CreateDbContext());
+    /// <param name="dispatcher">Defaults to a <see cref="RecordingDomainEventDispatcher"/> that always succeeds.</param>
+    public static OrderingPersistence Create(IOrderingDbContextFactory contextFactory, IDomainEventDispatcher? dispatcher = null) =>
+        new(contextFactory.CreateDbContext(), dispatcher ?? new RecordingDomainEventDispatcher());
 
     public T ForOrders<T>(Func<IOrderRepository, IUnitOfWork, T> build) => build(Orders, UnitOfWork);
 

@@ -1,13 +1,14 @@
 using LanguageExt;
+using Template.Core.BuildingBlocks.Domain;
 using Template.Core.Ordering.Domain.Orders;
 using Template.Core.Ordering.Contracts.Commands;
 using Template.Core.Ordering.Contracts.Results;
-using Template.Core.Shared.Kernel.Communication;
-using Template.Core.Shared.Kernel.Functional;
+using Template.Core.BuildingBlocks.Application.Communication;
+using Template.Core.BuildingBlocks.Domain.Functional;
 
 namespace Template.Core.Ordering.Application.Orders.DeleteOrder;
 
-internal sealed class DeleteOrderHandler(Domain.Orders.IOrderRepository orders, Domain.Abstractions.IUnitOfWork unitOfWork): ICommandHandler<DeleteOrderCommand, DeleteOrderResult>
+internal sealed class DeleteOrderHandler(Domain.Orders.IOrderRepository orders, IUnitOfWork unitOfWork): ICommandHandler<DeleteOrderCommand, DeleteOrderResult>
 {
 
     public Task<Fin<DeleteOrderResult>> HandleAsync(DeleteOrderCommand request, CancellationToken ct = default)
@@ -16,9 +17,11 @@ internal sealed class DeleteOrderHandler(Domain.Orders.IOrderRepository orders, 
 
         return orders.GetByIdAsync(orderId, ct)
             .BindAsync(order =>
-                orders.DeleteAsync(orderId, ct)
-                    .MapAsync(_ => { order.Delete(); return LanguageExt.Unit.Default; })
-            )
+            {
+                // The repository tracks the aggregate, so its Deleted event is dispatched after a successful save.
+                order.Delete();
+                return orders.DeleteAsync(order, ct);
+            })
 
             .BindAsync(_ => unitOfWork.SaveChangesAsync(ct))
             .MapAsync(_ => new DeleteOrderResult());

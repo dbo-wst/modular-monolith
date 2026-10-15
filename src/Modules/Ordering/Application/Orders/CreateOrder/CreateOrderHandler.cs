@@ -1,16 +1,17 @@
 using LanguageExt;
+using Template.Core.BuildingBlocks.Domain;
 
 using Template.Core.Ordering.Domain.Orders;
 using Template.Core.Ordering.Contracts.Commands;
 using Template.Core.Ordering.Contracts.Results;
-using Template.Core.Shared.Kernel.Communication;
+using Template.Core.BuildingBlocks.Application.Communication;
 using Template.Core.Ordering.Domain.ValueObjects;
-using Template.Core.Shared.Kernel.Errors;
-using Template.Core.Shared.Kernel.Functional;
+using Template.Core.BuildingBlocks.Domain.Errors;
+using Template.Core.BuildingBlocks.Domain.Functional;
 
 namespace Template.Core.Ordering.Application.Orders.CreateOrder;
 
-internal sealed class CreateOrderHandler(Domain.Orders.IOrderRepository orders, Domain.Abstractions.IUnitOfWork unitOfWork) : ICommandHandler<CreateOrderCommand, CreateOrderResult>
+internal sealed class CreateOrderHandler(Domain.Orders.IOrderRepository orders, IUnitOfWork unitOfWork) : ICommandHandler<CreateOrderCommand, CreateOrderResult>
 {
     public Task<Fin<CreateOrderResult>> HandleAsync(CreateOrderCommand request, CancellationToken ct = default) =>
         Build(request)
@@ -25,7 +26,7 @@ internal sealed class CreateOrderHandler(Domain.Orders.IOrderRepository orders, 
         var effectiveDate = EffectiveDate.From(request.EffectiveDate);
 
         return number is null || effectiveDate is null
-            ? Fin<Order>.Fail(ValidationErrors.ValidationError("Order number and effective date are required."))
+            ? Fin<Order>.Fail(ValidationError.New("Order number and effective date are required."))
             : Order.Create(number, effectiveDate);
     }
 }

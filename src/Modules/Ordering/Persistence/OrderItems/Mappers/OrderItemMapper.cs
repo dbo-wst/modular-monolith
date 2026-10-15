@@ -1,4 +1,4 @@
-using Template.Core.Shared.Kernel;
+using Template.Core.BuildingBlocks.Domain;
 using Template.Core.Ordering.Domain.ValueObjects;
 using OrderItemId = Template.Core.Ordering.Domain.OrderItems.OrderItemId;
 using OrderId = Template.Core.Ordering.Domain.Orders.OrderId;

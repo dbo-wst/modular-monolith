@@ -1,5 +1,6 @@
 using FakeItEasy;
 using LanguageExt;
+using Template.Core.BuildingBlocks.Domain.Errors;
 using Template.Core.Protocol;
 using Template.Core.Protocol.Prelaunch.Ordering.OrderItem;
 using DomainOrderItem = Template.Core.Ordering.Domain.OrderItems.OrderItem;
@@ -37,7 +38,7 @@ public sealed class OrderItemServiceTests : IClassFixture<CoreApiFactory>
     private static OrderItemDto ToDto(DomainOrderItem o) => new(o.Id.Value, o.OrderId?.Value, o.Quantity?.Value, o.Price?.Value);
 
     private static Fin<DomainOrderItem> NotFound() =>
-        Fin<DomainOrderItem>.Fail(LanguageExt.Common.Error.New("Entity was not found."));
+        Fin<DomainOrderItem>.Fail(NotFoundError.New("Entity was not found."));
 
     [Fact]
     public async Task CreateOrderItem_ReturnsCreatedOrderItem_OnSuccess()
@@ -139,7 +140,7 @@ public sealed class OrderItemServiceTests : IClassFixture<CoreApiFactory>
         var id = Guid.NewGuid();
         A.CallTo(() => _repository.GetByIdAsync(A<OrderItemId>._, A<CancellationToken>._))
             .Returns(Fin<DomainOrderItem>.Succ(NewOrderItem(OrderItemId.From(id))));
-        A.CallTo(() => _repository.DeleteAsync(A<OrderItemId>._, A<CancellationToken>._))
+        A.CallTo(() => _repository.DeleteAsync(A<DomainOrderItem>._, A<CancellationToken>._))
             .Returns(Fin<Unit>.Succ(Unit.Default));
 
         var response = await _client.DeleteOrderItemAsync(new DeleteOrderItemRequest { OrderItemId = id.AsByteString() });
@@ -149,13 +150,11 @@ public sealed class OrderItemServiceTests : IClassFixture<CoreApiFactory>
     }
 
     [Fact]
-    public async Task CreateOrderItem_ReturnsNotFoundError_WhenMissing()
+    public async Task CreateOrderItem_ReturnsValidationError_WhenRequiredFieldsMissing()
     {
-        A.CallTo(() => _repository.AddAsync(A<DomainOrderItem>._, A<CancellationToken>._))
-            .Returns(Fin<DomainOrderItem>.Fail(LanguageExt.Common.Error.New("not found")));
-
         var response = await _client.CreateOrderItemAsync(new CreateOrderItemRequest());
 
         Assert.Equal(CreateOrderItemResponse.ResultOneofCase.Error, response.ResultCase);
+        Assert.Equal(ErrorCodes.Validation, response.Error.Code);
     }
 }

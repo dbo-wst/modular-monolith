@@ -1,5 +1,5 @@
 using Template.Core.Protocol;
-using Template.Core.Shared.Kernel;
+using Template.Core.BuildingBlocks.Domain;
 using GrpcOrder = Template.Core.Protocol.Prelaunch.Ordering.Order;
 
 namespace Template.Api.Infrastructure.CoreApi.Prelaunch.Ordering.Order.Mappers.DeleteOrder;

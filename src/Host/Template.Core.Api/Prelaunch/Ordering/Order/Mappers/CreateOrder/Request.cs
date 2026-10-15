@@ -1,5 +1,5 @@
 using Template.Core.Protocol;
-using Template.Core.Shared.Kernel;
+using Template.Core.BuildingBlocks.Domain;
 using GrpcOrder = Template.Core.Protocol.Prelaunch.Ordering.Order;
 using IntegrationCommands = Template.Core.Ordering.Contracts.Commands;
 using IntegrationQueries = Template.Core.Ordering.Contracts.Queries;

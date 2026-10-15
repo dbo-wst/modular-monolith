@@ -2,6 +2,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\Template.Core.Ordering.Domain.csproj" />
     <ProjectReference Include="..\Contracts\Template.Core.Ordering.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\BuildingBlocks\Application\Template.Core.BuildingBlocks.Application.csproj" />
   </ItemGroup>
   <ItemGroup>
     <InternalsVisibleTo Include="Template.Core.Ordering.Application.Test" />

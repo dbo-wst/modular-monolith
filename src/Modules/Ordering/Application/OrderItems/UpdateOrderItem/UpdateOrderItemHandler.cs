@@ -1,15 +1,16 @@
 using Template.Core.Ordering.Domain.Orders;
 using LanguageExt;
+using Template.Core.BuildingBlocks.Domain;
 using Template.Core.Ordering.Domain.OrderItems;
 using Template.Core.Ordering.Contracts.Commands;
 using Template.Core.Ordering.Contracts.Results;
-using Template.Core.Shared.Kernel.Communication;
+using Template.Core.BuildingBlocks.Application.Communication;
 using Template.Core.Ordering.Domain.ValueObjects;
-using Template.Core.Shared.Kernel.Functional;
+using Template.Core.BuildingBlocks.Domain.Functional;
 
 namespace Template.Core.Ordering.Application.OrderItems.UpdateOrderItem;
 
-internal sealed class UpdateOrderItemHandler(Domain.OrderItems.IOrderItemRepository orderItems, Domain.Abstractions.IUnitOfWork unitOfWork): ICommandHandler<UpdateOrderItemCommand, UpdateOrderItemResult>
+internal sealed class UpdateOrderItemHandler(Domain.OrderItems.IOrderItemRepository orderItems, IUnitOfWork unitOfWork): ICommandHandler<UpdateOrderItemCommand, UpdateOrderItemResult>
 {
     public Task<Fin<UpdateOrderItemResult>> HandleAsync(UpdateOrderItemCommand request, CancellationToken ct = default) =>
         orderItems.GetByIdAsync(OrderItemId.From(request.OrderItemId), ct)

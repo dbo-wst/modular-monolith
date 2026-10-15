@@ -8,7 +8,7 @@ using OrderingOrderItemService = Template.Core.Protocol.Prelaunch.Ordering.Order
 // using ClientSideOrderService = Template.Core.Protocol.Prelaunch.ClientSide.Order.OrderService;
 // using ClientSideOrderItemService = Template.Core.Protocol.Prelaunch.ClientSide.OrderItem.OrderItemService;
 // using IAllocationStore = Template.Core.Allocation.Domain.IStore;
-using IUnitOfWork = Template.Core.Ordering.Domain.Abstractions.IUnitOfWork;
+using IUnitOfWork = Template.Core.BuildingBlocks.Domain.IUnitOfWork;
 using IOrderRepository = Template.Core.Ordering.Domain.Orders.IOrderRepository;
 using IOrderItemRepository = Template.Core.Ordering.Domain.OrderItems.IOrderItemRepository;
 using IOrderingReadStore = Template.Core.Ordering.Application.IOrderingReadStore;
@@ -41,6 +41,12 @@ public sealed class CoreApiFactory : WebApplicationFactory<Program>
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment("IntegrationTest");
+
+        // The host's content root is the Template.Core.Api project, so load this test project's
+        // appsettings.json (copied to the output) explicitly. It provides the Persistence options the host
+        // validates on start; the DbContext itself is never used because the stores below are faked.
+        builder.ConfigureAppConfiguration((_, config) =>
+            config.AddJsonFile(Path.Combine(AppContext.BaseDirectory, "appsettings.json"), optional: false));
 
         builder.ConfigureServices(services =>
         {

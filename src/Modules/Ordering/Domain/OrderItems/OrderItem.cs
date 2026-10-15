@@ -2,8 +2,8 @@ using LanguageExt;
 using Template.Core.Ordering.Domain.OrderItems.Events;
 using Template.Core.Ordering.Domain.Orders;
 using Template.Core.Ordering.Domain.ValueObjects;
-using Template.Core.Shared.Kernel.Domain;
-using Template.Core.Shared.Kernel.Errors;
+using Template.Core.BuildingBlocks.Domain;
+using Template.Core.BuildingBlocks.Domain.Errors;
 
 namespace Template.Core.Ordering.Domain.OrderItems;
 
@@ -30,13 +30,13 @@ public sealed class OrderItem : AggregateRoot<OrderItemId>
     {
         if (orderId is null)
         {
-            return Fin<OrderItem>.Fail(ValidationErrors.ValidationError("Order id is required."));
+            return Fin<OrderItem>.Fail(ValidationError.New("Order id is required."));
         }
 
         var invalid = Validate(quantity, price);
         if (invalid is not null)
         {
-            return Fin<OrderItem>.Fail(ValidationErrors.ValidationError(invalid));
+            return Fin<OrderItem>.Fail(ValidationError.New(invalid));
         }
 
         var item = new OrderItem(OrderItemId.From(Guid.NewGuid()), orderId, quantity, price);
@@ -64,7 +64,7 @@ public sealed class OrderItem : AggregateRoot<OrderItemId>
         var invalid = Validate(quantity ?? Quantity, price ?? Price);
         if (invalid is not null)
         {
-            return Fin<OrderItem>.Fail(ValidationErrors.ValidationError(invalid));
+            return Fin<OrderItem>.Fail(ValidationError.New(invalid));
         }
 
         var changed = false;

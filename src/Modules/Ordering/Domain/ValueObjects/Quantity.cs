@@ -1,5 +1,5 @@
 using LanguageExt;
-using Template.Core.Shared.Kernel.Functional;
+using Template.Core.BuildingBlocks.Domain.Functional;
 
 namespace Template.Core.Ordering.Domain.ValueObjects;
 

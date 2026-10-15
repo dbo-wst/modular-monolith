@@ -1,4 +1,4 @@
-using Template.Core.Shared.Kernel;
+using Template.Core.BuildingBlocks.Domain;
 using GrpcOrderItem = Template.Core.Protocol.Prelaunch.Ordering.OrderItem;
 using IntegrationCommands = Template.Core.Ordering.Contracts.Commands;
 using IntegrationQueries = Template.Core.Ordering.Contracts.Queries;

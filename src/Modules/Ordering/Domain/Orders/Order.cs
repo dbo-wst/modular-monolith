@@ -1,8 +1,8 @@
 using LanguageExt;
 using Template.Core.Ordering.Domain.Orders.Events;
 using Template.Core.Ordering.Domain.ValueObjects;
-using Template.Core.Shared.Kernel.Domain;
-using Template.Core.Shared.Kernel.Errors;
+using Template.Core.BuildingBlocks.Domain;
+using Template.Core.BuildingBlocks.Domain.Errors;
 
 namespace Template.Core.Ordering.Domain.Orders;
 
@@ -29,12 +29,12 @@ public sealed class Order : AggregateRoot<OrderId>
     {
         if (number is null || string.IsNullOrWhiteSpace(number.Value))
         {
-            return Fin<Order>.Fail(ValidationErrors.ValidationError("Order number is required."));
+            return Fin<Order>.Fail(ValidationError.New("Order number is required."));
         }
 
         if (effectiveDate is null)
         {
-            return Fin<Order>.Fail(ValidationErrors.ValidationError("Effective date is required."));
+            return Fin<Order>.Fail(ValidationError.New("Effective date is required."));
         }
 
         var order = new Order(OrderId.From(Guid.NewGuid()), number, effectiveDate, OrderStatus.New);
@@ -88,7 +88,7 @@ public sealed class Order : AggregateRoot<OrderId>
     {
         if (!allowedFrom.Contains(Status))
         {
-            return Fin<Order>.Fail(ValidationErrors.ValidationError($"Cannot change order status from {Status} to {target}."));
+            return Fin<Order>.Fail(ValidationError.New($"Cannot change order status from {Status} to {target}."));
         }
 
         Status = target;

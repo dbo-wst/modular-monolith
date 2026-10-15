@@ -1,5 +1,5 @@
 using Serilog;
-using Template.Core.Shared.Kernel.Communication;
+using Template.Core.BuildingBlocks.Application.Communication;
 // using Template.Core.Api.Prelaunch.Allocation;
 using Template.Core.Api.Prelaunch.Ordering;
 // using Template.Core.Api.Prelaunch.ClientSide;

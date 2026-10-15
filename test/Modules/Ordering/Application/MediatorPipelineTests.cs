@@ -1,8 +1,11 @@
+using Template.Core.BuildingBlocks.Domain.Errors;
 using Microsoft.Extensions.DependencyInjection;
 using Template.Core.Ordering.Contracts.Commands;
 using Template.Core.Ordering.Persistence;
 using Template.Core.Ordering.TestCompanion;
-using Template.Core.Shared.Kernel.Communication;
+using Template.Core.BuildingBlocks.Application.Communication;
+using Template.Core.BuildingBlocks.Domain;
+using Template.Core.BuildingBlocks.Persistence;
 
 namespace Template.Core.Ordering.Application.Test;
 
@@ -15,7 +18,8 @@ public class MediatorPipelineTests
         services.AddMediator();
         services.AddOrderingApplication();
         services.AddScoped(_ => factory.CreateDbContext());
-        services.AddScoped<Domain.Abstractions.IUnitOfWork, UnitOfWork>();
+        services.AddScoped<DomainEventCollector>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<Domain.Orders.IOrderRepository, Persistence.Orders.OrderRepository>();
         services.AddScoped<Domain.OrderItems.IOrderItemRepository, Persistence.OrderItems.OrderItemRepository>();
         services.AddScoped<IOrderingReadStore>(_ => new ReadStore(factory));
@@ -28,8 +32,8 @@ public class MediatorPipelineTests
         var result = await CreateMediator().SendAsync(new CreateOrderCommand(new string('x', 129), null));
 
         Assert.True(result.IsFail);
-        var message = result.Match(Succ: _ => string.Empty, Fail: e => e.Message);
-        Assert.Contains("Validation Error", message);
+        var error = Assert.IsType<ValidationError>(result.Match(Succ: _ => null!, Fail: e => e));
+        Assert.Equal(ErrorCodes.Validation, error.ErrorCode);
     }
 
     [Fact]

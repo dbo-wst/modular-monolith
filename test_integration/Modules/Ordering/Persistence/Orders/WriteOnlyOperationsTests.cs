@@ -1,3 +1,4 @@
+using Template.Core.BuildingBlocks.Domain.Errors;
 using LanguageExt.UnsafeValueAccess;
 using Template.Core.Ordering.Domain;
 using Template.Core.Ordering.TestCompanion;
@@ -12,7 +13,7 @@ namespace Template.Core.Ordering.Persistence.IntegrationTest.Orders;
 public class WriteOnlyOperationsTests(IntegrationTestsFixture fixture)
 {
     private readonly Domain.Orders.IOrderRepository _orders = fixture.GetRequiredService<Domain.Orders.IOrderRepository>();
-    private readonly Domain.Abstractions.IUnitOfWork _unitOfWork = fixture.GetRequiredService<Domain.Abstractions.IUnitOfWork>();
+    private readonly BuildingBlocks.Domain.IUnitOfWork _unitOfWork = fixture.GetRequiredService<BuildingBlocks.Domain.IUnitOfWork>();
 
     [Fact]
     public async Task Test_Order_CreateAsync()
@@ -43,8 +44,9 @@ public class WriteOnlyOperationsTests(IntegrationTestsFixture fixture)
         var actual = await _orders.AddAsync(order);
 
         Assert.True(actual.IsFail);
-        var message = actual.Match(Succ: _ => string.Empty, Fail: error => error.Message);
-        Assert.Equal(PersistenceErrors.AlreadyExists(order).Message, message);
+        var error = Assert.IsType<ConflictError>(actual.Match(Succ: _ => null!, Fail: e => e));
+        Assert.Equal(ErrorCodes.Conflict, error.ErrorCode);
+        Assert.Equal(ConflictError.AlreadyExists(order).Message, error.Message);
     }
 
     [Fact]
@@ -81,8 +83,9 @@ public class WriteOnlyOperationsTests(IntegrationTestsFixture fixture)
         var actual = await _orders.UpdateAsync(missing);
 
         Assert.True(actual.IsFail);
-        var message = actual.Match(Succ: _ => string.Empty, Fail: error => error.Message);
-        Assert.Equal(PersistenceErrors.NotFound(missing).Message, message);
+        var error = Assert.IsType<NotFoundError>(actual.Match(Succ: _ => null!, Fail: e => e));
+        Assert.Equal(ErrorCodes.NotFound, error.ErrorCode);
+        Assert.Equal(NotFoundError.ForEntity(missing).Message, error.Message);
     }
 
     [Fact]
@@ -93,7 +96,7 @@ public class WriteOnlyOperationsTests(IntegrationTestsFixture fixture)
         await _orders.AddAsync(order);
         await _unitOfWork.SaveChangesAsync();
 
-        var actual = await _orders.DeleteAsync(order.Id);
+        var actual = await _orders.DeleteAsync(order);
         await _unitOfWork.SaveChangesAsync();
 
         Assert.True(actual.IsSucc);
@@ -107,10 +110,11 @@ public class WriteOnlyOperationsTests(IntegrationTestsFixture fixture)
     {
         var missingId = OrderId.From(Guid.NewGuid());
 
-        var actual = await _orders.DeleteAsync(missingId);
+        var actual = await _orders.DeleteAsync(Domain.Orders.Order.Rehydrate(missingId));
 
         Assert.True(actual.IsFail);
-        var message = actual.Match(Succ: _ => string.Empty, Fail: error => error.Message);
-        Assert.Equal(PersistenceErrors.NotFound(missingId).Message, message);
+        var error = Assert.IsType<NotFoundError>(actual.Match(Succ: _ => null!, Fail: e => e));
+        Assert.Equal(ErrorCodes.NotFound, error.ErrorCode);
+        Assert.Equal(NotFoundError.ForEntity(missingId).Message, error.Message);
     }
 }

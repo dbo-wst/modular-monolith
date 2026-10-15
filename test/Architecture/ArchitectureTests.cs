@@ -8,9 +8,20 @@ public class ArchitectureTests
 {
     private const string Root = "Template.Core.Ordering";
 
-    private static readonly Assembly Domain = typeof(Ordering.Domain.Abstractions.IUnitOfWork).Assembly;
+    private static readonly Assembly Domain = typeof(Ordering.Domain.Orders.Order).Assembly;
     private static readonly Assembly Application = typeof(Ordering.Application.IOrderingReadStore).Assembly;
     private static readonly Assembly Contracts = typeof(Ordering.Contracts.Dto.Order).Assembly;
+
+    private static readonly Assembly BuildingBlocksDomain = typeof(BuildingBlocks.Domain.IHasDomainEvents).Assembly;
+    private static readonly Assembly BuildingBlocksApplication = typeof(BuildingBlocks.Application.Communication.IMediator).Assembly;
+
+    // Infrastructure frameworks that must never leak into a domain layer.
+    private static readonly string[] InfrastructureFrameworks =
+    [
+        "Microsoft.EntityFrameworkCore",
+        "Microsoft.Extensions.DependencyInjection",
+        "FluentValidation"
+    ];
 
     // One project per adapter. Add new adapter projects (Messaging, ExternalServices, ...) here.
     private static readonly Assembly[] Adapters =
@@ -60,6 +71,24 @@ public class ArchitectureTests
         var gateway = typeof(Template.Api.Segments).Assembly;
         AssertNoDependency(gateway, [$"{Root}.Domain", $"{Root}.Application", .. AdapterNamespaces]);
     }
+
+    [Fact]
+    public void Domain_DoesNotDependOnInfrastructureFrameworks() =>
+        AssertNoDependency(Domain, InfrastructureFrameworks);
+
+    [Fact]
+    public void BuildingBlocksDomain_DoesNotDependOnInfrastructureFrameworks() =>
+        AssertNoDependency(BuildingBlocksDomain, InfrastructureFrameworks);
+
+    [Fact]
+    public void BuildingBlocksDomain_DoesNotDependOnOtherBuildingBlocks() =>
+        AssertNoDependency(BuildingBlocksDomain,
+            "Template.Core.BuildingBlocks.Application", "Template.Core.BuildingBlocks.Persistence");
+
+    [Fact]
+    public void BuildingBlocksApplication_DoesNotDependOnEfCoreOrPersistence() =>
+        AssertNoDependency(BuildingBlocksApplication,
+            "Microsoft.EntityFrameworkCore", "Template.Core.BuildingBlocks.Persistence");
 
     [Fact]
     public void CommandsAndQueries_AreSealed()

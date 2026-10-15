@@ -1,5 +1,5 @@
 using Template.Core.Ordering.Domain.ValueObjects;
-using Template.Core.Shared.Kernel.Domain;
+using Template.Core.BuildingBlocks.Domain;
 
 namespace Template.Core.Ordering.Domain.Orders.Events;
 

@@ -3,8 +3,8 @@ using LanguageExt.Common;
 using Template.Core.Ordering.Domain.Orders;
 using Template.Core.Ordering.TestCompanion;
 using Template.Core.Ordering.Domain.ValueObjects;
-using Template.Core.Shared.Kernel.Errors;
-using Template.Core.Shared.Kernel.Functional;
+using Template.Core.BuildingBlocks.Domain.Errors;
+using Template.Core.BuildingBlocks.Domain.Functional;
 
 namespace Template.Core.Ordering.Persistence.IntegrationTest;
 

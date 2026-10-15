@@ -1,4 +1,4 @@
-using Template.Core.Shared.Kernel.Domain;
+using Template.Core.BuildingBlocks.Domain;
 
 namespace Template.Core.Ordering.Domain.OrderItems.Events;
 

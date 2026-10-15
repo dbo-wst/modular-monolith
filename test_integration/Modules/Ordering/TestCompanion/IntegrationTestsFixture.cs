@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Serilog;
 using Testcontainers.MsSql;
+using Template.Core.BuildingBlocks.Application.Communication;
 using Template.Core.Ordering.Persistence;
 
 namespace Template.Core.Ordering.TestCompanion;
@@ -96,6 +97,7 @@ public sealed class IntegrationTestsFixture : IAsyncLifetime
         services.AddOptions();
 
 
+        services.AddMediator(); // IDomainEventDispatcher used by the unit of work
         services.AddOrderingPersistence(configuration);
 
         return services.BuildServiceProvider();

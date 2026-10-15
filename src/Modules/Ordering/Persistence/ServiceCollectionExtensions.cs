@@ -2,6 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using FluentValidation;
+using Template.Core.BuildingBlocks.Domain;
+using Template.Core.BuildingBlocks.Persistence;
+using Template.Core.BuildingBlocks.Application.Validation;
 using Template.Core.Ordering.Persistence.DbContext;
 
 namespace Template.Core.Ordering.Persistence;
@@ -10,7 +15,11 @@ public static class ServiceCollectionExtensions
 {
     public static void AddOrderingPersistence(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<PersistenceOptions>(configuration.GetSection("Persistence"));
+        services.AddSingleton<IValidator<PersistenceOptions>, PersistenceOptionsValidator>();
+        services.AddOptions<PersistenceOptions>()
+            .Bind(configuration.GetSection("Persistence"))
+            .ValidateFluentValidation()
+            .ValidateOnStart();
 
         services.AddPooledDbContextFactory<OrderingDbContext>((s, b) =>
         {
@@ -29,7 +38,10 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IOrderingDbContextFactory, OrderingDbContextFactory>();
         // One OrderingDbContext per scope, shared by the unit of work and both repositories.
         services.AddScoped(sp => sp.GetRequiredService<IOrderingDbContextFactory>().CreateDbContext());
-        services.AddScoped<Domain.Abstractions.IUnitOfWork, UnitOfWork>();
+        // Aggregates touched by the repositories in this scope; their events are dispatched by the unit of work
+        // (IDomainEventDispatcher is registered by the host via AddMediator).
+        services.TryAddScoped<DomainEventCollector>();
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<Domain.Orders.IOrderRepository, Orders.OrderRepository>();
         services.AddScoped<Domain.OrderItems.IOrderItemRepository, OrderItems.OrderItemRepository>();
         services.AddScoped<Application.IOrderingReadStore, ReadStore>();
