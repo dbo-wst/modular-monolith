@@ -26,7 +26,7 @@ git config --global init.defaultBranch main
 - `doc/` - Documentation area.
 - `doc/architecture/` - Architecture specific documentation area.
 - `doc/operations/` - Operative  documentation area (e.g. monitoring, build and deployment etc.).
-- `src/` - code.
+- `src/` - code: `BuildingBlocks/`, `Modules/<Module>/{Domain,Application,Infrastructure,Contracts}`, `Protocol/`, `Host/`.
 - `test/` - unit and integration tests.
 - `.gitignore` - dotnet and python. adjust when nessecesary
 - `.editorconfig` - consistent coding styles

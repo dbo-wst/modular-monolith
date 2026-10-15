@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\Shared.Kernel\Template.Core.Shared.Kernel.csproj" />
+  </ItemGroup>
+</Project>

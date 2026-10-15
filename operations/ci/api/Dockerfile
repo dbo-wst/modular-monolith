@@ -6,8 +6,8 @@ WORKDIR /repo
 COPY . /repo
 
 # Restore and publish
-RUN dotnet restore "/repo/src/Apps/Template.Api/Template.Api.csproj"
-RUN dotnet publish "/repo/src/Apps/Template.Api/Template.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet restore "/repo/src/Host/Template.Api/Template.Api.csproj"
+RUN dotnet publish "/repo/src/Host/Template.Api/Template.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final

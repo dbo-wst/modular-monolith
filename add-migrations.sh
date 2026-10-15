@@ -7,8 +7,8 @@ set -euo pipefail
 #  --context Template.Core.Allocation.Persistence.DbContext.AllocationDbContext
 
 dotnet ef migrations add AddOrderingModule \
-  --project ./src/Ordering/Persistence/Template.Core.Ordering.Persistence.csproj \
-  --context Template.Core.Ordering.Persistence.DbContext.OrderingDbContext
+  --project ./src/Modules/Ordering/Infrastructure/Template.Core.Ordering.Infrastructure.csproj \
+  --context Template.Core.Ordering.Infrastructure.DbContext.OrderingDbContext
 
 #dotnet ef migrations add AddClientSideModule \
 #  --project ./src/ClientSide/Persistence/Template.Core.ClientSide.Persistence.csproj \
