@@ -1,7 +1,5 @@
 # 9. Architecture Decisions
 
-[ADR 0001. Requirements defined](./0001-requirement-defined.md)
+Record each decision as `NNNN-title.md` (the folder is configured in `.adr-dir`).
 
-[ADR 0002. Architecture and Code Base](./0002-architecture-and-code-structure.md)
-
-[ADR 0003. Modular Monolith, Clean Architecture, Vertical Slices and CQRS](./0003-modular-monolith-clean-architecture-cqrs.md)
+- [ADR 0001. Modular Monolith, Clean Architecture, Vertical Slices and CQRS](./0001-modular-monolith-clean-architecture-cqrs.md)

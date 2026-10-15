@@ -1,4 +1,4 @@
 # 10. Quality Requirements
 
-- [01-quality-tree.md](01-quality-tree.md)
-- [02-quality-scenarios.md](02-quality-scenarios.md)
+- [10.1 Quality Tree](01-quality-tree.md)
+- [10.2 Quality Scenarios](02-quality-scenarios.md)
