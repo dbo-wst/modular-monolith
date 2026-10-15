@@ -16,7 +16,7 @@ public class Mediator(IServiceProvider provider) : IMediator
 
         var method = handlerType.GetMethod(nameof(IRequestHandler<,>.HandleAsync))!;
 
-        Func<Task<Fin<TResponse>>> pipeline = () => (Task<Fin<TResponse>>)method.Invoke(handler, [request, ct])!;
+        var pipeline = () => (Task<Fin<TResponse>>)method.Invoke(handler, [request, ct])!;
 
         // Behaviours registered first run outermost.
         foreach (var behavior in provider.GetServices<IPipelineBehavior>().Reverse())

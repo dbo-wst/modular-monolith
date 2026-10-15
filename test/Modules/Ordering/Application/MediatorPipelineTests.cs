@@ -12,7 +12,8 @@ public class MediatorPipelineTests
     {
         var factory = Support.Infrastructure.DbContextFactory();
         var services = new ServiceCollection();
-        services.AddApplication(null!);
+        services.AddMediator();
+        services.AddOrderingApplication();
         services.AddScoped(_ => factory.CreateDbContext());
         services.AddScoped<Domain.Abstractions.IUnitOfWork, UnitOfWork>();
         services.AddScoped<Domain.Orders.IOrderRepository, Persistence.Orders.OrderRepository>();

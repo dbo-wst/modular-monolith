@@ -8,8 +8,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddOrderingModule(
         this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddApplication(configuration);
-        services.AddPersistence(configuration);
+        services.AddOrderingApplication();
+        services.AddOrderingPersistence(configuration);
 
         return services;
     }

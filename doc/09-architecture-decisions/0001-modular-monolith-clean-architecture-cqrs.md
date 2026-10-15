@@ -15,6 +15,7 @@ The template needs a concrete, enforceable structure that stays easy to change a
 - Dependencies point inwards: Domain depends on nothing; Application depends on Domain and Contracts; adapter projects implement the ports and do not reference each other; hosts (`src/Host`) talk to a module only through Contracts and its DI registration. This is verified by `test/Architecture`.
 - Application is organised as **vertical slices**: one folder per use case (e.g. `Orders/CreateOrder`) holding the handler and its validator.
 - **CQRS**: commands (`ICommand<T>`, aggregate + repositories + `IUnitOfWork` write model) and queries (`IQuery<T>`, `IOrderingReadStore` read model projected to DTOs) are separate types dispatched by `IMediator`. Pipeline behaviours (`IPipelineBehavior`, currently validation) wrap every request.
+- The host registers the single mediator shared by all modules once (`AddMediator()`); each module only registers its own handlers and validators (`Add<Module>Application()` → `AddRequestHandlersFromAssembly`). A request type may have only one handler across all modules.
 - Shared building blocks live in `src/BuildingBlocks`.
 
 ## Consequences

@@ -1,4 +1,5 @@
 using Serilog;
+using Template.Core.Shared.Kernel.Communication;
 // using Template.Core.Api.Prelaunch.Allocation;
 using Template.Core.Api.Prelaunch.Ordering;
 // using Template.Core.Api.Prelaunch.ClientSide;
@@ -32,19 +33,16 @@ try
 
     builder.Services.AddGrpc();
 
+    // One mediator (and its pipeline behaviours) shared by all modules; modules only register their handlers.
+    builder.Services.AddMediator();
+
     builder.Services.AddOrderingModule(builder.Configuration);
-    // builder.Services.AddClientSideModule(builder.Configuration);
-    // builder.Services.AddAllocationModule(builder.Configuration);
-    // builder.Services.AddMasterDataModule(builder.Configuration);
 
     var app = builder.Build();
 
     app.UseSerilogRequestLogging();
 
     app.MapOrderingGrpcServices();
-    // app.MapClientSideGrpcServices();
-    // app.MapAllocationGrpcServices();
-    // app.MapMasterDataGrpcServices();
 
     app.MapGet("/",
         () =>

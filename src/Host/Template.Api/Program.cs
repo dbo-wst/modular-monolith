@@ -79,9 +79,6 @@ try
     });
 
     app.MapOrderingEndpoints();
-    // app.MapClientSideEndpoints();
-    // app.MapAllocationEndpoints();
-    // app.MapMasterDataEndpoints();
 
     Log.Information("Start Template.Api. Env: {Environment}", environmentName ?? "Unknown");
 

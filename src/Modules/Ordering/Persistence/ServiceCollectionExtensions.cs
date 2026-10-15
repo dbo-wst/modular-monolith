@@ -8,7 +8,7 @@ namespace Template.Core.Ordering.Persistence;
 
 public static class ServiceCollectionExtensions
 {
-    public static void AddPersistence(this IServiceCollection services, IConfiguration configuration)
+    public static void AddOrderingPersistence(this IServiceCollection services, IConfiguration configuration)
     {
         services.Configure<PersistenceOptions>(configuration.GetSection("Persistence"));
 

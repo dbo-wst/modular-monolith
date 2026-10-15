@@ -96,7 +96,7 @@ public sealed class IntegrationTestsFixture : IAsyncLifetime
         services.AddOptions();
 
 
-        services.AddPersistence(configuration);
+        services.AddOrderingPersistence(configuration);
 
         return services.BuildServiceProvider();
     }
