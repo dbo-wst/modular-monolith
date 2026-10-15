@@ -24,6 +24,14 @@ Each folder here is one bounded context. `Ordering` is the reference module: cop
   - Return plain values when nothing can fail.
   - Raise events only when something actually changed; `<Aggregate>Updated` carries the current state.
   - `Delete()` raises `<Aggregate>Deleted`.
+- Status lifecycles use the **State pattern** (see `Ordering/Domain/Orders`):
+  - `I<Aggregate>State.cs` next to the aggregate: one method per transition taking the aggregate and returning
+    `Fin<Unit>`, plus `static From(<Status>)` for rehydration.
+  - Concrete states in `<Aggregates>/States/<Status><Aggregate>State.cs`: `sealed`, stateless singletons (`Instance`);
+    a forbidden transition returns a `ValidationError`.
+  - The aggregate is the Context: it holds the current state, delegates its behaviour methods to it, and exposes
+    `internal TransitionTo(next)`, which swaps the state and raises `<Aggregate>Updated`.
+  - The status enum stays the persisted and wire value; persistence never sees state objects.
 - Strongly typed ids (`<Aggregate>Id.From(Guid)`). Value objects are records in `ValueObjects/`:
   - `Create(...)` returns `Fin<T>` and validates.
   - `From(...)` wraps without validation; the nullable `From` overload returns `null` for `null` input.

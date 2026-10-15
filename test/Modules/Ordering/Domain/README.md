@@ -7,6 +7,7 @@ Unit tests for the Ordering domain model: the `Order` and `OrderItem` aggregates
 | Item | Kind | Description |
 |---|---|---|
 | `Order/OrderTests.cs` | test class | `Order.Create` validation and `OrderCreated` event, permissive `Rehydrate`, `ChangeDetails` partial updates and `OrderUpdated`, valid/invalid status transitions, `Delete` raising `OrderDeleted` |
+| `Order/OrderStateTests.cs` | test class | `IOrderState.From` for every status (and undefined values), terminal states rejecting every transition with `ValidationError` without changing status or raising events |
 | `Order/OrderIdTests.cs` | test class | `OrderId.From`/`MaybeCreate`, nullable overload, value equality |
 | `OrderItem/OrderItemTests.cs` | test class | `OrderItem.Create` validation (quantity > 0, price >= 0, order id required) and events, `Rehydrate`, `ChangeDetails`, `Delete` |
 | `OrderItem/OrderItemIdTests.cs` | test class | `OrderItemId.From`/`MaybeCreate`, nullable overload, value equality |

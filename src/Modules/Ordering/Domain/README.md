@@ -6,7 +6,7 @@ Domain layer of the Ordering module (assembly `Acme.Core.Ordering.Domain`). Cont
 
 | Item | Kind | Description |
 |---|---|---|
-| [`Orders/`](Orders/README.md) | folder | `Order` aggregate, `OrderId`, `OrderStatus`, `IOrderRepository`, order events. |
+| [`Orders/`](Orders/README.md) | folder | `Order` aggregate (State pattern Context), `IOrderState` + `States/`, `OrderId`, `OrderStatus`, `IOrderRepository`, order events. |
 | [`OrderItems/`](OrderItems/README.md) | folder | `OrderItem` aggregate, `OrderItemId`, `IOrderItemRepository`, item events. |
 | [`ValueObjects/`](ValueObjects/README.md) | folder | `OrderNumber`, `EffectiveDate`, `Quantity`, `Price`. |
 | `Acme.Core.Ordering.Domain.csproj` | project | References `BuildingBlocks.Domain` only. |

@@ -1,27 +1,31 @@
 using LanguageExt;
 using Acme.Core.Ordering.Domain.Orders.Events;
+using Acme.Core.Ordering.Domain.Orders.States;
 using Acme.Core.Ordering.Domain.ValueObjects;
 using Acme.Core.BuildingBlocks.Domain;
 using Acme.Core.BuildingBlocks.Domain.Errors;
 
 namespace Acme.Core.Ordering.Domain.Orders;
 
+/// <summary>Order aggregate. Acts as the Context of the State pattern: status transitions are delegated to <see cref="IOrderState"/>.</summary>
 public sealed class Order : AggregateRoot<OrderId>
 {
+    private IOrderState _state;
+
     public OrderNumber OrderNumber { get; private set; }
     public EffectiveDate EffectiveDate { get; private set; }
-    public OrderStatus Status { get; private set; }
+    public OrderStatus Status => _state.Status;
 
     private Order(
         OrderId id,
         OrderNumber orderNumber,
         EffectiveDate effectiveDate,
-        OrderStatus status)
+        IOrderState state)
     {
         Id = id;
         OrderNumber = orderNumber;
         EffectiveDate = effectiveDate;
-        Status = status;
+        _state = state;
     }
 
     /// <summary>Creates a new order in <see cref="OrderStatus.New"/>. The order number must not be blank.</summary>
@@ -37,7 +41,7 @@ public sealed class Order : AggregateRoot<OrderId>
             return Fin<Order>.Fail(ValidationError.New("Effective date is required."));
         }
 
-        var order = new Order(OrderId.From(Guid.NewGuid()), number, effectiveDate, OrderStatus.New);
+        var order = new Order(OrderId.From(Guid.NewGuid()), number, effectiveDate, NewOrderState.Instance);
         order.Raise(new OrderCreated(order.Id, order.OrderNumber, order.EffectiveDate));
         return order;
     }
@@ -51,7 +55,7 @@ public sealed class Order : AggregateRoot<OrderId>
         new(id,
             orderNumber ?? new OrderNumber(string.Empty),
             effectiveDate ?? new EffectiveDate(default),
-            status ?? OrderStatus.New);
+            IOrderState.From(status ?? OrderStatus.New));
 
     /// <summary>Changes the provided details; raises <see cref="OrderUpdated"/> only if a value actually changed.</summary>
     public Order ChangeDetails(OrderNumber? number = null, EffectiveDate? effectiveDate = null)
@@ -74,26 +78,21 @@ public sealed class Order : AggregateRoot<OrderId>
         return this;
     }
 
-    public Fin<Order> Start() => Transition(OrderStatus.InProgress, OrderStatus.New);
+    public Fin<Order> Start() => _state.Start(this).Map(_ => this);
 
-    public Fin<Order> Complete() => Transition(OrderStatus.Completed, OrderStatus.InProgress);
+    public Fin<Order> Complete() => _state.Complete(this).Map(_ => this);
 
-    public Fin<Order> Cancel() => Transition(OrderStatus.Cancelled, OrderStatus.New, OrderStatus.InProgress);
+    public Fin<Order> Cancel() => _state.Cancel(this).Map(_ => this);
 
-    public Fin<Order> Reject() => Transition(OrderStatus.Rejected, OrderStatus.New, OrderStatus.InProgress);
+    public Fin<Order> Reject() => _state.Reject(this).Map(_ => this);
 
     public void Delete() => Raise(new OrderDeleted(Id));
 
-    private Fin<Order> Transition(OrderStatus target, params OrderStatus[] allowedFrom)
+    /// <summary>Called by the current <see cref="IOrderState"/> to move the order to its next state.</summary>
+    internal void TransitionTo(IOrderState next)
     {
-        if (!allowedFrom.Contains(Status))
-        {
-            return Fin<Order>.Fail(ValidationError.New($"Cannot change order status from {Status} to {target}."));
-        }
-
-        Status = target;
+        _state = next;
         RaiseUpdated();
-        return this;
     }
 
     private void RaiseUpdated() => Raise(new OrderUpdated(Id, OrderNumber, EffectiveDate, Status));
