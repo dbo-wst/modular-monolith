@@ -16,4 +16,4 @@ COPY --from=build /app/publish /app/publish
 
 EXPOSE 80
 
-ORDER_ITEMPOINT ["dotnet", "Acme.Core.Api.dll"]
+ENTRYPOINT ["dotnet", "Acme.Core.Api.dll"]

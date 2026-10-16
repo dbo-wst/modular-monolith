@@ -5,6 +5,7 @@ services:
     image: mcr.microsoft.com/mssql/server:2025-latest
     container_name: ms_sql_server_local
     environment:
+      TZ: Europe/Berlin
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "MyP@ssword"
     ports:

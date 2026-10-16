@@ -7,6 +7,9 @@ services:
     container_name: ${CONTAINER_NAME:-acme-docs}
     restart: unless-stopped
     pull_policy: build
+    # Frankfurt am Main local time (CET/CEST, DST-aware)
+    environment:
+      TZ: Europe/Berlin
     ports:
       - "${DOCS_HOST_PORT:-5082}:80"
     networks:

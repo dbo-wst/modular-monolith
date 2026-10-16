@@ -36,6 +36,13 @@ if [ ! -f "${COMPOSE_FILE}" ]; then
   exit 1
 fi
 
+for application in core-api api; do
+  if [ ! -f "${SCRIPT_DIR}/${application}/conf.d/.env" ]; then
+    echo "Env file not found: ${SCRIPT_DIR}/${application}/conf.d/.env"
+    exit 1
+  fi
+done
+
 for image in "${CORE_API_IMAGE_TAG}" "${API_IMAGE_TAG}" "${DOCS_IMAGE_TAG}"; do
   if ! docker image inspect "${image}" >/dev/null 2>&1; then
     echo "Image not found locally: ${image}"
@@ -67,16 +74,15 @@ ensure_volume "${CORE_API_LOGS_VOLUME}"
 ensure_volume "${API_DP_KEYS_VOLUME}"
 ensure_volume "${API_LOGS_VOLUME}"
 
-echo "Recreating docker compose stack from ${COMPOSE_FILE}..."
-docker compose -f "${COMPOSE_FILE}" down
+echo "Updating docker compose stack from ${COMPOSE_FILE}..."
 
 # The merged compose includes all apps, which share the ${IMAGE_TAG} variable,
 # so a single `up` cannot give them different image tags. Each app is therefore
 # brought up on its own with its own IMAGE_TAG into the same compose project;
 # container_name and env_file resolve from each included file's own defaults.
-IMAGE_TAG="${CORE_API_IMAGE_TAG}" docker compose -f "${COMPOSE_FILE}" up -d core-api
-IMAGE_TAG="${API_IMAGE_TAG}" docker compose -f "${COMPOSE_FILE}" up -d api
-IMAGE_TAG="${DOCS_IMAGE_TAG}" docker compose -f "${COMPOSE_FILE}" up -d docs
+IMAGE_TAG="${CORE_API_IMAGE_TAG}" docker compose -f "${COMPOSE_FILE}" up -d --force-recreate core-api
+IMAGE_TAG="${API_IMAGE_TAG}" docker compose -f "${COMPOSE_FILE}" up -d --force-recreate api
+IMAGE_TAG="${DOCS_IMAGE_TAG}" docker compose -f "${COMPOSE_FILE}" up -d --force-recreate docs
 
 echo "Stack is running."
 echo "- Core API: ${CORE_API_IMAGE_TAG}"
