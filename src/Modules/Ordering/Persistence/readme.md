@@ -58,13 +58,13 @@ Read side: `ReadStore` creates its own short-lived context from `IOrderingDbCont
 PowerShell:
 
 ```powershell
-[Environment]::SetEnvironmentVariable("SQL_CONNECTION_STRING", "Server=tcp:localhost,1433;Database=acme-core-local;User Id=sa;Password=MyP@ssword;TrustServerCertificate=True;")
+[Environment]::SetEnvironmentVariable("SQL_CONNECTION_STRING", "Server=tcp:localhost,1433;Database=acme-local;User Id=sa;Password=MyP@ssword;TrustServerCertificate=True;")
 ```
 
 Bash (Linux/macOS):
 
 ```bash
-export SQL_CONNECTION_STRING="Server=tcp:localhost,1433;Database=acme-core-local;User Id=sa;Password=MyP@ssword;TrustServerCertificate=True;"
+export SQL_CONNECTION_STRING="Server=tcp:localhost,1433;Database=acme-local;User Id=sa;Password=MyP@ssword;TrustServerCertificate=True;"
 ```
 
 ### Get connection string

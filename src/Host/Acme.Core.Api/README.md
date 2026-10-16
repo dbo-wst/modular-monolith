@@ -9,7 +9,7 @@ gRPC host of the modular monolith (assembly `Acme.Core.Api`, `Microsoft.NET.Sdk.
 | `Program.cs` | entry point | Serilog bootstrap, `AddGrpc`, `AddMediator` (once), `AddOrderingModule`, `MapOrderingGrpcServices`, plain-text `GET /`. |
 | [`Prelaunch/`](Prelaunch/README.md) | folder | `ErrorCodeClassifier` and per-module gRPC services and mappers (currently `Ordering`). |
 | `appsettings.json` | config | Serilog (console + `logs/` files), `AllowedHosts`, `Kestrel:EndpointDefaults:Protocols = Http2`. |
-| `appsettings.Local.json` | config | `Persistence:ConnectionString` for local SQL Server (`wst-trios-core-local`). |
+| `appsettings.Local.json` | config | `Persistence:ConnectionString` for local SQL Server (`acme-local`). |
 | `Acme.Core.Api.csproj` | project | Project file. |
 
 ## How it works

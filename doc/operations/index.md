@@ -36,6 +36,9 @@ Compose project `acme`:
 - The Api calls Core.Api over `acme-network` (`CoreApi__BaseUrl=http://acme-core-api:80`).
 - Core.Api and the Api keep Data Protection keys and logs in external volumes
   (`acme-<app>-dp-keys`, `acme-<app>-logs`), created by `run.sh`.
+- Core.Api uses its own database `acme-local` on the local SQL Server
+  (`ms_sql_server_local`, `operations/sql`); it does not share a database with other solutions.
+  EF Core migrations create and update it on first use.
 - Every container, including the local SQL Server, runs in `TZ=Europe/Berlin`.
 - Behind the local reverse proxy (`wst-cicd/reverse-proxy-2`), a machine-local snippet
   `cd/sites.d/acme/Caddyfile` (not committed) routes, on `https://apps-local.steubing.com`:
