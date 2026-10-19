@@ -79,6 +79,13 @@ Acme runs **locally only**.
 
 ## Monitoring
 
-- No OpenTelemetry configuration, no Docker `HEALTHCHECK` and no `/health` endpoint.
 - Logs: Serilog console output (`docker logs acme-<app>`) and rolling files in the
-  `acme-<app>-logs` volumes.
+  `acme-<app>-logs` volumes (file lines carry the trace id).
+- OpenTelemetry: Core.Api and the Api send logs and traces (no metrics) over OTLP to the
+  `otel` stack of wst-cicd (Grafana at `https://otel-local.steubing.com`) as `acme-core-api` and
+  `acme-api`, service namespace `acme`. Three keys in `conf.d/.env` configure it:
+  `OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-local.steubing.com:4318`,
+  `OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf`,
+  `OTEL_RESOURCE_ATTRIBUTES=deployment.environment.name=local` (dev: `otel.steubing.com`, `dev`).
+  Without the endpoint nothing is exported; the start line of each app shows the endpoint or `off`.
+- No Docker `HEALTHCHECK` and no `/health` endpoint.

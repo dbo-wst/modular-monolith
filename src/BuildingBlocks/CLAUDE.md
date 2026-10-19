@@ -9,10 +9,12 @@ module value objects). Changes here affect all modules: keep them backward compa
 | Project | May depend on | Contains |
 |---|---|---|
 | `Acme.Core.BuildingBlocks.Domain` | LanguageExt only | `AggregateRoot<TId>`, `DomainEvent`, `IHasDomainEvents`, `IUnitOfWork`, `IDomainEventDispatcher`, `IMap`/`IOnewayMap`, `Errors/`, `Functional/` |
-| `Acme.Core.BuildingBlocks.Application` | Domain, FluentValidation, DI/Options abstractions | `IMediator` + pipeline, request/handler interfaces, `ValidationBehavior`, `DomainEventDispatcher`, `IDomainEventHandler<T>`, DI extensions, options validation |
+| `Acme.Core.BuildingBlocks.Application` | Domain, FluentValidation, DI/Options abstractions, Microsoft.Extensions.Logging | `IMediator` + pipeline, request/handler interfaces, `FailureLoggingBehavior`, `ValidationBehavior`, `DomainEventDispatcher`, `IDomainEventHandler<T>`, DI extensions, options validation |
 | `Acme.Core.BuildingBlocks.Persistence` | Domain, EF Core | `UnitOfWork<TContext>`, `DomainEventCollector` |
+| `Acme.Core.BuildingBlocks.Observability` | OpenTelemetry, Serilog only (no other building block) | `AddObservability` (traces), `WriteToOtlp` (logs); used by hosts only, never by modules |
 
 Application must not reference Persistence or EF Core; Domain must not reference either of the others.
+Observability exports logs and traces only; do not add metrics without a decision to do so.
 
 ## Rules
 
@@ -25,6 +27,8 @@ Application must not reference Persistence or EF Core; Domain must not reference
   - `IRequestHandler`/`ICommandHandler`/`IQueryHandler` return `Task<Fin<T>>`.
   - Exactly one handler per request type across all modules; `AddRequestHandlersFromAssembly` throws on duplicates.
   - Dispatch goes through the cached `RequestHandlerWrapper`. No per-call reflection; handler exceptions are not wrapped.
+- **Failed requests are logged once, by `FailureLoggingBehavior`** (outermost default behaviour): expected codes as
+  Warning, everything else as Error. Do not log the same failure again in handlers or hosts.
 - **Pipeline order**: all `IPipelineBehavior` (registration order, outermost) -> all `ICommandPipelineBehavior`
   (commands only) -> handler. Behaviours return `Fin`, call `next()` at most once and must not swallow failures.
 - **Registration**: `AddMediator()` is called once by the host (idempotent). Modules call only

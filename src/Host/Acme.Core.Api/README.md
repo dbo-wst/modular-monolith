@@ -6,9 +6,9 @@ gRPC host of the modular monolith (assembly `Acme.Core.Api`, `Microsoft.NET.Sdk.
 
 | Item | Kind | Description |
 |---|---|---|
-| `Program.cs` | entry point | Serilog bootstrap, `AddGrpc`, `AddMediator` (once), `AddOrderingModule`, `MapOrderingGrpcServices`, plain-text `GET /`. |
+| `Program.cs` | entry point | Serilog bootstrap (plus `WriteToOtlp`), `AddObservability`, `AddGrpc`, `AddMediator` (once), `AddOrderingModule`, `MapOrderingGrpcServices`, plain-text `GET /`. |
 | [`Prelaunch/`](Prelaunch/README.md) | folder | `ErrorCodeClassifier` and per-module gRPC services and mappers (currently `Ordering`). |
-| `appsettings.json` | config | Serilog (console + `logs/` files), `AllowedHosts`, `Kestrel:EndpointDefaults:Protocols = Http2`. |
+| `appsettings.json` | config | Serilog (console + files with `[{TraceId}]` under `%BASEDIR%logs/`, i.e. the execution folder), `AllowedHosts`, `Kestrel:EndpointDefaults:Protocols = Http2`. |
 | `appsettings.Local.json` | config | `Persistence:ConnectionString` for local SQL Server (`acme-local`). |
 | `Acme.Core.Api.csproj` | project | Project file. |
 
@@ -27,13 +27,14 @@ app.MapOrderingGrpcServices();                        // Order.GrpcService, Orde
 
 - `AddMediator` (BuildingBlocks.Application) registers `IMediator`, `IDomainEventDispatcher` and `ValidationBehavior`; modules only register their handlers/validators.
 - `AddOrderingPersistence` binds section `Persistence` (`Persistence:ConnectionString`, validated non-empty on start) and configures SQL Server.
+- Telemetry: service `acme-core-api`; with `OTEL_EXPORTER_OTLP_*` set it exports logs (Information+) and traces (gRPC requests, SQL commands) over OTLP, otherwise nothing. The start line logs the OTLP endpoint or `off`.
 - Kestrel serves HTTP/2 only; locally at `http://localhost:6001` (`launchSettings.json`, environment `Local`).
 - `GET /` returns a hint that gRPC endpoints require a gRPC client.
 - `public partial class Program` in namespace `Acme.Core.Api` supports `WebApplicationFactory` tests.
 - Commented-out references/usings for `Allocation`, `ClientSide`, `MasterData` show where further modules plug in.
 
 ## Dependencies
-- References: `Acme.Core.Protocol`, `Acme.Core.Ordering.Application`, `Acme.Core.Ordering.Persistence`; packages `Grpc.AspNetCore`, `Serilog`, `Serilog.AspNetCore`, `Serilog.Settings.Configuration`, `Serilog.Sinks.Console`, `Serilog.Sinks.File`.
+- References: `Acme.Core.Protocol`, `Acme.Core.BuildingBlocks.Observability`, `Acme.Core.Ordering.Application`, `Acme.Core.Ordering.Persistence`; packages `Grpc.AspNetCore`, `Serilog`, `Serilog.AspNetCore`, `Serilog.Settings.Configuration`, `Serilog.Sinks.Console`, `Serilog.Sinks.File`.
 - Used by: `Acme.Api` (via gRPC clients in `Acme.Api.Infrastructure.CoreApi`); `test_integration/Host/Acme.Core.Api.IntegrationTest`.
 
 ## Extending

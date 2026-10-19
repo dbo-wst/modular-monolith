@@ -21,6 +21,7 @@ SQL_CONNECTION_STRING="Server=x;Database=y;TrustServerCertificate=True" dotnet e
 
 ```
 src/BuildingBlocks/{Domain,Application,Persistence}   Acme.Core.BuildingBlocks.*  shared kernel (no business code)
+src/BuildingBlocks/Observability           OTLP export of logs and traces for the hosts (no metrics)
 src/Modules/<Module>/{Domain,Application,Contracts,Persistence,<Adapter>}  Acme.Core.<Module>.*
 src/Host/Acme.Core.Api                     gRPC host, composition root of all modules
 src/Host/Acme.Api                          HTTP gateway (REST -> gRPC), knows no module internals

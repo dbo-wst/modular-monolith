@@ -32,7 +32,12 @@ and module Contracts, call `IMediator`, and translate results and errors back.
   - Use options classes with FluentValidation and `ValidateOnStart`: `Persistence:ConnectionString` for Core.Api,
     `CoreApi:BaseUrl` for the gateway.
   - Secrets come only from environment variables or local appsettings files, never from committed files.
-- Logging goes through Serilog configuration. Do not use `Console.Write`.
+- Logging goes through Serilog configuration. Do not use `Console.Write`. File sink paths start with `%BASEDIR%`
+  (set to `AppContext.BaseDirectory` first thing in `Program.cs`), so files go to the execution folder, never the
+  working directory.
+- Telemetry: every host calls `WriteToOtlp(configuration, ServiceName)` on its Serilog configuration and
+  `AddObservability(configuration, ServiceName)` (`src/BuildingBlocks/Observability`), `ServiceName` = `acme-<app>`.
+  Logs and traces only, exported when `OTEL_EXPORTER_OTLP_ENDPOINT` is set; no metrics.
 - New transport operation: add the proto first (`src/Protocol`), then the Core.Api service method plus mappers,
   then the gateway client plus endpoint, then integration tests in `test_integration/Host`.
 - Leave `KnownProxies`/`KnownIPNetworks` hardening (an open TODO) explicitly unresolved rather than widening it further.

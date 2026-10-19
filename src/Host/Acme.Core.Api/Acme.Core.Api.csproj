@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Protocol\Acme.Core.Protocol.csproj"/>
+        <ProjectReference Include="..\..\BuildingBlocks\Observability\Acme.Core.BuildingBlocks.Observability.csproj"/>
         <ProjectReference Include="..\..\Modules\Ordering\Application\Acme.Core.Ordering.Application.csproj"/>
         <ProjectReference Include="..\..\Modules\Ordering\Persistence\Acme.Core.Ordering.Persistence.csproj"/>
 <!--        <ProjectReference Include="..\..\ClientSide\Application\Acme.Core.ClientSide.Application.csproj"/>-->

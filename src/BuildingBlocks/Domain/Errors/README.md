@@ -6,7 +6,7 @@ Typed application errors (namespace `Acme.Core.BuildingBlocks.Domain.Errors`, pr
 
 | Item | Kind | Description |
 |---|---|---|
-| `ErrorCodes.cs` | static class | Stable string codes: `not_found`, `validation`, `conflict`, `cancelled`, `internal` |
+| `ErrorCodes.cs` | static class | Stable string codes: `not_found`, `validation`, `conflict`, `cancelled`, `internal`; `Of(Error)` classifies any error |
 | `AppError.cs` | abstract record | Base of all typed errors; derives from LanguageExt `Expected` and adds `ErrorCode` |
 | `NotFoundError.cs` | sealed record | Code `not_found`; `New(message)`, `ForEntity<T>(entity)` |
 | `ValidationError.cs` | sealed record | Code `validation`; `New(message)` |
@@ -30,12 +30,13 @@ if (order is null)
     return Fin<Order>.Fail(NotFoundError.ForEntity(orderId));
 
 // consumer side: classify by type/code, never by message
-var code = error is AppError app ? app.ErrorCode : ErrorCodes.Internal;
+// first AppError in the error, a ManyErrors or the inner error; otherwise "internal"
+var code = ErrorCodes.Of(error);
 ```
 
 ## Dependencies
 - References: LanguageExt.Core (`Expected`, `Error`, `Option`).
-- Used by: BuildingBlocks.Application (`ValidationBehavior`), BuildingBlocks.Persistence (`UnitOfWork<TContext>`), Ordering Domain/Application/Persistence, `Acme.Core.Api` (`Prelaunch/ErrorCodeClassifier.cs` reads `AppError.ErrorCode`, falling back to `internal`).
+- Used by: BuildingBlocks.Application (`ValidationBehavior`), BuildingBlocks.Persistence (`UnitOfWork<TContext>`), Ordering Domain/Application/Persistence, `Acme.Core.Api` (`Prelaunch/ErrorCodeClassifier.cs` calls `ErrorCodes.Of`), BuildingBlocks.Application (`FailureLoggingBehavior` uses `ErrorCodes.Of` to pick the log level).
 
 ## Extending
 - A new specific error: derive a `sealed record` from the matching category (`ConflictError`, `CancelledError`) or from `AppError` with an existing code, with a private constructor and a static `New` factory.

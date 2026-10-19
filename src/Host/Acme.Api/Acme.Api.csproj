@@ -7,7 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Acme.Api.Infrastructure.CoreApi\Acme.Api.Infrastructure.CoreApi.csproj" />    </ItemGroup>
+        <ProjectReference Include="..\Acme.Api.Infrastructure.CoreApi\Acme.Api.Infrastructure.CoreApi.csproj" />
+        <ProjectReference Include="..\..\BuildingBlocks\Observability\Acme.Core.BuildingBlocks.Observability.csproj" />
+    </ItemGroup>
 
     <ItemGroup>
         <PackageReference Include="LanguageExt.Core"/>

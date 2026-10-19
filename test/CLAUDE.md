@@ -6,7 +6,7 @@ in-memory provider where a DbContext is unavoidable.
 ## Layout
 
 The tree mirrors `src`:
-- `test/BuildingBlocks/{Domain,Application}`
+- `test/BuildingBlocks/{Domain,Application,Observability}`
 - `test/Modules/<Module>/{Domain,Application,TestCompanion}`
 - `test/Architecture`
 - `test/TestCompanion` for shared helpers

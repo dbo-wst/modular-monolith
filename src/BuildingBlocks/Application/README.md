@@ -7,12 +7,12 @@ Project `Acme.Core.BuildingBlocks.Application` (namespace `Acme.Core.BuildingBlo
 | Item | Kind | Description |
 |---|---|---|
 | `Acme.Core.BuildingBlocks.Application.csproj` | project | References FluentValidation, DI abstractions, Options and BuildingBlocks.Domain |
-| [`Communication/`](Communication/README.md) | folder | `IMediator`/`Mediator`, request/command/query and handler interfaces, pipeline behaviours, `ValidationBehavior`, `DomainEventDispatcher`, `AddMediator`/`AddRequestHandlersFromAssembly` |
+| [`Communication/`](Communication/README.md) | folder | `IMediator`/`Mediator`, request/command/query and handler interfaces, pipeline behaviours, `FailureLoggingBehavior`, `ValidationBehavior`, `DomainEventDispatcher`, `AddMediator`/`AddRequestHandlersFromAssembly` |
 | [`Validation/`](Validation/README.md) | folder | `FluentValidateOptions<TOptions>` and `ValidateFluentValidation()` for `IOptions` validation |
 
 ## How it works
 
-- The host calls `AddMediator()` once; it registers the single shared `IMediator`, the `IDomainEventDispatcher` implementation and the default `ValidationBehavior`.
+- The host calls `AddMediator()` once; it registers the single shared `IMediator`, the `IDomainEventDispatcher` implementation and the default behaviours `FailureLoggingBehavior` (logs failed requests) and `ValidationBehavior`.
 - Each module's Application project calls `AddRequestHandlersFromAssembly(assembly)` to register its handlers, domain event handlers and validators.
 - Every request returns `Task<Fin<TResponse>>`; failures are typed errors from `BuildingBlocks.Domain.Errors`.
 - This project implements the `IDomainEventDispatcher` port declared in BuildingBlocks.Domain, which `UnitOfWork<TContext>` (BuildingBlocks.Persistence) calls after a successful save.
