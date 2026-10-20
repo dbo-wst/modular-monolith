@@ -37,7 +37,11 @@ and module Contracts, call `IMediator`, and translate results and errors back.
   working directory.
 - Telemetry: every host calls `WriteToOtlp(configuration, ServiceName)` on its Serilog configuration and
   `AddObservability(configuration, ServiceName)` (`src/BuildingBlocks/Observability`), `ServiceName` = `acme-<app>`.
-  Logs and traces only, exported when `OTEL_EXPORTER_OTLP_ENDPOINT` is set; no metrics.
+  Logs, traces and `Acme.*` metrics, exported when `OTEL_EXPORTER_OTLP_ENDPOINT` is set (ADR 0002). Name custom
+  `ActivitySource`s and `Meter`s `Acme.*`; keep metric attributes bounded (no ids, no user data).
 - New transport operation: add the proto first (`src/Protocol`), then the Core.Api service method plus mappers,
   then the gateway client plus endpoint, then integration tests in `test_integration/Host`.
+- Background jobs (Core.Api `Jobs/`, Quartz): plain `IJob` classes (the scheduler wraps them in
+  `MonitoredJob<TJob>` for telemetry; report idle/failure via `context.Result`), schedule via `JobsOptions`, call `IMediator`
+  for any real work; no business logic in jobs. See `doc/08-cross-cutting-concepts/11-background-jobs.md`.
 - Leave `KnownProxies`/`KnownIPNetworks` hardening (an open TODO) explicitly unresolved rather than widening it further.

@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
 using Serilog;
@@ -11,8 +12,8 @@ using Serilog.Sinks.OpenTelemetry;
 namespace Acme.Core.BuildingBlocks.Observability;
 
 /// <summary>
-/// OTLP export of logs (through Serilog) and traces. Both are off unless <see cref="EndpointKey"/> is configured;
-/// metrics are deliberately not exported.
+/// OTLP export of logs (through Serilog), traces and metrics. All are off unless <see cref="EndpointKey"/> is
+/// configured. Only Acme's own meters (<see cref="AcmeInstrumentation"/>) are exported as metrics (ADR 0002).
 /// </summary>
 public static class ObservabilityExtensions
 {
@@ -31,11 +32,18 @@ public static class ObservabilityExtensions
     /// <summary>The environment attribute; <c>unknown</c> when <see cref="ResourceAttributesKey"/> does not declare it.</summary>
     public const string EnvironmentAttribute = "deployment.environment.name";
 
+    /// <summary>
+    /// Wildcard for Acme's own <c>ActivitySource</c>s and <c>Meter</c>s. Name custom sources and meters <c>Acme.*</c>
+    /// (e.g. <c>Acme.Core.Api.Jobs</c>) and they are exported without further registration.
+    /// </summary>
+    public const string AcmeInstrumentation = "Acme.*";
+
     private const string HttpProtobuf = "http/protobuf";
 
     /// <summary>
-    /// Registers tracing of ASP.NET Core requests, outgoing HTTP calls (gRPC clients included) and SQL Server commands
-    /// with an OTLP exporter that takes endpoint and protocol from configuration. Does nothing when
+    /// Registers tracing of ASP.NET Core requests, outgoing HTTP calls (gRPC clients included), SQL Server commands and
+    /// <see cref="AcmeInstrumentation"/> sources, plus the <see cref="AcmeInstrumentation"/> meters with trace-based
+    /// exemplars. Both use an OTLP exporter that takes endpoint and protocol from configuration. Does nothing when
     /// <see cref="EndpointKey"/> is not set.
     /// </summary>
     public static IServiceCollection AddObservability(
@@ -52,6 +60,12 @@ public static class ObservabilityExtensions
                 .AddAspNetCoreInstrumentation()
                 .AddHttpClientInstrumentation()
                 .AddSqlClientInstrumentation()
+                .AddSource(AcmeInstrumentation)
+                .AddOtlpExporter())
+            .WithMetrics(metrics => metrics
+                .AddMeter(AcmeInstrumentation)
+                // Exemplars link a histogram bucket to the trace that was active when the value was recorded.
+                .SetExemplarFilter(ExemplarFilterType.TraceBased)
                 .AddOtlpExporter());
 
         return services;

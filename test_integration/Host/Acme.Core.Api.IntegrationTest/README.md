@@ -10,7 +10,8 @@ gRPC-level tests of the core host `Acme.Core.Api`: the Ordering `OrderService` a
 | `TestsCollectionDefinition.cs` | collection | xUnit collection `Acme.Core.Api.IntegrationTest` with parallelization disabled |
 | `Ordering/Order/OrderServiceTests.cs` | test class | Create/get/list/update/delete orders, validation and not-found errors, partial updates, error code classified by error type rather than message |
 | `Ordering/OrderItem/OrderItemServiceTests.cs` | test class | Create/get/list/update/delete order items, validation error on missing fields |
-| `appsettings.json` | config | Placeholder `Persistence:ConnectionString` so the host's options validation passes on start |
+| `Jobs/BackgroundJobsTests.cs` | test class | With `Jobs:Enabled = false` the host starts without a Quartz scheduler |
+| `appsettings.json` | config | Placeholder `Persistence:ConnectionString` so the host's options validation passes on start; `Jobs:Enabled = false` so no background job runs during tests |
 | `Acme.Core.Api.IntegrationTest.csproj` | project | Test project definition (`Microsoft.NET.Sdk.Web`) |
 
 ## How it works

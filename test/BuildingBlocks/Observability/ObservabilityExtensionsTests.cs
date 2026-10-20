@@ -1,5 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 
 namespace Acme.Core.BuildingBlocks.Observability.Test;
@@ -68,5 +69,25 @@ public class ObservabilityExtensionsTests
             .BuildServiceProvider();
 
         Assert.NotNull(provider.GetService<TracerProvider>());
+    }
+
+    [Fact]
+    public void AddObservability_WithoutEndpoint_RegistersNoMeterProvider()
+    {
+        using var provider = new ServiceCollection()
+            .AddObservability(Configuration(), ServiceName)
+            .BuildServiceProvider();
+
+        Assert.Null(provider.GetService<MeterProvider>());
+    }
+
+    [Fact]
+    public void AddObservability_WithEndpoint_RegistersMeterProvider()
+    {
+        using var provider = new ServiceCollection()
+            .AddObservability(Exporting(), ServiceName)
+            .BuildServiceProvider();
+
+        Assert.NotNull(provider.GetService<MeterProvider>());
     }
 }

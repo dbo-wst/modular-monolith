@@ -22,13 +22,16 @@ thrown by handlers are logged by ASP.NET Core / gRPC.
 
 ## Telemetry (OpenTelemetry)
 
-Both hosts export **logs and traces** over OTLP to the `otel` stack of wst-cicd; **metrics are not exported**. The
+Both hosts export **logs, traces and metrics** over OTLP to the `otel` stack of wst-cicd; only Acme's own meters
+(`Acme.*`) are exported as metrics ([ADR 0002](../09-architecture-decisions/0002-metrics-and-background-jobs.md)). The
 code lives in `src/BuildingBlocks/Observability` and is called once per host:
 
 - `WriteToOtlp(configuration, ServiceName)` adds a Serilog OTLP sink (Information and above; Debug stays local). Code
   keeps logging through `ILogger<T>`; each log event carries the current trace and span id.
 - `AddObservability(configuration, ServiceName)` traces ASP.NET Core requests, outgoing HTTP calls (the gateway's gRPC
-  clients carry the trace context to Core.Api) and SQL Server commands.
+  clients carry the trace context to Core.Api), SQL Server commands and every `ActivitySource` named `Acme.*`; it also
+  exports every `Meter` named `Acme.*`, with trace-based exemplars. Today that is the background jobs
+  (`Acme.Core.Api.Jobs`, see [8.11 Background Jobs](11-background-jobs.md)).
 
 | Resource attribute | Value |
 |---|---|
@@ -45,4 +48,5 @@ OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 OTEL_RESOURCE_ATTRIBUTES=deployment.environment.name=local
 ```
 
-Never put secrets, request bodies or personal data into log messages or span attributes.
+Never put secrets, request bodies or personal data into log messages, span attributes or metric attributes; metric
+attributes must also be bounded (no ids).

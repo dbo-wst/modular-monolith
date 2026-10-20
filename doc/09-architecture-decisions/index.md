@@ -3,3 +3,4 @@
 Record each decision as `NNNN-title.md` (the folder is configured in `.adr-dir`).
 
 - [ADR 0001. Modular Monolith, Clean Architecture, Vertical Slices and CQRS](./0001-modular-monolith-clean-architecture-cqrs.md)
+- [ADR 0002. Metrics Export and Background Jobs](./0002-metrics-and-background-jobs.md)

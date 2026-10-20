@@ -9,7 +9,7 @@ Shared, module-agnostic infrastructure that every module and host builds on. It 
 | [`Domain/`](Domain/README.md) | project folder (`Acme.Core.BuildingBlocks.Domain`) | Aggregate root, domain events, unit-of-work and event-dispatcher ports, mapping interfaces, typed errors, `Fin<T>` helpers |
 | [`Application/`](Application/README.md) | project folder (`Acme.Core.BuildingBlocks.Application`) | Custom CQRS mediator, pipeline behaviours, domain event dispatcher, DI registration, FluentValidation-based options validation |
 | [`Persistence/`](Persistence/README.md) | project folder (`Acme.Core.BuildingBlocks.Persistence`) | EF Core `UnitOfWork<TContext>` and the scoped `DomainEventCollector` |
-| [`Observability/`](Observability/README.md) | project folder (`Acme.Core.BuildingBlocks.Observability`) | OTLP export of logs (Serilog sink) and traces for the hosts; no metrics |
+| [`Observability/`](Observability/README.md) | project folder (`Acme.Core.BuildingBlocks.Observability`) | OTLP export of logs (Serilog sink), traces and `Acme.*` metrics for the hosts |
 
 ## How it works
 

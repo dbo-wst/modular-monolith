@@ -21,6 +21,7 @@
 
     <ItemGroup>
         <PackageReference Include="Grpc.AspNetCore"/>
+        <PackageReference Include="Quartz.Extensions.Hosting"/>
         <PackageReference Include="Serilog"/>
         <PackageReference Include="Serilog.AspNetCore"/>
         <PackageReference Include="Serilog.Settings.Configuration"/>
@@ -30,6 +31,11 @@
 
     <ItemGroup>
       <Folder Include="Prelaunch\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="Acme.Core.Api.Test"/>
+        <InternalsVisibleTo Include="Acme.Core.Api.IntegrationTest"/>
     </ItemGroup>
 
 </Project>

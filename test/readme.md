@@ -7,7 +7,8 @@ Fast, in-process unit tests for the building blocks, the Ordering module and the
 | Item | Kind | Description |
 |---|---|---|
 | [`Architecture`](Architecture/README.md) | folder (test project) | NetArchTest dependency rules for the Ordering module, BuildingBlocks and the gateway |
-| [`BuildingBlocks`](BuildingBlocks/README.md) | folder | Unit tests for the shared BuildingBlocks layers (Domain, Application) |
+| [`BuildingBlocks`](BuildingBlocks/README.md) | folder | Unit tests for the shared BuildingBlocks layers (Domain, Application, Observability) |
+| [`Host`](Host/README.md) | folder | Unit tests for the hosts (Core.Api background jobs) |
 | [`Modules`](Modules/README.md) | folder | Unit tests per business module (currently Ordering) |
 | [`TestCompanion`](TestCompanion/README.md) | folder (library) | Shared, module-agnostic test helpers (`Support`) |
 | `Directory.Build.props` | build props | Imports the repository-wide `Directory.Build.props` and suppresses `xUnit1051` |
@@ -30,6 +31,8 @@ Test projects under `test/`:
 dotnet test .\test\Architecture\Acme.Core.Architecture.Test.csproj
 dotnet test .\test\BuildingBlocks\Domain\Acme.Core.BuildingBlocks.Domain.Test.csproj
 dotnet test .\test\BuildingBlocks\Application\Acme.Core.BuildingBlocks.Application.Test.csproj
+dotnet test .\test\BuildingBlocks\Observability\Acme.Core.BuildingBlocks.Observability.Test.csproj
+dotnet test .\test\Host\Acme.Core.Api\Acme.Core.Api.Test.csproj
 dotnet test .\test\Modules\Ordering\Domain\Acme.Core.Ordering.Domain.Test.csproj
 dotnet test .\test\Modules\Ordering\Application\Acme.Core.Ordering.Application.Test.csproj
 ```

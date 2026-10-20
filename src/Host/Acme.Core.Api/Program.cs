@@ -1,6 +1,7 @@
 using Serilog;
 using Acme.Core.BuildingBlocks.Application.Communication;
 using Acme.Core.BuildingBlocks.Observability;
+using Acme.Core.Api.Jobs;
 // using Acme.Core.Api.Prelaunch.Allocation;
 using Acme.Core.Api.Prelaunch.Ordering;
 // using Acme.Core.Api.Prelaunch.ClientSide;
@@ -46,6 +47,8 @@ try
     builder.Services.AddMediator();
 
     builder.Services.AddOrderingModule(builder.Configuration);
+
+    builder.Services.AddBackgroundJobs(builder.Configuration);
 
     var app = builder.Build();
 

@@ -41,6 +41,9 @@
   <Folder Name="/test/Architecture/">
     <Project Path="test/Architecture/Acme.Core.Architecture.Test.csproj" />
   </Folder>
+  <Folder Name="/test/Host/">
+    <Project Path="test/Host/Acme.Core.Api/Acme.Core.Api.Test.csproj" />
+  </Folder>
   <Folder Name="/test/BuildingBlocks/">
     <Project Path="test/BuildingBlocks/Application/Acme.Core.BuildingBlocks.Application.Test.csproj" />
     <Project Path="test/BuildingBlocks/Domain/Acme.Core.BuildingBlocks.Domain.Test.csproj" />

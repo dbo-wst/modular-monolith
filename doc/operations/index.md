@@ -81,11 +81,14 @@ Acme runs **locally only**.
 
 - Logs: Serilog console output (`docker logs acme-<app>`) and rolling files in the
   `acme-<app>-logs` volumes (file lines carry the trace id).
-- OpenTelemetry: Core.Api and the Api send logs and traces (no metrics) over OTLP to the
+- OpenTelemetry: Core.Api and the Api send logs, traces and `Acme.*` metrics over OTLP to the
   `otel` stack of wst-cicd (Grafana at `https://otel-local.steubing.com`) as `acme-core-api` and
   `acme-api`, service namespace `acme`. Three keys in `conf.d/.env` configure it:
   `OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-local.steubing.com:4318`,
   `OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf`,
   `OTEL_RESOURCE_ATTRIBUTES=deployment.environment.name=local` (dev: `otel.steubing.com`, `dev`).
   Without the endpoint nothing is exported; the start line of each app shows the endpoint or `off`.
+- Background jobs (Core.Api, every 5 minutes): Grafana dashboard **Acme** (folder WST) and the
+  alert rules of group `acme-jobs` (failed run, stale job, misfire, no runs). `Jobs__Enabled=false`
+  in `conf.d/.env` switches the scheduler off (see `conf.d/runtime.env.example`).
 - No Docker `HEALTHCHECK` and no `/health` endpoint.

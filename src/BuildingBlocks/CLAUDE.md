@@ -11,10 +11,11 @@ module value objects). Changes here affect all modules: keep them backward compa
 | `Acme.Core.BuildingBlocks.Domain` | LanguageExt only | `AggregateRoot<TId>`, `DomainEvent`, `IHasDomainEvents`, `IUnitOfWork`, `IDomainEventDispatcher`, `IMap`/`IOnewayMap`, `Errors/`, `Functional/` |
 | `Acme.Core.BuildingBlocks.Application` | Domain, FluentValidation, DI/Options abstractions, Microsoft.Extensions.Logging | `IMediator` + pipeline, request/handler interfaces, `FailureLoggingBehavior`, `ValidationBehavior`, `DomainEventDispatcher`, `IDomainEventHandler<T>`, DI extensions, options validation |
 | `Acme.Core.BuildingBlocks.Persistence` | Domain, EF Core | `UnitOfWork<TContext>`, `DomainEventCollector` |
-| `Acme.Core.BuildingBlocks.Observability` | OpenTelemetry, Serilog only (no other building block) | `AddObservability` (traces), `WriteToOtlp` (logs); used by hosts only, never by modules |
+| `Acme.Core.BuildingBlocks.Observability` | OpenTelemetry, Serilog only (no other building block) | `AddObservability` (traces + `Acme.*` metrics), `WriteToOtlp` (logs); used by hosts only, never by modules |
 
 Application must not reference Persistence or EF Core; Domain must not reference either of the others.
-Observability exports logs and traces only; do not add metrics without a decision to do so.
+Observability exports logs, traces and only the `Acme.*` meters (ADR 0002); exporting further meters (runtime,
+ASP.NET Core, ...) needs a new decision.
 
 ## Rules
 
