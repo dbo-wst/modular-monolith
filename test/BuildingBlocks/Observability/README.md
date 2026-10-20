@@ -7,7 +7,7 @@ Unit tests for `src/BuildingBlocks/Observability`: resource attributes and wheth
 
 | Item | Kind | Description |
 |---|---|---|
-| `ObservabilityExtensionsTests.cs` | test class | Resource attributes from `OTEL_RESOURCE_ATTRIBUTES`, `unknown` environment default, no `TracerProvider` without endpoint, a `TracerProvider` with one |
+| `ObservabilityExtensionsTests.cs` | test class | Resource attributes from `OTEL_RESOURCE_ATTRIBUTES`, `unknown` environment default, `service.instance.id` = machine name, `service.version` = entry assembly version without `+<commit>`, both overridden by `OTEL_RESOURCE_ATTRIBUTES`, no `TracerProvider`/`MeterProvider` without endpoint, one each with it |
 | `Acme.Core.BuildingBlocks.Observability.Test.csproj` | project | Test project definition |
 
 ## How it works

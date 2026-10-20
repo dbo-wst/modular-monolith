@@ -6,11 +6,13 @@ namespace Acme.Core.Api.Jobs;
 /// <summary>
 /// Schedules the enabled jobs and runs the scheduler for the lifetime of the host. The schedule is read from
 /// <see cref="JobsOptions"/> at start (after options validation), so configuration added late, e.g. by
-/// <c>WebApplicationFactory</c>, is honoured. With <c>Jobs:Enabled</c> false no scheduler is created at all.
+/// <c>WebApplicationFactory</c>, is honoured. With <c>Jobs:Enabled</c> false no scheduler is created at all. The first
+/// run of each job is recorded as its next run.
 /// </summary>
 internal sealed partial class JobSchedulerHostedService(
     ISchedulerFactory schedulerFactory,
     JobMisfireListener misfireListener,
+    JobMetrics metrics,
     IOptions<JobsOptions> options,
     ILogger<JobSchedulerHostedService> logger) : IHostedService
 {
@@ -48,9 +50,10 @@ internal sealed partial class JobSchedulerHostedService(
         IScheduler scheduler, string name, JobScheduleOptions schedule, CancellationToken cancellationToken)
         where TJob : IJob
     {
+        using var scope = JobTelemetry.BeginScope(logger, (JobTelemetry.JobNameTag, name));
         if (!schedule.Enabled)
         {
-            JobDisabled(logger, name);
+            JobDisabled(logger);
             return;
         }
 
@@ -68,7 +71,8 @@ internal sealed partial class JobSchedulerHostedService(
             .Build();
 
         var firstRun = await scheduler.ScheduleJob(job, trigger, cancellationToken);
-        JobScheduled(logger, name, schedule.Cron, firstRun);
+        metrics.NextRunScheduled(name, firstRun);
+        JobScheduled(logger, schedule.Cron, firstRun);
     }
 
     [LoggerMessage(EventId = 2010, EventName = "JobSchedulerDisabled", Level = LogLevel.Information,
@@ -76,10 +80,10 @@ internal sealed partial class JobSchedulerHostedService(
     private static partial void SchedulerDisabled(ILogger logger);
 
     [LoggerMessage(EventId = 2011, EventName = "JobDisabled", Level = LogLevel.Information,
-        Message = "Job {JobName} is disabled")]
-    private static partial void JobDisabled(ILogger logger, string jobName);
+        Message = "Job is disabled")]
+    private static partial void JobDisabled(ILogger logger);
 
     [LoggerMessage(EventId = 2012, EventName = "JobScheduled", Level = LogLevel.Information,
-        Message = "Job {JobName} scheduled with cron '{Cron}', first run at {FirstRun:O}")]
-    private static partial void JobScheduled(ILogger logger, string jobName, string cron, DateTimeOffset firstRun);
+        Message = "Job scheduled with cron '{Cron}', first run at {FirstRun:O}")]
+    private static partial void JobScheduled(ILogger logger, string cron, DateTimeOffset firstRun);
 }

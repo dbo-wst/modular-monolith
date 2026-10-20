@@ -7,7 +7,7 @@ gRPC host of the modular monolith (assembly `Acme.Core.Api`, `Microsoft.NET.Sdk.
 | Item | Kind | Description |
 |---|---|---|
 | `Program.cs` | entry point | Serilog bootstrap (plus `WriteToOtlp`), `AddObservability`, `AddGrpc`, `AddMediator` (once), `AddOrderingModule`, `AddBackgroundJobs`, `MapOrderingGrpcServices`, plain-text `GET /`. |
-| [`Jobs/`](Jobs/README.md) | folder | Quartz background jobs (`Heartbeat`, `Housekeeping`, every 5 minutes) as plain `IJob` classes, run inside `MonitoredJob<TJob>`: root span, log scope and `acme.job.*` metrics per run. |
+| [`Jobs/`](Jobs/README.md) | folder | Quartz background jobs (`Heartbeat`, `Housekeeping`, every 5 minutes) as plain `IJob` classes, run inside `MonitoredJob<TJob>`: root span, log scope and `scheduled_job.*` metrics per run. |
 | [`Prelaunch/`](Prelaunch/README.md) | folder | `ErrorCodeClassifier` and per-module gRPC services and mappers (currently `Ordering`). |
 | `appsettings.json` | config | Serilog (console + files with `[{TraceId}]` under `%BASEDIR%logs/`, i.e. the execution folder), `AllowedHosts`, `Kestrel:EndpointDefaults:Protocols = Http2`, `Jobs` (scheduler switch and cron per job), `Quartz` logs at Warning. |
 | `appsettings.Local.json` | config | `Persistence:ConnectionString` for local SQL Server (`acme-local`). |
@@ -29,7 +29,7 @@ app.MapOrderingGrpcServices();                        // Order.GrpcService, Orde
 
 - `AddMediator` (BuildingBlocks.Application) registers `IMediator`, `IDomainEventDispatcher` and `ValidationBehavior`; modules only register their handlers/validators.
 - `AddOrderingPersistence` binds section `Persistence` (`Persistence:ConnectionString`, validated non-empty on start) and configures SQL Server.
-- Telemetry: service `acme-core-api`; with `OTEL_EXPORTER_OTLP_*` set it exports logs (Information+), traces (gRPC requests, SQL commands, job runs) and the `acme.job.*` metrics over OTLP, otherwise nothing. The start line logs the OTLP endpoint or `off`.
+- Telemetry: service `acme-core-api`; with `OTEL_EXPORTER_OTLP_*` set it exports logs (Information+), traces (gRPC requests, SQL commands, job runs), the `scheduled_job.*` and runtime metrics over OTLP, otherwise nothing. The start line logs the OTLP endpoint or `off`.
 - Kestrel serves HTTP/2 only; locally at `http://localhost:6001` (`launchSettings.json`, environment `Local`).
 - `GET /` returns a hint that gRPC endpoints require a gRPC client.
 - `public partial class Program` in namespace `Acme.Core.Api` supports `WebApplicationFactory` tests.

@@ -22,6 +22,7 @@ IMAGE_TAG="${REGISTRY_HOST}/${IMAGE_NAME}:${VERSION}"
 
 docker build \
   -t "${IMAGE_TAG}" \
+  --build-arg VERSION="${VERSION}" \
   -f "${SCRIPT_DIR}/Dockerfile" \
   "${REPO_DIR}"
 

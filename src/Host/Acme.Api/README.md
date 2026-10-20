@@ -17,7 +17,7 @@ HTTP/REST gateway (assembly `Acme.Api`, `Microsoft.NET.Sdk.Web`). It exposes Min
 
 `Program.cs` composition:
 
-1. Bootstrap logger from `appsettings.json` + `appsettings.{ASPNETCORE_ENVIRONMENT|DOTNET_ENVIRONMENT}.json`, then `builder.Host.UseSerilog(...)` with `WriteToOtlp`, and `AddObservability` (service `acme-api`: logs and traces of HTTP requests and the outgoing gRPC calls, exported only when `OTEL_EXPORTER_OTLP_ENDPOINT` is set).
+1. Bootstrap logger from `appsettings.json` + `appsettings.{ASPNETCORE_ENVIRONMENT|DOTNET_ENVIRONMENT}.json`, then `builder.Host.UseSerilog(...)` with `WriteToOtlp`, and `AddObservability` (service `acme-api`: logs, traces of HTTP requests and the outgoing gRPC calls, and runtime metrics, exported only when `OTEL_EXPORTER_OTLP_ENDPOINT` is set).
 2. `AddOpenApi` with schema ids = full type name with the `Acme.Api.` prefix stripped (for `Acme.Api*` namespaces).
 3. `ConfigureHttpJsonOptions` adds `JsonStringEnumConverter` (e.g. `EStatus` is serialized as `"IN_PROGRESS"`).
 4. `AddCoreApiInfrastructure(configuration)` registers `CoreApiOptions` (validated `CoreApi:BaseUrl`) and the gRPC clients.

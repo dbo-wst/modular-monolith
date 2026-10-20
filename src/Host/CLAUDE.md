@@ -37,8 +37,9 @@ and module Contracts, call `IMediator`, and translate results and errors back.
   working directory.
 - Telemetry: every host calls `WriteToOtlp(configuration, ServiceName)` on its Serilog configuration and
   `AddObservability(configuration, ServiceName)` (`src/BuildingBlocks/Observability`), `ServiceName` = `acme-<app>`.
-  Logs, traces and `Acme.*` metrics, exported when `OTEL_EXPORTER_OTLP_ENDPOINT` is set (ADR 0002). Name custom
-  `ActivitySource`s and `Meter`s `Acme.*`; keep metric attributes bounded (no ids, no user data).
+  Logs, traces, `Acme.*` and runtime metrics, exported when `OTEL_EXPORTER_OTLP_ENDPOINT` is set (ADR 0002). Name
+  custom `ActivitySource`s and `Meter`s `Acme.*`; keep metric attributes bounded (no ids, no user data). Job telemetry
+  uses the shared `scheduled_job.*` names (wst-cicd `otel/TELEMETRY.md`); never enable Quartz's own tracing.
 - New transport operation: add the proto first (`src/Protocol`), then the Core.Api service method plus mappers,
   then the gateway client plus endpoint, then integration tests in `test_integration/Host`.
 - Background jobs (Core.Api `Jobs/`, Quartz): plain `IJob` classes (the scheduler wraps them in

@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenTelemetry.Metrics;
@@ -27,15 +28,44 @@ public class ObservabilityExtensionsTests
 
         var attributes = ObservabilityExtensions.ResourceAttributes(configuration, ServiceName);
 
-        Assert.Equal(
-            new Dictionary<string, object>
-            {
-                ["service.name"] = ServiceName,
-                ["service.namespace"] = ObservabilityExtensions.ServiceNamespace,
-                ["deployment.environment.name"] = "local",
-                ["team"] = "core"
-            },
-            attributes);
+        Assert.Equal(ServiceName, attributes["service.name"]);
+        Assert.Equal(ObservabilityExtensions.ServiceNamespace, attributes["service.namespace"]);
+        Assert.Equal("local", attributes[ObservabilityExtensions.EnvironmentAttribute]);
+        Assert.Equal("core", attributes["team"]);
+    }
+
+    [Fact]
+    public void ResourceAttributes_Defaults_InstanceIdIsMachineName()
+    {
+        var attributes = ObservabilityExtensions.ResourceAttributes(Configuration(), ServiceName);
+
+        Assert.Equal(Environment.MachineName, attributes[ObservabilityExtensions.ServiceInstanceIdAttribute]);
+    }
+
+    [Fact]
+    public void ResourceAttributes_Defaults_VersionIsEntryAssemblyVersionWithoutSourceRevision()
+    {
+        var informational = Assembly.GetEntryAssembly()!
+            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()!
+            .InformationalVersion;
+
+        var attributes = ObservabilityExtensions.ResourceAttributes(Configuration(), ServiceName);
+
+        var version = Assert.IsType<string>(attributes[ObservabilityExtensions.ServiceVersionAttribute]);
+        Assert.Equal(informational.Split('+')[0], version);
+        Assert.DoesNotContain('+', version);
+    }
+
+    [Fact]
+    public void ResourceAttributes_DeclaredVersionAndInstanceId_OverrideDefaults()
+    {
+        var configuration = Configuration(
+            (ObservabilityExtensions.ResourceAttributesKey, "service.version=2.3.4,service.instance.id=core-api-1"));
+
+        var attributes = ObservabilityExtensions.ResourceAttributes(configuration, ServiceName);
+
+        Assert.Equal("2.3.4", attributes[ObservabilityExtensions.ServiceVersionAttribute]);
+        Assert.Equal("core-api-1", attributes[ObservabilityExtensions.ServiceInstanceIdAttribute]);
     }
 
     [Theory]

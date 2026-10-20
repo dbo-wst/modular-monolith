@@ -1,5 +1,7 @@
+using System.Diagnostics.Metrics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.Metrics.Testing;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -79,6 +81,22 @@ public sealed class JobSchedulerHostedServiceTests
 
         Assert.Equal(expectedType, detail!.JobType);
         Assert.True(detail.ConcurrentExecutionDisallowed);
+    }
+
+    [Fact]
+    public async Task StartAsync_Defaults_RecordsFirstRunOfEachJobAsNextRun()
+    {
+        await using var provider = Build();
+        using var nextRun = new MetricCollector<double>(
+            provider.GetRequiredService<IMeterFactory>(), JobTelemetry.Name, "scheduled_job.next_run.timestamp");
+        var before = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+
+        await WhileStarted(provider, _ => Task.FromResult(0));
+
+        // Recorded while scheduling, before the scheduler starts; a run starting later would only add measurements.
+        var firstRuns = nextRun.GetMeasurementSnapshot().Take(2).ToList();
+        Assert.Equal([HeartbeatJob.Name, HousekeepingJob.Name], firstRuns.Select(m => m.Tags[JobTelemetry.JobNameTag]));
+        Assert.All(firstRuns, m => Assert.InRange(m.Value, before, before + 5 * 60 + 60));
     }
 
     [Fact]

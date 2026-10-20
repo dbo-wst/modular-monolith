@@ -68,7 +68,9 @@ Acme runs **locally only**.
 ## Deployment
 
 - CI: `operations/ci/build.sh <version>` builds the three images; `push.sh <version>` pushes them
-  to `build.steubing.com`.
+  to `build.steubing.com`. The Core.Api and Api builds pass the version on as build argument
+  `VERSION` to `dotnet publish -p:Version`, so it is the assembly version and the `service.version`
+  of their telemetry (`0.0.0` for an image built without it, e.g. by the local compose build).
 - CD: `operations/cd/pull.sh <version>`, then `operations/cd/run.sh <version>`. The orchestrator
   does not stop the stack: it recreates each app in place
   (`up -d --force-recreate <app>`) with that app's image tag. Per-app `run.sh` recreates only
@@ -81,14 +83,24 @@ Acme runs **locally only**.
 
 - Logs: Serilog console output (`docker logs acme-<app>`) and rolling files in the
   `acme-<app>-logs` volumes (file lines carry the trace id).
-- OpenTelemetry: Core.Api and the Api send logs, traces and `Acme.*` metrics over OTLP to the
-  `otel` stack of wst-cicd (Grafana at `https://otel-local.steubing.com`) as `acme-core-api` and
-  `acme-api`, service namespace `acme`. Three keys in `conf.d/.env` configure it:
+- OpenTelemetry: Core.Api and the Api send logs, traces and metrics (`Acme.*` and the .NET runtime)
+  over OTLP to the `otel` stack of wst-cicd (Grafana at `https://otel-local.steubing.com`) as
+  `acme-core-api` and `acme-api`, service namespace `acme`, with the image version as
+  `service.version` and the container's host name as `service.instance.id`. Three keys in
+  `conf.d/.env` configure it:
   `OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-local.steubing.com:4318`,
   `OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf`,
   `OTEL_RESOURCE_ATTRIBUTES=deployment.environment.name=local` (dev: `otel.steubing.com`, `dev`).
   Without the endpoint nothing is exported; the start line of each app shows the endpoint or `off`.
-- Background jobs (Core.Api, every 5 minutes): Grafana dashboard **Acme** (folder WST) and the
-  alert rules of group `acme-jobs` (failed run, stale job, misfire, no runs). `Jobs__Enabled=false`
-  in `conf.d/.env` switches the scheduler off (see `conf.d/runtime.env.example`).
+- Grafana has no Acme-specific dashboards: the generic ones filter by environment, application
+  (`acme`), service, instance and job.
+
+  | Folder | Dashboards | Alert rule group |
+  |--------|------------|------------------|
+  | Services | **Service overview** (requests, errors, latency, logs), **Runtime** (GC, heap, thread pool, CPU) | `services` (service not reporting) |
+  | Scheduled jobs | **Scheduled jobs** (Core.Api's `Heartbeat` and `Housekeeping`, every 5 minutes) | `scheduled-jobs` (failed run, overdue job, misfire) |
+  | Service levels | **Service levels** (availability, latency and scheduled job objectives) | `service-levels` (error budget burn rates) |
+
+- `Jobs__Enabled=false` in `conf.d/.env` switches the job scheduler off (see
+  `conf.d/runtime.env.example`).
 - No Docker `HEALTHCHECK` and no `/health` endpoint.

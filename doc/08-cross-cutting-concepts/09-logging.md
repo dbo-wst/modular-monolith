@@ -22,22 +22,31 @@ thrown by handlers are logged by ASP.NET Core / gRPC.
 
 ## Telemetry (OpenTelemetry)
 
-Both hosts export **logs, traces and metrics** over OTLP to the `otel` stack of wst-cicd; only Acme's own meters
-(`Acme.*`) are exported as metrics ([ADR 0002](../09-architecture-decisions/0002-metrics-and-background-jobs.md)). The
-code lives in `src/BuildingBlocks/Observability` and is called once per host:
+Both hosts export **logs, traces and metrics** over OTLP to the `otel` stack of wst-cicd; the metrics are Acme's own
+meters (`Acme.*`) and the .NET runtime meter (`System.Runtime`), not the ASP.NET Core or HTTP meters
+([ADR 0002](../09-architecture-decisions/0002-metrics-and-background-jobs.md)). The code lives in
+`src/BuildingBlocks/Observability` and is called once per host:
 
 - `WriteToOtlp(configuration, ServiceName)` adds a Serilog OTLP sink (Information and above; Debug stays local). Code
   keeps logging through `ILogger<T>`; each log event carries the current trace and span id.
 - `AddObservability(configuration, ServiceName)` traces ASP.NET Core requests, outgoing HTTP calls (the gateway's gRPC
   clients carry the trace context to Core.Api), SQL Server commands and every `ActivitySource` named `Acme.*`; it also
-  exports every `Meter` named `Acme.*`, with trace-based exemplars. Today that is the background jobs
-  (`Acme.Core.Api.Jobs`, see [8.11 Background Jobs](11-background-jobs.md)).
+  exports every `Meter` named `Acme.*`, with trace-based exemplars, and the runtime meter `System.Runtime` (GC, heap,
+  thread pool, exceptions, CPU). The only `Acme.*` meter today is the background jobs' `Acme.Core.Api.Jobs`, which
+  follows the shared `scheduled_job.*` contract (see [8.11 Background Jobs](11-background-jobs.md)).
+- Log scope entries become attributes of the OTLP log record under their key, so a scope with dotted keys (e.g.
+  `scheduled_job.name`) gives log lines the same attribute names as spans and metrics; message template placeholders
+  cannot contain dots.
 
 | Resource attribute | Value |
 |---|---|
 | `service.name` | `acme-api` (gateway), `acme-core-api` (gRPC host) |
 | `service.namespace` | `acme` |
+| `service.version` | entry assembly's informational version without `+<commit>`: the image version (`build.sh <version>` passes it as `-p:Version`), `0.0.0` when unknown |
+| `service.instance.id` | `Environment.MachineName`, i.e. the container's host name |
 | `deployment.environment.name` | from `OTEL_RESOURCE_ATTRIBUTES`, `unknown` when missing |
+
+Pairs declared in `OTEL_RESOURCE_ATTRIBUTES` override these values.
 
 Export is on only when `OTEL_EXPORTER_OTLP_ENDPOINT` is set (environment, `operations/cd/<app>/conf.d/.env`); without
 it the hosts run unchanged and tests export nothing:

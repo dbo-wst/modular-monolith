@@ -3,7 +3,7 @@ using System.Diagnostics.Metrics;
 using FakeItEasy;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.Metrics.Testing;
-using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Logging.Testing;
 using Microsoft.Extensions.Time.Testing;
 using Quartz;
 using Acme.Core.Api.Jobs;
@@ -11,8 +11,8 @@ using Acme.Core.Api.Jobs;
 namespace Acme.Core.Api.Test.Jobs;
 
 /// <summary>
-/// One isolated job environment per test: its own meter factory, fake clock, collectors and span listener. The job
-/// name is unique, so spans of tests running in parallel are not mixed up.
+/// One isolated job environment per test: its own meter factory, fake clock, collectors, fake logger and span listener.
+/// The job name is unique, so spans of tests running in parallel are not mixed up.
 /// </summary>
 internal sealed class JobTestContext : IDisposable
 {
@@ -26,11 +26,12 @@ internal sealed class JobTestContext : IDisposable
         var meterFactory = _services.GetRequiredService<IMeterFactory>();
 
         Metrics = new JobMetrics(meterFactory, Time);
-        Runs = new MetricCollector<long>(meterFactory, JobTelemetry.Name, "acme.job.runs");
-        Duration = new MetricCollector<double>(meterFactory, JobTelemetry.Name, "acme.job.duration");
-        Active = new MetricCollector<long>(meterFactory, JobTelemetry.Name, "acme.job.active");
-        LastSuccess = new MetricCollector<double>(meterFactory, JobTelemetry.Name, "acme.job.last_success.time");
-        Misfires = new MetricCollector<long>(meterFactory, JobTelemetry.Name, "acme.job.misfires");
+        Duration = new MetricCollector<double>(meterFactory, JobTelemetry.Name, "scheduled_job.duration");
+        Active = new MetricCollector<long>(meterFactory, JobTelemetry.Name, "scheduled_job.active");
+        LastSuccess = new MetricCollector<double>(
+            meterFactory, JobTelemetry.Name, "scheduled_job.last_success.timestamp");
+        NextRun = new MetricCollector<double>(meterFactory, JobTelemetry.Name, "scheduled_job.next_run.timestamp");
+        Misfires = new MetricCollector<long>(meterFactory, JobTelemetry.Name, "scheduled_job.misfires");
 
         _listener = new ActivityListener
         {
@@ -51,12 +52,17 @@ internal sealed class JobTestContext : IDisposable
 
     public FakeTimeProvider Time { get; } = new(new DateTimeOffset(2026, 10, 20, 8, 0, 0, TimeSpan.Zero));
 
+    /// <summary>What the run's <see cref="IJobExecutionContext.NextFireTimeUtc"/> returns; null for a last run.</summary>
+    public DateTimeOffset? NextFireTime { get; set; } = new DateTimeOffset(2026, 10, 20, 8, 5, 0, TimeSpan.Zero);
+
     public JobMetrics Metrics { get; }
 
-    public MetricCollector<long> Runs { get; }
+    public FakeLogger<DelegateJob> Logger { get; } = new();
+
     public MetricCollector<double> Duration { get; }
     public MetricCollector<long> Active { get; }
     public MetricCollector<double> LastSuccess { get; }
+    public MetricCollector<double> NextRun { get; }
     public MetricCollector<long> Misfires { get; }
 
     public IReadOnlyList<Activity> Activities
@@ -68,8 +74,7 @@ internal sealed class JobTestContext : IDisposable
     public async Task Run(Func<IJobExecutionContext, Task> execute, CancellationToken cancellationToken = default)
     {
         await using var jobServices = new ServiceCollection().AddSingleton(execute).BuildServiceProvider();
-        var monitored = new MonitoredJob<DelegateJob>(
-            jobServices, Metrics, Time, NullLogger<DelegateJob>.Instance);
+        var monitored = new MonitoredJob<DelegateJob>(jobServices, Metrics, Time, Logger);
 
         await monitored.Execute(ExecutionContext(cancellationToken));
     }
@@ -83,6 +88,7 @@ internal sealed class JobTestContext : IDisposable
         var context = A.Fake<IJobExecutionContext>();
         A.CallTo(() => context.JobDetail).Returns(detail);
         A.CallTo(() => context.FireInstanceId).Returns("run-1");
+        A.CallTo(() => context.NextFireTimeUtc).Returns(NextFireTime);
         A.CallTo(() => context.CancellationToken).Returns(cancellationToken);
         return context;
     }
@@ -90,10 +96,10 @@ internal sealed class JobTestContext : IDisposable
     public void Dispose()
     {
         _listener.Dispose();
-        Runs.Dispose();
         Duration.Dispose();
         Active.Dispose();
         LastSuccess.Dispose();
+        NextRun.Dispose();
         Misfires.Dispose();
         _services.Dispose();
     }

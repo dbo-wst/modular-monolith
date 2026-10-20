@@ -1,14 +1,14 @@
 # Observability
 
 OTLP export of logs, traces and metrics for the hosts (namespace `Acme.Core.BuildingBlocks.Observability`, project
-`Acme.Core.BuildingBlocks.Observability`). The receiver is the `otel` stack of wst-cicd (`otel/DOTNET.md`). Only
-Acme's own meters (`Acme.*`) are exported as metrics (ADR 0002).
+`Acme.Core.BuildingBlocks.Observability`). The receiver is the `otel` stack of wst-cicd (`otel/DOTNET.md`). Exported
+metrics are Acme's own meters (`Acme.*`) and the .NET runtime meter `System.Runtime` (ADR 0002).
 
 ## Contents
 
 | Item | Kind | Description |
 |---|---|---|
-| `ObservabilityExtensions.cs` | static class | `AddObservability` (traces, metrics), `WriteToOtlp` (Serilog logs), `ResourceAttributes`, the `OTEL_*` key constants, `AcmeInstrumentation` (`Acme.*`) |
+| `ObservabilityExtensions.cs` | static class | `AddObservability` (traces, metrics), `WriteToOtlp` (Serilog logs), `ResourceAttributes`, the `OTEL_*` key and resource attribute constants, `AcmeInstrumentation` (`Acme.*`), `RuntimeInstrumentation` (`System.Runtime`) |
 | `Acme.Core.BuildingBlocks.Observability.csproj` | project | Project file |
 
 ## How it works
@@ -34,18 +34,23 @@ builder.Services.AddObservability(builder.Configuration, ServiceName);
   OTEL_RESOURCE_ATTRIBUTES=deployment.environment.name=local
   ```
 
-- Resource attributes, identical on all signals: `service.name`, `service.namespace` = `acme`, plus the pairs of
-  `OTEL_RESOURCE_ATTRIBUTES`; `deployment.environment.name` is `unknown` when not declared.
+- Resource attributes, identical on all signals: `service.name`, `service.namespace` = `acme`,
+  `service.version` = the entry assembly's informational version cut at `+` (the image version from
+  `dotnet publish -p:Version`, `0.0.0` without one), `service.instance.id` = `Environment.MachineName` (the
+  container's host name), then the pairs of `OTEL_RESOURCE_ATTRIBUTES`, which override all of these;
+  `deployment.environment.name` is `unknown` when not declared.
 - Traces: ASP.NET Core requests (REST and gRPC server), outgoing HTTP calls (the gateway's gRPC clients, which carry
   the trace context to Core.Api) and SQL Server commands. The OTLP exporter reads endpoint and protocol from
   configuration and appends `/v1/traces`. Spans of every `ActivitySource` named `Acme.*` (e.g. `Acme.Core.Api.Jobs`)
   are included.
-- Metrics: every `Meter` named `Acme.*` (e.g. `Acme.Core.Api.Jobs`, see
-  `doc/08-cross-cutting-concepts/11-background-jobs.md`), exported over OTLP (`/v1/metrics`) to Prometheus.
-  Exemplars are trace-based, so a histogram bucket links to the trace that recorded it. Runtime, ASP.NET Core and HTTP
-  metrics are not exported; request rates come from Tempo span metrics.
+- Metrics: every `Meter` named `Acme.*` (e.g. `Acme.Core.Api.Jobs` with the shared `scheduled_job.*` instruments,
+  see `doc/08-cross-cutting-concepts/11-background-jobs.md`) and the runtime meter `System.Runtime` (GC, heap, thread
+  pool, lock contention, exceptions, CPU), exported over OTLP (`/v1/metrics`) to Prometheus. Exemplars are
+  trace-based, so a histogram bucket links to the trace that recorded it. ASP.NET Core and HTTP metrics are not
+  exported; request rates come from Tempo span metrics.
 - Logs: a Serilog sink next to console and files, Information and above, endpoint `<endpoint>/v1/logs` for
-  `http/protobuf`. Every event carries the current trace and span id, so Grafana links a log line to its trace. The
+  `http/protobuf`. Every event carries the current trace and span id, so Grafana links a log line to its trace. Log
+  scope entries become log record attributes under their key, dots included (e.g. `scheduled_job.name`). The
   sink's own export requests are not traced; export failures go to stderr (`SelfLog`).
 - The protocol defaults to gRPC when `OTEL_EXPORTER_OTLP_PROTOCOL` is unset, as in the SDK; with a `:4318` endpoint
   always set `http/protobuf`.
@@ -61,4 +66,4 @@ builder.Services.AddObservability(builder.Configuration, ServiceName);
   files.
 - Custom spans and metrics: create an `ActivitySource` / a `Meter` (via `IMeterFactory`) named `Acme.*` in the project
   that records; nothing to register here. Follow wst-cicd `otel/METRICS.md` (units, bounded attributes).
-- Further meters (runtime, ASP.NET Core) would be one `AddMeter` here, but need a decision first (ADR 0002).
+- Further meters (ASP.NET Core, HTTP) would be one `AddMeter` here, but need a decision first (ADR 0002).
