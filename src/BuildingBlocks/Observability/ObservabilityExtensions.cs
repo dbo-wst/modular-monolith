@@ -19,10 +19,10 @@ namespace Acme.Core.BuildingBlocks.Observability;
 /// </summary>
 public static class ObservabilityExtensions
 {
-    /// <summary>Base URL of the OTLP receiver, e.g. <c>https://otel-local.steubing.com:4318</c>.</summary>
+    /// <summary>Base URL of the OTLP receiver, e.g. <c>https://otel-local.steubing.com:4317</c> (gRPC).</summary>
     public const string EndpointKey = "OTEL_EXPORTER_OTLP_ENDPOINT";
 
-    /// <summary><c>http/protobuf</c> (the standard) or <c>grpc</c> (the SDK default when unset).</summary>
+    /// <summary><c>grpc</c> (the standard, port 4317; also the SDK default when unset) or <c>http/protobuf</c> (port 4318).</summary>
     public const string ProtocolKey = "OTEL_EXPORTER_OTLP_PROTOCOL";
 
     /// <summary>Comma-separated <c>key=value</c> resource attributes, e.g. <c>deployment.environment.name=local</c>.</summary>

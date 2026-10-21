@@ -52,8 +52,8 @@ Export is on only when `OTEL_EXPORTER_OTLP_ENDPOINT` is set (environment, `opera
 it the hosts run unchanged and tests export nothing:
 
 ```
-OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-local.steubing.com:4318
-OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-local.steubing.com:4317
+OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 OTEL_RESOURCE_ATTRIBUTES=deployment.environment.name=local
 ```
 

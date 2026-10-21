@@ -88,8 +88,8 @@ Acme runs **locally only**.
   `acme-core-api` and `acme-api`, service namespace `acme`, with the image version as
   `service.version` and the container's host name as `service.instance.id`. Three keys in
   `conf.d/.env` configure it:
-  `OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-local.steubing.com:4318`,
-  `OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf`,
+  `OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-local.steubing.com:4317`,
+  `OTEL_EXPORTER_OTLP_PROTOCOL=grpc` (OTLP over gRPC, the standard of the otel stack),
   `OTEL_RESOURCE_ATTRIBUTES=deployment.environment.name=local` (dev: `otel.steubing.com`, `dev`).
   Without the endpoint nothing is exported; the start line of each app shows the endpoint or `off`.
 - Grafana has no Acme-specific dashboards: the generic ones filter by environment, application

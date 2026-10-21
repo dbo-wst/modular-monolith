@@ -29,8 +29,8 @@ builder.Services.AddObservability(builder.Configuration, ServiceName);
 - Configuration (environment variables, see `operations/cd/<app>/conf.d/`):
 
   ```
-  OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-local.steubing.com:4318
-  OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+  OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-local.steubing.com:4317
+  OTEL_EXPORTER_OTLP_PROTOCOL=grpc
   OTEL_RESOURCE_ATTRIBUTES=deployment.environment.name=local
   ```
 
@@ -41,19 +41,19 @@ builder.Services.AddObservability(builder.Configuration, ServiceName);
   `deployment.environment.name` is `unknown` when not declared.
 - Traces: ASP.NET Core requests (REST and gRPC server), outgoing HTTP calls (the gateway's gRPC clients, which carry
   the trace context to Core.Api) and SQL Server commands. The OTLP exporter reads endpoint and protocol from
-  configuration and appends `/v1/traces`. Spans of every `ActivitySource` named `Acme.*` (e.g. `Acme.Core.Api.Jobs`)
+  configuration (with `grpc` it uses the endpoint as is; with `http/protobuf` it appends `/v1/traces`). Spans of every `ActivitySource` named `Acme.*` (e.g. `Acme.Core.Api.Jobs`)
   are included.
 - Metrics: every `Meter` named `Acme.*` (e.g. `Acme.Core.Api.Jobs` with the shared `scheduled_job.*` instruments,
   see `doc/08-cross-cutting-concepts/11-background-jobs.md`) and the runtime meter `System.Runtime` (GC, heap, thread
-  pool, lock contention, exceptions, CPU), exported over OTLP (`/v1/metrics`) to Prometheus. Exemplars are
+  pool, lock contention, exceptions, CPU), exported over OTLP to Prometheus. Exemplars are
   trace-based, so a histogram bucket links to the trace that recorded it. ASP.NET Core and HTTP metrics are not
   exported; request rates come from Tempo span metrics.
-- Logs: a Serilog sink next to console and files, Information and above, endpoint `<endpoint>/v1/logs` for
-  `http/protobuf`. Every event carries the current trace and span id, so Grafana links a log line to its trace. Log
+- Logs: a Serilog sink next to console and files, Information and above, over the same protocol: the endpoint as
+  is for `grpc`, `<endpoint>/v1/logs` for `http/protobuf`. Every event carries the current trace and span id, so Grafana links a log line to its trace. Log
   scope entries become log record attributes under their key, dots included (e.g. `scheduled_job.name`). The
   sink's own export requests are not traced; export failures go to stderr (`SelfLog`).
-- The protocol defaults to gRPC when `OTEL_EXPORTER_OTLP_PROTOCOL` is unset, as in the SDK; with a `:4318` endpoint
-  always set `http/protobuf`.
+- The standard is OTLP over gRPC on port 4317 (`grpc`). Always set `OTEL_EXPORTER_OTLP_PROTOCOL`: unset means gRPC
+  in the SDK and in `WriteToOtlp`, which fails against the HTTP port `:4318`; that port needs `http/protobuf`.
 
 ## Dependencies
 - References: OpenTelemetry (`Extensions.Hosting`, `Exporter.OpenTelemetryProtocol`, `Instrumentation.AspNetCore`,
