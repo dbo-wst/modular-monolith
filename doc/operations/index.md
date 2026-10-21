@@ -98,7 +98,7 @@ Acme runs **locally only**.
 
   | Folder | Dashboards | Alert rule group |
   |--------|------------|------------------|
-  | Services | **Service overview** (requests, errors, latency, logs), **Runtime** (GC, heap, thread pool, CPU) | `services` (service not reporting) |
+  | Services | **Service overview** (requests, errors, latency, logs), **.NET runtime** (GC, heap, thread pool, CPU) | `services` (service not reporting) |
   | Scheduled jobs | **Scheduled jobs** (Core.Api's `Heartbeat` and `Housekeeping`, every 5 minutes) | `scheduled-jobs` (failed run, overdue job, misfire) |
   | Service levels | **Service levels** (availability, latency and scheduled job objectives) | `service-levels` (error budget burn rates) |
 
