@@ -40,7 +40,10 @@ public static class ObservabilityExtensions
     /// </summary>
     public const string ServiceVersionAttribute = "service.version";
 
-    /// <summary>The instance attribute: the machine name, i.e. the container's host name.</summary>
+    /// <summary>
+    /// The instance attribute: the machine name, i.e. the container's host name, which the compose files set to the
+    /// container name so that a recreated container keeps its instance.
+    /// </summary>
     public const string ServiceInstanceIdAttribute = "service.instance.id";
 
     /// <summary>The <see cref="ServiceVersionAttribute"/> without an informational version.</summary>

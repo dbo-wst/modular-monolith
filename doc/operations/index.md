@@ -86,7 +86,8 @@ Acme runs **locally only**.
 - OpenTelemetry: Core.Api and the Api send logs, traces and metrics (`Acme.*` and the .NET runtime)
   over OTLP to the `otel` stack of wst-cicd (Grafana at `https://otel-local.steubing.com`) as
   `acme-core-api` and `acme-api`, service namespace `acme`, with the image version as
-  `service.version` and the container's host name as `service.instance.id`. Three keys in
+  `service.version` and the container's host name as `service.instance.id` (compose sets `hostname` to
+  the container name, so the instance survives a recreate). Three keys in
   `conf.d/.env` configure it:
   `OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-local.steubing.com:4317`,
   `OTEL_EXPORTER_OTLP_PROTOCOL=grpc` (OTLP over gRPC, the standard of the otel stack),

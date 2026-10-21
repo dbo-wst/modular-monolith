@@ -37,8 +37,9 @@ builder.Services.AddObservability(builder.Configuration, ServiceName);
 - Resource attributes, identical on all signals: `service.name`, `service.namespace` = `acme`,
   `service.version` = the entry assembly's informational version cut at `+` (the image version from
   `dotnet publish -p:Version`, `0.0.0` without one), `service.instance.id` = `Environment.MachineName` (the
-  container's host name), then the pairs of `OTEL_RESOURCE_ATTRIBUTES`, which override all of these;
-  `deployment.environment.name` is `unknown` when not declared.
+  container's host name, which the compose files set to the container name), then the pairs of
+  `OTEL_RESOURCE_ATTRIBUTES`, which override all of these; `deployment.environment.name` is `unknown` when not
+  declared.
 - Traces: ASP.NET Core requests (REST and gRPC server), outgoing HTTP calls (the gateway's gRPC clients, which carry
   the trace context to Core.Api) and SQL Server commands. The OTLP exporter reads endpoint and protocol from
   configuration (with `grpc` it uses the endpoint as is; with `http/protobuf` it appends `/v1/traces`). Spans of every `ActivitySource` named `Acme.*` (e.g. `Acme.Core.Api.Jobs`)

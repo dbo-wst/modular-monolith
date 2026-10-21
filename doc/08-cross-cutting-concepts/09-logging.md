@@ -43,7 +43,7 @@ meters (`Acme.*`) and the .NET runtime meter (`System.Runtime`), not the ASP.NET
 | `service.name` | `acme-api` (gateway), `acme-core-api` (gRPC host) |
 | `service.namespace` | `acme` |
 | `service.version` | entry assembly's informational version without `+<commit>`: the image version (`build.sh <version>` passes it as `-p:Version`), `0.0.0` when unknown |
-| `service.instance.id` | `Environment.MachineName`, i.e. the container's host name |
+| `service.instance.id` | `Environment.MachineName`, i.e. the container's host name; the compose files set `hostname` to the container name (`acme-api`, `acme-core-api`), so a recreated container keeps its instance |
 | `deployment.environment.name` | from `OTEL_RESOURCE_ATTRIBUTES`, `unknown` when missing |
 
 Pairs declared in `OTEL_RESOURCE_ATTRIBUTES` override these values.

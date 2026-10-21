@@ -2,6 +2,8 @@ services:
   api:
     image: "${IMAGE_TAG:-build.steubing.com/acme-api:latest}"
     container_name: ${CONTAINER_NAME:-acme-api}
+    # Becomes the OTel service.instance.id (Environment.MachineName), stable across recreates.
+    hostname: ${CONTAINER_NAME:-acme-api}
     restart: unless-stopped
     pull_policy: never
     ports:
