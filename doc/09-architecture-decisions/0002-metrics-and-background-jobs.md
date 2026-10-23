@@ -36,8 +36,9 @@ pattern in `otel/DOTNET.md` §6 and `otel/METRICS.md`.
   - attributes: `scheduled_job.name`, `scheduled_job.run_id` (spans and logs only, never a metric attribute),
     `scheduled_job.outcome` (`succeeded`, `idle`, `failed`, `cancelled`) and the semantic-convention `error.type`
   - instruments: `scheduled_job.duration` (histogram, recorded for every run, so its count is the run count),
-    `scheduled_job.active`, `scheduled_job.last_success.timestamp`, `scheduled_job.next_run.timestamp` and
-    `scheduled_job.misfires`
+    `scheduled_job.active`, `scheduled_job.last_start.timestamp`, `scheduled_job.last_success.timestamp`,
+    `scheduled_job.next_run.timestamp` and `scheduled_job.misfires` (a fire time skipped while the job was not
+    running; one inside the job's own run is not a misfire)
   - Quartz's built-in tracing (`AddSource("Quartz")`) stays off: it writes unprefixed `job.*` attributes outside the
     contract.
 - **Jobs are plain Quartz `IJob` classes.** The scheduler runs each one inside `MonitoredJob<TJob>`, which gives each
@@ -54,7 +55,7 @@ pattern in `otel/DOTNET.md` §6 and `otel/METRICS.md`.
 
 - Prometheus gets `scheduled_job_*` series, low cardinality: one label set per job and outcome. The runtime meter adds
   a fixed set of `dotnet_*` series per instance.
-- Alerts can detect failed, stale, missing, overdue and misfired jobs.
+- Alerts can detect failed, stale, missing, overdue, long-running and misfired jobs.
 - A new application gets the job dashboards and alerts by emitting the same contract, without changes to the stack.
 - A scale-out of Core.Api would run every job once per instance. That then needs a persistent, clustered Quartz store
   or a separate worker host, and a new ADR.

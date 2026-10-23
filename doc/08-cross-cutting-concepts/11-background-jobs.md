@@ -19,8 +19,10 @@ The jobs today are placeholders without business logic:
 - `Heartbeat` always ends `succeeded`.
 - `Housekeeping` always ends `idle`.
 
-Both run every 5 minutes. A trigger that misses its fire time skips that run (`DoNothing`) and is counted as a
-misfire. Jobs never run concurrently with themselves (`[DisallowConcurrentExecution]`).
+Both run every 5 minutes. A trigger that misses its fire time skips that run (`DoNothing`). It is counted as a
+misfire only when the job was not running at the missed time; a fire time that falls into the job's own run is
+skipped by design and logged at Debug (2004). Jobs never run concurrently with themselves
+(`[DisallowConcurrentExecution]`).
 
 ## Telemetry of a run
 
@@ -50,9 +52,10 @@ there work for Acme without Acme-specific queries
 |---|---|---|---|
 | `scheduled_job.duration` | `scheduled_job_duration_seconds_*` | histogram (0.01 s – 300 s, exemplars) with `scheduled_job_outcome` and `error_type` | at the end of every run; `_count` is the run count |
 | `scheduled_job.active` | `scheduled_job_active` | up-down counter | +1 at the start, -1 at the end of a run |
+| `scheduled_job.last_start.timestamp` | `scheduled_job_last_start_timestamp_seconds` | gauge (unix seconds) | at the start of every run |
 | `scheduled_job.last_success.timestamp` | `scheduled_job_last_success_timestamp_seconds` | gauge (unix seconds) | after a `succeeded` run |
 | `scheduled_job.next_run.timestamp` | `scheduled_job_next_run_timestamp_seconds` | gauge (unix seconds) | when scheduled (first run), at the start of each run and on a misfire |
-| `scheduled_job.misfires` | `scheduled_job_misfires_total` | counter | on a misfire |
+| `scheduled_job.misfires` | `scheduled_job_misfires_total` | counter | on a misfire while the job was not running |
 
 The job reports its outcome through `context.Result`: nothing set means `succeeded`, `JobOutcome.Idle` means
 `idle`, and an `Error` means `failed`.
@@ -67,8 +70,8 @@ Outcomes:
 Monitoring lives in wst-cicd `otel` and is not Acme-specific; select environment, application `acme`, service
 `acme-core-api` and the job:
 - the dashboard **Scheduled jobs** (folder Scheduled jobs)
-- the alert rules of group `scheduled-jobs`: failed run, overdue job (the next run time has passed without a run
-  starting, or a run hangs), misfire
+- the alert rules of group `scheduled-jobs`: failed run, overdue job (the next run time has passed and no run is in
+  progress), running long (a run still active after an hour), misfire
 
 ## Adding a job
 

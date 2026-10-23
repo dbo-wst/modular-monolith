@@ -62,6 +62,22 @@ public sealed class MonitoredJobTests : IDisposable
     }
 
     [Fact]
+    public async Task Execute_AnyRun_RecordsLastStartAsUnixSeconds()
+    {
+        var started = _ctx.Time.GetUtcNow();
+
+        await _ctx.Run(context =>
+        {
+            _ctx.Time.Advance(TimeSpan.FromSeconds(5));
+            return Report(context, JobOutcome.Idle);
+        });
+
+        var lastStart = Assert.Single(_ctx.LastStart.GetMeasurementSnapshot());
+        Assert.Equal(started.ToUnixTimeSeconds(), lastStart.Value);
+        Assert.Equal(_ctx.JobName, lastStart.Tags[JobTelemetry.JobNameTag]);
+    }
+
+    [Fact]
     public async Task Execute_ResultIdle_RecordsRunAsIdleWithoutLastSuccess()
     {
         await _ctx.Run(context => Report(context, JobOutcome.Idle));

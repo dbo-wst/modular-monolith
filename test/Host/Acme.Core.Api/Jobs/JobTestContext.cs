@@ -28,6 +28,7 @@ internal sealed class JobTestContext : IDisposable
         Metrics = new JobMetrics(meterFactory, Time);
         Duration = new MetricCollector<double>(meterFactory, JobTelemetry.Name, "scheduled_job.duration");
         Active = new MetricCollector<long>(meterFactory, JobTelemetry.Name, "scheduled_job.active");
+        LastStart = new MetricCollector<double>(meterFactory, JobTelemetry.Name, "scheduled_job.last_start.timestamp");
         LastSuccess = new MetricCollector<double>(
             meterFactory, JobTelemetry.Name, "scheduled_job.last_success.timestamp");
         NextRun = new MetricCollector<double>(meterFactory, JobTelemetry.Name, "scheduled_job.next_run.timestamp");
@@ -61,6 +62,7 @@ internal sealed class JobTestContext : IDisposable
 
     public MetricCollector<double> Duration { get; }
     public MetricCollector<long> Active { get; }
+    public MetricCollector<double> LastStart { get; }
     public MetricCollector<double> LastSuccess { get; }
     public MetricCollector<double> NextRun { get; }
     public MetricCollector<long> Misfires { get; }
@@ -98,6 +100,7 @@ internal sealed class JobTestContext : IDisposable
         _listener.Dispose();
         Duration.Dispose();
         Active.Dispose();
+        LastStart.Dispose();
         LastSuccess.Dispose();
         NextRun.Dispose();
         Misfires.Dispose();
