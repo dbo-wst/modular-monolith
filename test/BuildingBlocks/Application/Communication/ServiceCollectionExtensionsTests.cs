@@ -28,7 +28,7 @@ public class ServiceCollectionExtensionsTests
     }
 
     [Fact]
-    public void AddMediator_CalledTwice_RegistersOneMediatorAndOneValidationBehavior()
+    public void AddMediator_CalledTwice_RegistersOneMediatorAndTheDefaultBehavioursOnce()
     {
         var services = new ServiceCollection();
 
@@ -36,7 +36,9 @@ public class ServiceCollectionExtensionsTests
         services.AddMediator();
 
         Assert.Single(services, d => d.ServiceType == typeof(IMediator));
-        Assert.Single(services, d => d.ServiceType == typeof(IPipelineBehavior));
+        Assert.Equal(
+            [typeof(FailureLoggingBehavior), typeof(ValidationBehavior)],
+            services.Where(d => d.ServiceType == typeof(IPipelineBehavior)).Select(d => d.ImplementationType));
     }
 
     [Fact]

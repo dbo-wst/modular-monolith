@@ -8,7 +8,8 @@ Unit tests for the in-house mediator in `src/BuildingBlocks/Application/Communic
 |---|---|---|
 | `Communication/MediatorTests.cs` | test class | Behaviour order (generic, then command, then handler), queries skip command behaviours, `ICommand` returning `Unit`, exception propagation, pipeline caching, `IRequest<T>` covariance |
 | `Communication/DomainEventDispatcherTests.cs` | test class | All handlers per event run in order, events without handlers succeed, first failure stops dispatch, scoped dispatcher registered once, handlers discovered once per assembly |
-| `Communication/ServiceCollectionExtensionsTests.cs` | test class | `AddMediator` idempotency, handler and FluentValidation validator discovery via `AddRequestHandlersFromAssembly`, duplicate handler for the same request throws |
+| `Communication/FailureLoggingBehaviorTests.cs` | test class | Success logs nothing, expected codes log one Warning 1001, internal failures one Error 1002 with the exception, result unchanged, validation failure through the real mediator is logged (recording `ILogger<T>`) |
+| `Communication/ServiceCollectionExtensionsTests.cs` | test class | `AddMediator` idempotency and default behaviour order, handler and FluentValidation validator discovery via `AddRequestHandlersFromAssembly`, duplicate handler for the same request throws |
 | `Acme.Core.BuildingBlocks.Application.Test.csproj` | project | Test project definition |
 
 ## How it works

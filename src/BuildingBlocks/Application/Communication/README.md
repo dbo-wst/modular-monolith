@@ -18,6 +18,7 @@ In-process CQRS messaging (namespace `Acme.Core.BuildingBlocks.Application.Commu
 | `RequestHandlerDelegate.cs` | delegate | `next()` step of the pipeline |
 | `IPipelineBehavior.cs` | interface | Behaviour around every request (commands and queries) |
 | `ICommandPipelineBehavior.cs` | interface | Behaviour around commands only (e.g. transactions, auditing, outbox) |
+| `FailureLoggingBehavior.cs` | sealed class | `IPipelineBehavior` logging every failed request once: expected codes as Warning (EventId 1001 `RequestRejected`), others as Error (1002 `RequestFailed`) |
 | `ValidationBehavior.cs` | sealed class | `IPipelineBehavior` running all FluentValidation validators of the request |
 | `IDomainEventHandler.cs` | interface `IDomainEventHandler<in TEvent>` | Reacts in-process to a domain event after a successful save |
 | `DomainEventDispatcher.cs` | sealed class (+ internal cached wrapper) | Implements `IDomainEventDispatcher` from BuildingBlocks.Domain |
@@ -29,16 +30,18 @@ Dispatch (`Mediator.SendAsync`):
 1. `RequestHandlerWrapper<TResponse>.For(request.GetType())` returns a `RequestHandlerWrapperImpl<TRequest, TResponse>` created once via reflection and cached in a static `ConcurrentDictionary`; later dispatches are plain virtual calls, so handler exceptions propagate unwrapped.
 2. The wrapper resolves the single `IRequestHandler<TRequest, TResponse>` from the current scope (`GetRequiredService`; missing handler throws).
 3. The pipeline is built inside-out, each group reversed so the first registered behaviour is outermost in its group. Resulting order:
-   - all `IPipelineBehavior`s (outermost, e.g. `ValidationBehavior`)
+   - all `IPipelineBehavior`s (outermost; by default `FailureLoggingBehavior`, then `ValidationBehavior`)
    - all `ICommandPipelineBehavior`s (only if `TRequest` is an `ICommand<TResponse>`)
    - the handler
 
 `ValidationBehavior`: resolves every `IValidator<TRequest>`; if none, calls `next()`. Otherwise runs all validators, collects all error messages and, if any, returns `ValidationError` (code `validation`) with messages joined by `"; "` without calling the handler.
 
+`FailureLoggingBehavior`: calls `next()` and, when the result is a failure, classifies it with `ErrorCodes.Of`. `not_found`, `validation`, `conflict` and `cancelled` are logged as Warning `"{RequestName} rejected: {ErrorCode} {ErrorMessage}"` (EventId 1001); anything else as Error `"{RequestName} failed: {ErrorCode} {ErrorMessage}"` (EventId 1002) with the exception the error carries, and the current `Activity` gets status Error and tag `error.type` (the error record name). The result is returned unchanged; exceptions thrown by handlers are not caught. Because it is outermost, validation failures are logged too.
+
 Domain events: `DomainEventDispatcher.DispatchAsync` processes events in order; per event, a cached `DomainEventHandlerWrapperImpl<TEvent>` resolves all `IDomainEventHandler<TEvent>` (runtime type) from the current scope and runs them in registration order. The first failed `Fin` stops dispatch and is returned. An event without handlers succeeds.
 
 Registration:
-- `AddMediator()` (host, once; idempotent): `TryAddScoped<IMediator, Mediator>`, `TryAddScoped<IDomainEventDispatcher, DomainEventDispatcher>`, `ValidationBehavior` as `IPipelineBehavior` via `TryAddEnumerable`.
+- `AddMediator()` (host, once; idempotent): `AddLogging()`, `TryAddScoped<IMediator, Mediator>`, `TryAddScoped<IDomainEventDispatcher, DomainEventDispatcher>`, `FailureLoggingBehavior` then `ValidationBehavior` as `IPipelineBehavior` via `TryAddEnumerable`.
 - `AddCommandPipelineBehavior<T>()`: scoped, idempotent per type.
 - `AddRequestHandlersFromAssembly(assembly)` scans concrete classes and registers (scoped):
   - every closed `IRequestHandler<,>`: exactly one handler per request type across all modules; a different implementation for an already-registered request throws `InvalidOperationException`; re-scanning the same assembly is a no-op;
@@ -57,7 +60,7 @@ var result = await mediator.SendAsync(new PingQuery(), ct); // Fin<string>
 ```
 
 ## Dependencies
-- References: FluentValidation, Microsoft.Extensions.DependencyInjection.Abstractions, BuildingBlocks.Domain (`DomainEvent`, `IDomainEventDispatcher`, `Errors`).
+- References: FluentValidation, Microsoft.Extensions.DependencyInjection.Abstractions, Microsoft.Extensions.Logging, BuildingBlocks.Domain (`DomainEvent`, `IDomainEventDispatcher`, `Errors`).
 - Used by: `Acme.Core.Api` (`AddMediator`, gRPC services use `IMediator`), Ordering Application (handlers, `AddRequestHandlersFromAssembly`), Ordering Contracts (`ICommand`/`IQuery`), `UnitOfWork<TContext>` via `IDomainEventDispatcher`, `test/BuildingBlocks/Application/Communication`.
 
 ## Extending

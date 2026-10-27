@@ -24,6 +24,7 @@
   <Folder Name="/src/BuildingBlocks/">
     <Project Path="src/BuildingBlocks/Application/Acme.Core.BuildingBlocks.Application.csproj" />
     <Project Path="src/BuildingBlocks/Domain/Acme.Core.BuildingBlocks.Domain.csproj" />
+    <Project Path="src/BuildingBlocks/Observability/Acme.Core.BuildingBlocks.Observability.csproj" />
     <Project Path="src/BuildingBlocks/Persistence/Acme.Core.BuildingBlocks.Persistence.csproj" />
   </Folder>
   <Folder Name="/test/">
@@ -40,9 +41,13 @@
   <Folder Name="/test/Architecture/">
     <Project Path="test/Architecture/Acme.Core.Architecture.Test.csproj" />
   </Folder>
+  <Folder Name="/test/Host/">
+    <Project Path="test/Host/Acme.Core.Api/Acme.Core.Api.Test.csproj" />
+  </Folder>
   <Folder Name="/test/BuildingBlocks/">
     <Project Path="test/BuildingBlocks/Application/Acme.Core.BuildingBlocks.Application.Test.csproj" />
     <Project Path="test/BuildingBlocks/Domain/Acme.Core.BuildingBlocks.Domain.Test.csproj" />
+    <Project Path="test/BuildingBlocks/Observability/Acme.Core.BuildingBlocks.Observability.Test.csproj" />
   </Folder>
   <Folder Name="/test_integration/">
     <Project Path="test_integration/TestCompanion/Acme.Core.TestCompanion.csproj" />

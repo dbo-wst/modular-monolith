@@ -32,7 +32,17 @@ and module Contracts, call `IMediator`, and translate results and errors back.
   - Use options classes with FluentValidation and `ValidateOnStart`: `Persistence:ConnectionString` for Core.Api,
     `CoreApi:BaseUrl` for the gateway.
   - Secrets come only from environment variables or local appsettings files, never from committed files.
-- Logging goes through Serilog configuration. Do not use `Console.Write`.
+- Logging goes through Serilog configuration. Do not use `Console.Write`. File sink paths start with `%BASEDIR%`
+  (set to `AppContext.BaseDirectory` first thing in `Program.cs`), so files go to the execution folder, never the
+  working directory.
+- Telemetry: every host calls `WriteToOtlp(configuration, ServiceName)` on its Serilog configuration and
+  `AddObservability(configuration, ServiceName)` (`src/BuildingBlocks/Observability`), `ServiceName` = `acme-<app>`.
+  Logs, traces, `Acme.*` and runtime metrics, exported when `OTEL_EXPORTER_OTLP_ENDPOINT` is set (ADR 0002). Name
+  custom `ActivitySource`s and `Meter`s `Acme.*`; keep metric attributes bounded (no ids, no user data). Job telemetry
+  uses the shared `scheduled_job.*` names (wst-cicd `otel/TELEMETRY.md`); never enable Quartz's own tracing.
 - New transport operation: add the proto first (`src/Protocol`), then the Core.Api service method plus mappers,
   then the gateway client plus endpoint, then integration tests in `test_integration/Host`.
+- Background jobs (Core.Api `Jobs/`, Quartz): plain `IJob` classes (the scheduler wraps them in
+  `MonitoredJob<TJob>` for telemetry; report idle/failure via `context.Result`), schedule via `JobsOptions`, call `IMediator`
+  for any real work; no business logic in jobs. See `doc/08-cross-cutting-concepts/11-background-jobs.md`.
 - Leave `KnownProxies`/`KnownIPNetworks` hardening (an open TODO) explicitly unresolved rather than widening it further.

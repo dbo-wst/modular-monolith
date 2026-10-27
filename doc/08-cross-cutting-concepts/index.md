@@ -10,3 +10,4 @@
 - [8.8 Error Handling](08-error-handling.md)
 - [8.9 Logging](09-logging.md)
 - [8.10 Testability](10-testability.md)
+- [8.11 Background Jobs](11-background-jobs.md)

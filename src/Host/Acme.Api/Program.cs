@@ -2,12 +2,18 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.HttpOverrides;
 using Scalar.AspNetCore;
 using Serilog;
+using Acme.Core.BuildingBlocks.Observability;
 // using Acme.Api.Allocation;
 using Acme.Api.Ordering;
 // using Acme.Api.ClientSide;
 using Acme.Api.Infrastructure.CoreApi;
 
 // using Acme.Api.MasterData;
+
+const string ServiceName = "acme-api";
+
+// File sink paths in appsettings.json start with %BASEDIR%, so logs go to the execution folder, not the working directory.
+Environment.SetEnvironmentVariable("BASEDIR", AppContext.BaseDirectory);
 
 var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")
                       ?? Environment.GetEnvironmentVariable("DOTNET_ENVIRONMENT");
@@ -33,7 +39,10 @@ try
     builder.Host.UseSerilog((context, services, loggerConfiguration) => loggerConfiguration
         .ReadFrom.Configuration(context.Configuration)
         .ReadFrom.Services(services)
-        .Enrich.FromLogContext());
+        .Enrich.FromLogContext()
+        .WriteToOtlp(context.Configuration, ServiceName));
+
+    builder.Services.AddObservability(builder.Configuration, ServiceName);
 
     builder.Services.AddOpenApi(options =>
     {
@@ -80,7 +89,8 @@ try
 
     app.MapOrderingEndpoints();
 
-    Log.Information("Start Acme.Api. Env: {Environment}", environmentName ?? "Unknown");
+    Log.Information("Start Acme.Api. Env: {Environment}, OTLP: {OtlpEndpoint}", environmentName ?? "Unknown",
+        builder.Configuration[ObservabilityExtensions.EndpointKey] ?? "off");
 
     app.Run();
 }

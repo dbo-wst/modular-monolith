@@ -18,11 +18,12 @@ Runnable processes and the gateway-side integration layer. The HTTP gateway (`Ac
 | `Acme.Core.Api` | `http://localhost:6001` | HTTP/2 only (`Kestrel:EndpointDefaults:Protocols`) | `Persistence:ConnectionString`, `Serilog` |
 
 - Both hosts use the `Local` environment in launch profiles, so `appsettings.Local.json` supplies `CoreApi:BaseUrl` (gateway) and `Persistence:ConnectionString` (core).
-- Both use a Serilog bootstrap logger, then `UseSerilog` reading the `Serilog` section (console + rolling files under `logs/`).
+- Both use a Serilog bootstrap logger, then `UseSerilog` reading the `Serilog` section (console + rolling files under `logs/` in the execution folder: `Program.cs` sets `BASEDIR` to `AppContext.BaseDirectory`, which the File sink paths start with).
+- Both export logs and traces over OTLP when `OTEL_EXPORTER_OTLP_ENDPOINT` is set (`WriteToOtlp`, `AddObservability` from `src/BuildingBlocks/Observability`), as `acme-api` and `acme-core-api`. The gateway's gRPC calls carry the trace context, so one trace spans both hosts and the SQL commands.
 - Error flow: module `Fin` failure -> `ErrorCodeClassifier` code in the proto `*Error` message -> `ApiError` in the gateway -> HTTP status via `Endpoints.StatusFor`.
 
 ## Dependencies
-- References: `src/Protocol` (both sides), `src/BuildingBlocks/Domain` (gateway, for `ErrorCodes`), `src/Modules/Ordering/{Application,Persistence}` (core host).
+- References: `src/Protocol` (both sides), `src/BuildingBlocks/Domain` (gateway, for `ErrorCodes`), `src/BuildingBlocks/Observability` (both hosts), `src/Modules/Ordering/{Application,Persistence}` (core host).
 - Used by: `test_integration/Host/Acme.Api.IntegrationTest`, `test_integration/Host/Acme.Core.Api.IntegrationTest`.
 
 ## Extending

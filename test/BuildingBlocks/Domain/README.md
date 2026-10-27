@@ -6,6 +6,7 @@ Unit tests for `src/BuildingBlocks/Domain`: typed errors, domain events and aggr
 
 | Item | Kind | Description |
 |---|---|---|
+| `Errors/ErrorCodesTests.cs` | test class | `ErrorCodes.Of`: typed error, first typed member of `ManyErrors`, inner typed error, untyped and exceptional errors as `internal` |
 | `Errors/AppErrorTests.cs` | test class | Stable wire error codes, error type to code mapping, `ConcurrencyConflict`/`OperationCancelled` classification, `ToFin` on null |
 | `Events/DomainEventTests.cs` | test class | Event id/UTC timestamp metadata, equality semantics, `AggregateRoot` raising and clearing events |
 | `Functional/AdvancedTests.cs` | test class | Partial application (`Applying`, arity 1-5) and currying |

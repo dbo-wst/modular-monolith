@@ -2,6 +2,8 @@ services:
   api:
     image: "${IMAGE_TAG:-build.steubing.com/acme-api:latest}"
     container_name: ${CONTAINER_NAME:-acme-api}
+    # Becomes the OTel service.instance.id (Environment.MachineName), stable across recreates.
+    hostname: ${CONTAINER_NAME:-acme-api}
     restart: unless-stopped
     pull_policy: never
     ports:
@@ -9,6 +11,9 @@ services:
     env_file:
       - path: ${ENV_FILE:-./conf.d/.env}
         required: false
+    # Frankfurt am Main local time (CET/CEST, DST-aware)
+    environment:
+      TZ: Europe/Berlin
     volumes:
       - acme-api-dp-keys:/root/.aspnet/DataProtection-Keys
       - acme-api-logs:/app/publish/logs

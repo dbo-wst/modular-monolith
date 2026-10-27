@@ -64,12 +64,16 @@
       href: 08-cross-cutting-concepts/09-logging.md
     - name: 8.10 Testability
       href: 08-cross-cutting-concepts/10-testability.md
+    - name: 8.11 Background Jobs
+      href: 08-cross-cutting-concepts/11-background-jobs.md
 
 - name: 9. Architecture Decisions
   href: 09-architecture-decisions/index.md
   items:
     - name: ADR 0001 — Modular Monolith, Clean Architecture, CQRS
       href: 09-architecture-decisions/0001-modular-monolith-clean-architecture-cqrs.md
+    - name: ADR 0002 — Metrics Export and Background Jobs
+      href: 09-architecture-decisions/0002-metrics-and-background-jobs.md
 
 - name: 10. Quality Requirements
   href: 10-quality-requirements/index.md

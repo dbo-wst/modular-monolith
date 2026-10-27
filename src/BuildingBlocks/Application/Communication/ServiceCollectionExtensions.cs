@@ -9,13 +9,16 @@ namespace Acme.Core.BuildingBlocks.Application.Communication;
 public static class ServiceCollectionExtensions
 {
     /// <summary>
-    /// Registers the single <see cref="IMediator"/> shared by all modules, the default pipeline behaviours and the
-    /// in-process <see cref="IDomainEventDispatcher"/>. Called once by the host; safe to call repeatedly.
+    /// Registers the single <see cref="IMediator"/> shared by all modules, the default pipeline behaviours
+    /// (<see cref="FailureLoggingBehavior"/> outermost, then <see cref="ValidationBehavior"/>) and the in-process
+    /// <see cref="IDomainEventDispatcher"/>. Called once by the host; safe to call repeatedly.
     /// </summary>
     public static IServiceCollection AddMediator(this IServiceCollection services)
     {
+        services.AddLogging();
         services.TryAddScoped<IMediator, Mediator>();
         services.TryAddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
+        services.TryAddEnumerable(ServiceDescriptor.Scoped<IPipelineBehavior, FailureLoggingBehavior>());
         services.TryAddEnumerable(ServiceDescriptor.Scoped<IPipelineBehavior, ValidationBehavior>());
         return services;
     }

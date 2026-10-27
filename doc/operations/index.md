@@ -1,18 +1,107 @@
 # Operations
 
+How the solution is built, distributed and run with the scripts in `operations/`. The layout
+follows `wst-tools-regimate/operations`.
+
+## Layout
+
+Build/publish side (`ci`) and deploy side (`cd`), one folder per application:
+
+| Path | Runs on | Purpose |
+|------|---------|---------|
+| `operations/ci/core-api/` | Build host | `Dockerfile`, `build.sh`, `push.sh` for the Core.Api image. |
+| `operations/ci/api/` | Build host | `Dockerfile`, `build.sh`, `push.sh` for the Api (gateway) image. |
+| `operations/ci/docs/` | Build host | `Dockerfile`, `nginx.conf`, `build.sh`, `push.sh` for the docfx site. |
+| `operations/cd/core-api/` | Target host | `pull.sh`, `run.sh`, compose files and `conf.d/` for Core.Api. |
+| `operations/cd/api/` | Target host | `pull.sh`, `run.sh`, compose files and `conf.d/` for the Api. |
+| `operations/cd/docs/` | Target host | `pull.sh`, `run.sh` and compose files for the docs. |
+| `operations/sql/` | Developer machine | Local SQL Server container. |
+
+The top-level wrappers `operations/ci/build.sh`, `operations/ci/push.sh`, `operations/cd/pull.sh`
+and `operations/cd/run.sh` run the step for **all three** apps; the per-app scripts run it for one.
+
+## What gets deployed
+
+Compose project `acme`:
+
+| Container | Image | Kind |
+|-----------|-------|------|
+| `acme-core-api` | `build.steubing.com/acme-core-api:<version>` | gRPC host (`Acme.Core.Api`), HTTP/2 only, port `80`. |
+| `acme-api` | `build.steubing.com/acme-api:<version>` | REST gateway (`Acme.Api`), port `80`, `PathBase=/acme/api`. |
+| `acme-docs` | `build.steubing.com/acme-docs:<version>` | Static docfx site behind nginx, port `80`. |
+
+- All apps join the external networks `acme-network` and `rp_default_net`; the local compose
+  files also attach Core.Api and the Api to `mssql-network` and publish host ports
+  (`CORE_API_HOST_PORT` 5080, `API_HOST_PORT` 5081, `DOCS_HOST_PORT` 5082).
+- The Api calls Core.Api over `acme-network` (`CoreApi__BaseUrl=http://acme-core-api:80`).
+- Core.Api and the Api keep Data Protection keys and logs in external volumes
+  (`acme-<app>-dp-keys`, `acme-<app>-logs`), created by `run.sh`.
+- Core.Api uses its own database `acme-local` on the local SQL Server
+  (`ms_sql_server_local`, `operations/sql`); it does not share a database with other solutions.
+  EF Core migrations create and update it on first use.
+- Every container, including the local SQL Server, runs in `TZ=Europe/Berlin`.
+- Behind the local reverse proxy (`wst-cicd/reverse-proxy-2`), a machine-local snippet
+  `cd/sites.d/acme/Caddyfile` (not committed) routes, on `https://apps-local.steubing.com`:
+
+  | Path | Upstream | Prefix |
+  |------|----------|--------|
+  | `/acme/api/` | `acme-api:80` (REST, Scalar at `/acme/api/scalar/`) | preserved (`PathBase`) |
+  | `/acme/core/api/` | `acme-core-api:80` (gRPC, h2c to the container) | stripped |
+  | `/acme/docs/` | `acme-docs:80` | stripped |
+
+- gRPC through the proxy needs HTTP/2 and a client that keeps the `/acme/core/api` prefix in
+  front of `/<package>.<Service>/<Method>`. `GrpcChannel` drops the path of its address, so a
+  .NET client needs a `DelegatingHandler` that prepends the prefix. The gateway is not affected:
+  it calls `http://acme-core-api:80` directly over `acme-network`.
+
 ## Environments
 
-| Environment | Purpose                 | URL / Access Notes          |
-|-------------|-------------------------|-----------------------------|
-| `dev`       | Developer tests         | `https://dev.example.com`   |
-| `stage`     | Quality Assurance tests | `https://stage.example.com` |
-| `prod`      | Live system             | `https://example.com`       |
+Acme runs **locally only**.
+
+- Each app folder has its environment files under `conf.d/`: `.env.local` (and `.env.dev`).
+  They contain credentials and are gitignored (`.env*`); `core-api/conf.d/runtime.env.example`
+  is the tracked template with placeholders.
+- `run.sh` reads `conf.d/.env`, so copy the environment file onto `.env` first; the orchestrator
+  `run.sh` refuses to start when a `.env` is missing. The local compose files default to
+  `conf.d/.env` as well.
 
 ## Deployment
 
-- CI: `operations/ci/build.sh <version>` builds the images for `core-api`, `api` and `docs`; `push.sh` pushes them.
-- CD: `operations/cd/pull.sh <version>` and `run.sh <version>` pull and start the containers (Docker Compose).
+- CI: `operations/ci/build.sh <version>` builds the three images; `push.sh <version>` pushes them
+  to `build.steubing.com`. The Core.Api and Api builds pass the version on as build argument
+  `VERSION` to `dotnet publish -p:Version`, so it is the assembly version and the `service.version`
+  of their telemetry (`0.0.0` for an image built without it, e.g. by the local compose build).
+- CD: `operations/cd/pull.sh <version>`, then `operations/cd/run.sh <version>`. The orchestrator
+  does not stop the stack: it recreates each app in place
+  (`up -d --force-recreate <app>`) with that app's image tag. Per-app `run.sh` recreates only
+  its own stack (`down`, `up -d`).
+- Local build and run without the registry:
+  `docker compose -f operations/cd/docker-compose.local.yml up -d --build` (start
+  `operations/sql` first).
 
 ## Monitoring
 
-- Describe monitoring and alerting here.
+- Logs: Serilog console output (`docker logs acme-<app>`) and rolling files in the
+  `acme-<app>-logs` volumes (file lines carry the trace id).
+- OpenTelemetry: Core.Api and the Api send logs, traces and metrics (`Acme.*` and the .NET runtime)
+  over OTLP to the `otel` stack of wst-cicd (Grafana at `https://otel-local.steubing.com`) as
+  `acme-core-api` and `acme-api`, service namespace `acme`, with the image version as
+  `service.version` and the container's host name as `service.instance.id` (compose sets `hostname` to
+  the container name, so the instance survives a recreate). Three keys in
+  `conf.d/.env` configure it:
+  `OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-local.steubing.com:4317`,
+  `OTEL_EXPORTER_OTLP_PROTOCOL=grpc` (OTLP over gRPC, the standard of the otel stack),
+  `OTEL_RESOURCE_ATTRIBUTES=deployment.environment.name=local` (dev: `otel.steubing.com`, `dev`).
+  Without the endpoint nothing is exported; the start line of each app shows the endpoint or `off`.
+- Grafana has no Acme-specific dashboards: the generic ones filter by environment, application
+  (`acme`), service, instance and job.
+
+  | Folder | Dashboards | Alert rule group |
+  |--------|------------|------------------|
+  | Services | **Service overview** (requests, errors, latency, logs), **.NET runtime** (GC, heap, thread pool, CPU) | `services` (service not reporting) |
+  | Scheduled jobs | **Scheduled jobs** (Core.Api's `Heartbeat` and `Housekeeping`, every 5 minutes) | `scheduled-jobs` (failed run, overdue job, misfire) |
+  | Service levels | **Service levels** (availability, latency and scheduled job objectives) | `service-levels` (error budget burn rates) |
+
+- `Jobs__Enabled=false` in `conf.d/.env` switches the job scheduler off (see
+  `conf.d/runtime.env.example`).
+- No Docker `HEALTHCHECK` and no `/health` endpoint.

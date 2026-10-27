@@ -9,15 +9,16 @@ Shared, module-agnostic infrastructure that every module and host builds on. It 
 | [`Domain/`](Domain/README.md) | project folder (`Acme.Core.BuildingBlocks.Domain`) | Aggregate root, domain events, unit-of-work and event-dispatcher ports, mapping interfaces, typed errors, `Fin<T>` helpers |
 | [`Application/`](Application/README.md) | project folder (`Acme.Core.BuildingBlocks.Application`) | Custom CQRS mediator, pipeline behaviours, domain event dispatcher, DI registration, FluentValidation-based options validation |
 | [`Persistence/`](Persistence/README.md) | project folder (`Acme.Core.BuildingBlocks.Persistence`) | EF Core `UnitOfWork<TContext>` and the scoped `DomainEventCollector` |
+| [`Observability/`](Observability/README.md) | project folder (`Acme.Core.BuildingBlocks.Observability`) | OTLP export of logs (Serilog sink), traces and `Acme.*` metrics for the hosts |
 
 ## How it works
 
-- Project graph: `Application -> Domain`, `Persistence -> Domain`. Application and Persistence do not reference each other.
+- Project graph: `Application -> Domain`, `Persistence -> Domain`. Application and Persistence do not reference each other. `Observability` references no other building block and is used by the hosts only.
 - Results are expressed as LanguageExt `Fin<T>`; failures are typed `AppError` records carrying a stable error code (`not_found`, `validation`, `conflict`, `cancelled`, `internal`).
 - Ports live in Domain (`IUnitOfWork`, `IDomainEventDispatcher`); implementations live in Persistence (`UnitOfWork<TContext>`) and Application (`DomainEventDispatcher`), wired together by DI.
 - End-to-end request flow:
   1. The host calls `IMediator.SendAsync(request)`.
-  2. Generic `IPipelineBehavior`s run (e.g. `ValidationBehavior`), then `ICommandPipelineBehavior`s (commands only), then the single handler.
+  2. Generic `IPipelineBehavior`s run (`FailureLoggingBehavior`, which logs a failed result, then `ValidationBehavior`), then `ICommandPipelineBehavior`s (commands only), then the single handler.
   3. The handler changes aggregates; repositories `Track` them in the `DomainEventCollector`.
   4. `IUnitOfWork.SaveChangesAsync` saves and, only on success, dispatches the collected domain events to `IDomainEventHandler<T>`s in the same scope.
 

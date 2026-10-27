@@ -5,11 +5,16 @@ services:
       dockerfile: operations/ci/core-api/Dockerfile
     image: "${IMAGE_TAG:-acme-core-api:latest}"
     container_name: ${CONTAINER_NAME:-acme-core-api}
+    # Becomes the OTel service.instance.id (Environment.MachineName), stable across recreates.
+    hostname: ${CONTAINER_NAME:-acme-core-api}
     restart: unless-stopped
     pull_policy: build
     env_file:
       - path: ${ENV_FILE:-./conf.d/.env}
         required: false
+    # Frankfurt am Main local time (CET/CEST, DST-aware)
+    environment:
+      TZ: Europe/Berlin
     ports:
       - "${CORE_API_HOST_PORT:-5080}:80"
     volumes:
